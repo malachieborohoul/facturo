@@ -76,7 +76,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       child: HeaderInvoiceTable()
                                     ),
                                     
-                                    RowInvoiceTable(),
+                                    RowInvoiceTable(selected: true,),
                                     RowInvoiceTable(),
                                     RowInvoiceTable(),
                                     
