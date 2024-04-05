@@ -11,6 +11,7 @@ const Color textWhite = Color(0xFFFFFFFF);
 const Color background = Color(0xFFf0f9ff);
 const Color textBlack = Color(0xFF082f49);
 const Color neutral = Color(0xFFe5e5e5);
+const Color neutralBorder = Color(0xFFd4d4d4);
 
 
 final lightTheme = ThemeData(

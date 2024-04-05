@@ -1,14 +1,15 @@
+import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
-import 'package:facturo/common/widgets/dashboard_menu_item.dart';
+import 'package:facturo/common/widgets/header_invoice_table.dart';
+import 'package:facturo/common/widgets/row_invoice_table.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class InvoiceScreen extends StatefulWidget {
-   static const routeName = '/invoices';
+  static const routeName = '/invoices';
   const InvoiceScreen({super.key});
 
   @override
@@ -16,25 +17,80 @@ class InvoiceScreen extends StatefulWidget {
 }
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: Row(
         children: [
-          const Expanded(
-              flex: 2,
-              child:  DashboardMenu()),
+          const Expanded(flex: 2, child: DashboardMenu()),
           Expanded(
-              flex: 5,
-              child: Container(
-                color: background,
-                child: const Center(child: Text("Invoices"),),
-              )),
-          Expanded(
-              flex: 3,
-              child: Container(
-                color: background,
+              flex: 8,
+              child: Column(
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: background,
+                          border: Border(bottom: BorderSide(color: neutral))
+                        ),
+                        child:  Padding(
+                          padding: const EdgeInsets.all(appPadding),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                            const Text("Invoices", style: TextStyle(fontSize: headingFontSize, fontWeight: FontWeight.bold),),
+
+                            Row(children: [
+                              IconButton(onPressed: (){}, icon: const Icon(Icons.add,)),
+                              const SizedBox(width: miniSpacer,),
+                              IconButton(onPressed: (){}, icon: const Icon(Icons.delete_outlined)),
+                              const SizedBox(width: miniSpacer,),
+                              
+                              IconButton(onPressed: (){}, icon: const Icon(Icons.edit_outlined)),
+                              const SizedBox(width: miniSpacer,),
+                              
+                              CustomSearchbar(controller: searchController, hintText: "Search", size: 200, onSuccess: (){})
+                            ],)
+                          ],),
+                        ),
+                      )),
+                  Expanded(
+                      flex: 9,
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 6,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    color: background,
+                                    border: Border(
+                                        right: BorderSide(color: neutral))),
+                                child:  const Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(appPadding),
+                                      child: HeaderInvoiceTable()
+                                    ),
+                                    
+                                    RowInvoiceTable(),
+                                    RowInvoiceTable(),
+                                    RowInvoiceTable(),
+                                    
+                                  ],
+                                ),
+                              )),
+                          Expanded(
+                              flex: 4,
+                              child: Container(
+                                color: background,
+                              )),
+                        ],
+                      ))
+                ],
               )),
         ],
       )),
