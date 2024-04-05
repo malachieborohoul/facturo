@@ -6,9 +6,7 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/data/invoice.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class InvoiceScreen extends StatefulWidget {
   static const routeName = '/invoices';
@@ -109,6 +107,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                 setState(() {
                                                   selectedRowInvoice =
                                                       invoices[i].id;
+                                                
                                                 });
                                               },
                                               child: RowInvoiceTable(
@@ -128,8 +127,47 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                               )),
                           Expanded(
                               flex: 4,
-                              child: Container(
-                                color: background,
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Container(
+                                      color: background,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(appPadding),
+                                    child: Column(
+                                      children: [
+                                        Text("ALC")
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.all(appPadding),
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                              color: secondary,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      smallFontSize))),
+                                          child: const Padding(
+                                            padding:
+                                                EdgeInsets.all(miniSpacer / 2),
+                                            child: Center(
+                                                child: Text(
+                                              "Mark as Paid",
+                                              style:
+                                                  TextStyle(color: textWhite),
+                                            )),
+                                          ),
+                                        ),
+                                      ))
+                                ],
                               )),
                         ],
                       ))
