@@ -1,0 +1,150 @@
+{
+    "welcomeTo": "Welcome to",
+    "detailsLogin": "Enter the following details to login",
+    "detailsRegister": "Enter the following details to register yourself",
+    "login": "Login",
+    "forgotYourPassword": "Forgot Your Password",
+    "forgotPassword": "Forgot Password",
+    "loginWith": "You can also login with",
+    "notAccount": "Don't have an account?",
+    "haveAccount":"Already have an account?",
+    "registerHere": "Register Here",
+    "fullName": "Full Name",
+    "email":"Email",
+    "phone": "Phone Number",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "register":"Register",
+    "registerWith": "You can also register with",
+    "loginHere": "Login Here",
+    "passwordResetCode": "Enter your email address to receive the password reset code",
+    "sendCode": "Send Code",
+    "resetPassword":"Reset Password",
+    "newPassword": "Enter your new password",
+    "reset": "Reset",
+    "backToLogin": "Back to Login",
+    "verification":"Verification",
+    "verificationCodeSent": "A verification code has been sent to",
+    "verify": "Verify",
+    "category": "Category",
+    "language": "Language",
+    "aboutBook" : "About Book",
+    "aboutAuthor" : "About Author",
+    "reserveThisBook": "Reserve This Book",
+    "books": "Books",
+    "book": "Book",
+    "aboutEvent": "About Event",
+    "alreadyParticipating": "Already participating",
+    "wantToParticipateEvent": "Do you want to participate to this event?",
+    "yes":"Yes",
+    "no": "No",
+    "participateEvent": "Participate to this event",
+    "upcomingEvent": "Upcoming Events",
+    "somethingWentWrong":"Something went wrong",
+    "welcome": "Welcome",
+    "search": "Search Rooms, Books, Spaces",
+    "topBooks": "Top Books",
+    "viewAll": "View All",
+    "spacesAvailable": "Spaces Available",
+    "editedMembershipSuccessfully": "You have edited your membership plan successfully",
+    "chosenMembershipSuccessfully": "You have chosen your membership plan successfully",
+    "membership": "Membership",
+    "selectMembershipPlan": "Select your membership plan",
+    "continu": "Continue",
+    "space": "Space",
+    "event": "Event",
+    "bookParamAdded":"Book {name} added",
+    "@bookParamAdded":{
+        "placeholders":{
+            "name":{
+                "type": "String"
+            }
+        }
+    },
+    "spaceParamAdded":"Space {name} added",
+    "@spaceParamAdded":{
+        "placeholders":{
+            "name":{
+                "type": "String"
+            }
+        }
+    },
+    "eventParamAdded":"Event {title} added",
+    "@eventParamAdded":{
+        "placeholders":{
+            "title":{
+                "type": "String"
+            }
+        }
+    },
+    "validSubscription": "Subscription plan is valid",
+    "expiredSubscription": "Subscription plan expired",
+    "qrcodeScanner": "QRCode Scanner",
+    "reservationCalendar": "Reservation Calendar",
+    "reset": "RESET",
+    "timeslotTaken": "Time slots already taken",
+    "noReservationMade": "No reserveation made",
+    "startTime": "Start time",
+    "endTime": "End time",
+    "endTimeGreaterThanStartTime": "End time must me greater than the start time",
+    "set": "Set",
+    "cancel": "Cancel",
+    "reservationMadeSuccessfully": "Your reservation was made successfully",
+    "summaryReservation": "Summary Reservation",
+    "reserve": "Reserve",
+    "all": "All",
+    "people": "People",
+    "screen": "Screen",
+    "table":"Table",
+    "aboutSpace": "About Space",
+    "reserveThisSpace": "Reserve This Space",
+
+    "newBookAdded": "A new book has been added",
+    "bookAdded": "Book added",
+    "newEventAdded": "A new event has been added",
+    "eventAdded": "Event added",
+    "newSpaceadded": "A new space has been added",
+    "spaceAdded": "Space added",
+
+    "fullNameModifiedSuccesfully": "FullName modified successfully",
+    "phoneModifiedSuccesfully": "Phone number modified successfully",
+    "languageModifiedSuccesfully": "Language modified successfully",
+    "save": "Save",
+    "imageUploadedSuccessfully": "Image uploaded successfully",
+    "imageUploading": "Image is uploading. Please wait ...",
+    "personalDetails": "PERSONAL DETAILS",
+    "membershipDetails": "MEMBERSHIP DETAILS",
+    "others": "OTHERS",
+    "darkMode": "Dark mode",
+    "scanQrCode": "Scan QR Code",
+    "contactUs": "Contact Us",
+    "logout": "Logout",
+    "profile": "Profile",
+    "changeLanguage": "Change language",
+
+    "noEventsFound": "No events found",
+    "noBooksFound": "No books found",
+    "noSpacesFound": "No spaces found",
+    "noFaqsFound": "No faqs found",
+    "searchEvents": "Search events by title",
+
+    "filter": "Filter",
+    "enterDate": "Enter Date",
+    "placeNumbers": "Place Numbers",
+    "reset": "Reset",
+    "results": "Results"
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+}
