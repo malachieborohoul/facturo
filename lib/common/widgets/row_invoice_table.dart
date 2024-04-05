@@ -4,8 +4,13 @@ import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class RowInvoiceTable extends StatelessWidget {
-  const RowInvoiceTable({super.key,  this.selected=false});
+  const RowInvoiceTable({super.key,  this.selected=false, required this.client, required this.amount, required this.status});
   final bool selected;
+
+   
+  final String client;
+  final double amount;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +26,22 @@ class RowInvoiceTable extends StatelessWidget {
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(left: appPadding),
-                child: Text("ALC", style: TextStyle(color: selected ? textWhite: textBlack),),
+                child: Text(client, style: TextStyle(color: selected ? textWhite: textBlack),),
               )),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(left: appPadding),
-                child: Text("ALC", style: TextStyle(color: selected ? textWhite: textBlack),),
+                child: Text("Inv", style: TextStyle(color: selected ? textWhite: textBlack),),
               )),
                Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(left: appPadding),
-                child: Text("ALC", style: TextStyle(color: selected ? textWhite: textBlack),),
+                child: Text(amount.toString(), style: TextStyle(color: selected ? textWhite: textBlack),),
               )),
                Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(left: appPadding),
-                child: Text("ALC", style: TextStyle(color: selected ? textWhite: textBlack),),
+                child: Text(status, style: TextStyle(color: selected ? textWhite: textBlack),),
               )),
             ],
           ),

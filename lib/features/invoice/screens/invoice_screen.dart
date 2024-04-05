@@ -5,6 +5,8 @@ import 'package:facturo/common/widgets/row_invoice_table.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
+import 'package:facturo/data/invoice.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,6 +20,8 @@ class InvoiceScreen extends StatefulWidget {
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
+
+  int selectedRowInvoice = invoices.first.id;
 
   @override
   Widget build(BuildContext context) {
@@ -34,28 +38,50 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                       flex: 1,
                       child: Container(
                         decoration: const BoxDecoration(
-                          color: background,
-                          border: Border(bottom: BorderSide(color: neutral))
-                        ),
-                        child:  Padding(
+                            color: background,
+                            border: Border(bottom: BorderSide(color: neutral))),
+                        child: Padding(
                           padding: const EdgeInsets.all(appPadding),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                            const Text("Invoices", style: TextStyle(fontSize: headingFontSize, fontWeight: FontWeight.bold),),
-
-                            Row(children: [
-                              IconButton(onPressed: (){}, icon: const Icon(Icons.add,)),
-                              const SizedBox(width: miniSpacer,),
-                              IconButton(onPressed: (){}, icon: const Icon(Icons.delete_outlined)),
-                              const SizedBox(width: miniSpacer,),
-                              
-                              IconButton(onPressed: (){}, icon: const Icon(Icons.edit_outlined)),
-                              const SizedBox(width: miniSpacer,),
-                              
-                              CustomSearchbar(controller: searchController, hintText: "Search", size: 200, onSuccess: (){})
-                            ],)
-                          ],),
+                              const Text(
+                                "Invoices",
+                                style: TextStyle(
+                                    fontSize: headingFontSize,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.add,
+                                      )),
+                                  const SizedBox(
+                                    width: miniSpacer,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.delete_outlined)),
+                                  const SizedBox(
+                                    width: miniSpacer,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.edit_outlined)),
+                                  const SizedBox(
+                                    width: miniSpacer,
+                                  ),
+                                  CustomSearchbar(
+                                      controller: searchController,
+                                      hintText: "Search",
+                                      size: 200,
+                                      onSuccess: () {})
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       )),
                   Expanded(
@@ -69,17 +95,34 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     color: background,
                                     border: Border(
                                         right: BorderSide(color: neutral))),
-                                child:  const Column(
+                                child: Column(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(appPadding),
-                                      child: HeaderInvoiceTable()
-                                    ),
-                                    
-                                    RowInvoiceTable(selected: true,),
-                                    RowInvoiceTable(),
-                                    RowInvoiceTable(),
-                                    
+                                    const Padding(
+                                        padding: EdgeInsets.all(appPadding),
+                                        child: HeaderInvoiceTable()),
+                                    Expanded(
+                                      child: ListView.builder(
+                                          itemCount: invoices.length,
+                                          itemBuilder: (context, i) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedRowInvoice =
+                                                      invoices[i].id;
+                                                });
+                                              },
+                                              child: RowInvoiceTable(
+                                                  selected:
+                                                      selectedRowInvoice ==
+                                                              invoices[i].id
+                                                          ? true
+                                                          : false,
+                                                  client: invoices[i].client,
+                                                  amount: invoices[i].amount,
+                                                  status: invoices[i].status),
+                                            );
+                                          }),
+                                    )
                                   ],
                                 ),
                               )),
