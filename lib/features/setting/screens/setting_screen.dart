@@ -7,15 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class InvoiceScreen extends StatefulWidget {
-   static const routeName = '/invoices';
-  const InvoiceScreen({super.key});
+class SettingScreen extends StatefulWidget {
+   static const routeName = '/setting';
+  const SettingScreen({super.key});
 
   @override
-  State<InvoiceScreen> createState() => _InvoiceScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _InvoiceScreenState extends State<InvoiceScreen> {
+class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +24,12 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         children: [
           const Expanded(
               flex: 2,
-              child:  DashboardMenu()),
+              child:  DashboardMenu(codeScreen: 4,)),
           Expanded(
               flex: 5,
               child: Container(
                 color: background,
-                child: const Center(child: Text("Invoices"),),
+                child: const Center(child: Text("Setting"),),
               )),
           Expanded(
               flex: 3,
