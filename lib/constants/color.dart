@@ -15,12 +15,12 @@ const Color neutral = Color(0xFFe5e5e5);
 
 final lightTheme = ThemeData(
     primaryColor: primary,
-    colorScheme: ColorScheme.light(),
+    colorScheme: const ColorScheme.light(),
    );
 
 final darkTheme = ThemeData(
     primaryColor: darkPrimary,
-    colorScheme: ColorScheme.dark(),
+    colorScheme: const ColorScheme.dark(),
    );
 
 // final darkPrimary = Color(0xFF24344D); // Une nuance plus foncée de bleu
@@ -31,10 +31,10 @@ final darkTheme = ThemeData(
 // final darkGradientStart = Color(0xFF19398B); // Début du dégradé plus foncé
 // final darkGradientEnd = darkPrimary;
 
-final darkPrimary = Color(0xFF0D1B30); // Nuance plus foncée de bleu
-final darkBackground = Color(0xFF0A0E14); // Fond plus sombre
-final darkGradientStart = Color(0xFF1A2A4D); // Début du dégradé plus foncé
-final darkGradientEnd =
+const darkPrimary = Color(0xFF0D1B30); // Nuance plus foncée de bleu
+const darkBackground = Color(0xFF0A0E14); // Fond plus sombre
+const darkGradientStart = Color(0xFF1A2A4D); // Début du dégradé plus foncé
+const darkGradientEnd =
     darkPrimary; // Fin du dégradé correspond à la couleur principale
 
 // // Couleurs en mode sombre

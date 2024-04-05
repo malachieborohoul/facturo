@@ -1,5 +1,9 @@
+import 'package:facturo/common/widgets/dashboard_menu.dart';
+import 'package:facturo/common/widgets/dashboard_menu_item.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
+import 'package:facturo/constants/size.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,19 +21,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       body: SafeArea(
           child: Row(
         children: [
-          Expanded(
+          const Expanded(
               flex: 2,
-              child: Container(
-                color: neutral,
-                child: const Padding(
-                  padding: EdgeInsets.all(appPadding),
-                  child: Column(
-                    children: [
-                      Text("FACTURO",style: TextStyle(color: primary),)
-                    ],
-                  ),
-                ),
-              )),
+              child:  DashboardMenu()),
           Expanded(
               flex: 5,
               child: Container(
