@@ -1,4 +1,7 @@
+import 'package:facturo/common/widgets/custom_item.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
+import 'package:facturo/common/widgets/custom_total_item.dart';
+import 'package:facturo/common/widgets/custom_type_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/common/widgets/header_invoice_table.dart';
 import 'package:facturo/common/widgets/row_invoice_table.dart';
@@ -107,7 +110,6 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                 setState(() {
                                                   selectedRowInvoice =
                                                       invoices[i].id;
-                                                
                                                 });
                                               },
                                               child: RowInvoiceTable(
@@ -137,8 +139,180 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(appPadding),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text("ALC")
+                                        const Text("ALC",style: TextStyle(fontWeight: FontWeight.bold),),
+                                        const SizedBox(
+                                          height: miniSpacer,
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: neutralBorder),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(
+                                                          smallFontSize / 2))),
+                                          child: const Padding(
+                                            padding:
+                                                EdgeInsets.all(miniSpacer / 2),
+                                            child: Text("Inv "),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: miniSpacer,
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: neutralBorder),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(
+                                                          smallFontSize / 2))),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(
+                                                miniSpacer / 2),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    const Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Amount due",
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  smallFontSize *
+                                                                      0.8),
+                                                        ),
+                                                        Text("2000",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      decoration: const BoxDecoration(
+                                                          color: Colors.amber,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      smallFontSize))),
+                                                      child: const Padding(
+                                                        padding: EdgeInsets.all(
+                                                            miniSpacer / 2),
+                                                        child: Text(
+                                                          "Pending",
+                                                          style: TextStyle(
+                                                            fontSize:
+                                                                smallFontSize *
+                                                                    0.8,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: miniSpacer,
+                                                ),
+                                                const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Issued on",
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  smallFontSize *
+                                                                      0.8),
+                                                        ),
+                                                        Text("31 Jan 2024",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize:
+                                                                    smallFontSize *
+                                                                        0.8)),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Due on",
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  smallFontSize *
+                                                                      0.8),
+                                                        ),
+                                                        Text("31 Jan 2024",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize:
+                                                                    smallFontSize *
+                                                                        0.8)),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: smallSpacer,
+                                        ),
+                                        const Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
+                                          const SizedBox(
+                                          height: miniSpacer,
+                                        ),
+
+                                        Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: neutralBorder),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(
+                                                          smallFontSize / 2))),
+                                          child: const Padding(
+                                            padding:
+                                                EdgeInsets.all(miniSpacer / 2),
+                                            child: Column(
+                                              children: [
+                                                CustomTypeItem(),
+                                                CustomItem(),
+                                                CustomItem(),
+                                                CustomItem(),
+                                                CustomTotalItem()
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
