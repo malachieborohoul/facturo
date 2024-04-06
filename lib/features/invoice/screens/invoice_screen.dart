@@ -9,6 +9,7 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/data/invoice.dart';
+import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:flutter/material.dart';
 
 class InvoiceScreen extends StatefulWidget {
@@ -55,7 +56,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                               Row(
                                 children: [
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(context,
+                                            AddInvoiceScreen.routeName);
+                                      },
                                       icon: const Icon(
                                         Icons.add,
                                       )),
@@ -142,7 +146,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text("ALC",style: TextStyle(fontWeight: FontWeight.bold),),
+                                        const Text(
+                                          "ALC",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                         const SizedBox(
                                           height: miniSpacer,
                                         ),
@@ -285,11 +293,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                         const SizedBox(
                                           height: smallSpacer,
                                         ),
-                                        const Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
-                                          const SizedBox(
+                                        const Text(
+                                          "Items",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
                                           height: miniSpacer,
                                         ),
-
                                         Container(
                                           width: double.infinity,
                                           decoration: BoxDecoration(

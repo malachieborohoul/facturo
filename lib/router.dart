@@ -2,6 +2,7 @@
 
 import 'package:facturo/features/client/screens/client_screen.dart';
 import 'package:facturo/features/inventory/screens/inventory_screen.dart';
+import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:facturo/features/invoice/screens/invoice_screen.dart';
 import 'package:facturo/features/setting/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         return FadeTransition(
           opacity: animation,
           child: const InvoiceScreen(),
+        );
+      });
+
+      case AddInvoiceScreen.routeName:
+      return PageRouteBuilder(pageBuilder: (_, animation, __) {
+        return FadeTransition(
+          opacity: animation,
+          child: const AddInvoiceScreen(),
         );
       });
     
