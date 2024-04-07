@@ -1,6 +1,6 @@
 
 
-import 'package:facturo/features/client/screens/add_client_screen.dart';
+import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
 import 'package:facturo/features/inventory/screens/inventory_screen.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
@@ -34,13 +34,13 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         );
       });
 
-    case AddClientScreen.routeName:
+    case SelectClientScreen.routeName:
       return PageRouteBuilder(
         opaque: false,
         pageBuilder: (_, animation, __) {
         return FadeTransition(
           opacity: animation,
-          child: const AddClientScreen(),
+          child: const SelectClientScreen(),
         );
       });
 

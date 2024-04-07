@@ -6,7 +6,7 @@ import 'package:facturo/common/widgets/invoice/add_sub_header.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:facturo/features/client/screens/add_client_screen.dart';
+import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -203,7 +203,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                         child: GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, AddClientScreen.routeName);
+                                  context, SelectClientScreen.routeName);
                             },
                             child: AddButton(title: "Add Client"))),
                   ),

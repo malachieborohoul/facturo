@@ -14,9 +14,9 @@ class CustomSearchbar extends StatelessWidget {
       this.isPassword = false,
       this.readOnly = false,
       this.onTap = false,
-      required this.size,
+      this.width=200,
     
-      required this.onSuccess});
+      required this.onSuccess,  this.height=55});
 
   final TextEditingController controller;
   final TextInputType textInputType;
@@ -24,7 +24,8 @@ class CustomSearchbar extends StatelessWidget {
   final bool isPassword;
   final bool readOnly;
   final bool onTap;
-  final double size;
+  final double width;
+  final double height;
 
   final VoidCallback onSuccess;
 
@@ -34,8 +35,8 @@ class CustomSearchbar extends StatelessWidget {
 
     return Container(
       alignment: Alignment.center,
-      height: 55,
-      width: size,
+      height: height,
+      width: width,
       decoration:  const BoxDecoration(
         color:  Colors.transparent,
         // border: Border.all( color: neutral, style: BorderStyle.solid, width: 0.5)

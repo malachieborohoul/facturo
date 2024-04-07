@@ -4,7 +4,7 @@ import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/custom_type_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/common/widgets/header_invoice_table.dart';
-import 'package:facturo/common/widgets/row_invoice_table.dart';
+import 'package:facturo/common/widgets/invoice/row_invoice_table.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
@@ -81,7 +81,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   CustomSearchbar(
                                       controller: searchController,
                                       hintText: "Search",
-                                      size: 200,
+                                     
                                       onSuccess: () {})
                                 ],
                               )
@@ -165,7 +165,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           smallFontSize / 2))),
                                           child: const Padding(
                                             padding:
-                                                EdgeInsets.all(miniSpacer / 2),
+                                                EdgeInsets.symmetric(vertical:miniSpacer / 2, horizontal: appPadding),
                                             child: Text("Inv "),
                                           ),
                                         ),
@@ -182,8 +182,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       Radius.circular(
                                                           smallFontSize / 2))),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(
-                                                miniSpacer / 2),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical:miniSpacer / 2, horizontal: appPadding),
                                             child: Column(
                                               children: [
                                                 Row(
@@ -312,7 +312,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           smallFontSize / 2))),
                                           child: const Padding(
                                             padding:
-                                                EdgeInsets.all(miniSpacer / 2),
+                                                EdgeInsets.symmetric(vertical:miniSpacer / 2, horizontal: appPadding),
                                             child: Column(
                                               children: [
                                                 CustomTypeItem(),
