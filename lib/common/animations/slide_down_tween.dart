@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 
 class SlideDownTween extends StatelessWidget {
   const SlideDownTween({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = const Duration(milliseconds: 750),
 
     this.curve = Curves.easeOut,
     required this.offset,
     this.delay = 1.0,
-  }) : super(key: key);
+  });
   final Widget child;
   final double offset;
   final Duration duration;

@@ -7,8 +7,8 @@ class CustomTypeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: miniSpacer),
+    return const Padding(
+      padding: EdgeInsets.only(bottom: miniSpacer),
       child: Text(
         "Batterie",
         style: TextStyle(

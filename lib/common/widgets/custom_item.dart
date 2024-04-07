@@ -7,9 +7,9 @@ class CustomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: miniSpacer),
-      child: const Row(
+    return const Padding(
+      padding: EdgeInsets.only(bottom: miniSpacer),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(

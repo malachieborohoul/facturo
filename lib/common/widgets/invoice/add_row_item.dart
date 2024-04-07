@@ -1,8 +1,5 @@
-import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AddRowItem extends StatelessWidget {
   const AddRowItem({super.key, required this.name, required this.quantity, required this.price});

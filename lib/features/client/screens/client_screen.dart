@@ -1,11 +1,7 @@
 import 'package:facturo/common/widgets/dashboard_menu.dart';
-import 'package:facturo/common/widgets/dashboard_menu_item.dart';
 import 'package:facturo/constants/color.dart';
-import 'package:facturo/constants/padding.dart';
-import 'package:facturo/constants/size.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ClientScreen extends StatefulWidget {
    static const routeName = '/clients';

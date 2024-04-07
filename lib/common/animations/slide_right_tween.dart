@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 
 class SlideRightTween extends StatelessWidget {
   const SlideRightTween({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = const Duration(milliseconds: 750),
     this.curve = Curves.easeOut,
     required this.offset,
-  }) : super(key: key);
+  });
   final Widget child;
   final double offset;
   final Duration duration;
