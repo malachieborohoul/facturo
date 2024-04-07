@@ -1,6 +1,8 @@
 import 'package:facturo/common/widgets/add_button.dart';
 import 'package:facturo/common/widgets/add_header.dart';
+import 'package:facturo/common/widgets/add_row_item.dart';
 import 'package:facturo/common/widgets/add_sub_header.dart';
+import 'package:facturo/common/widgets/remove_item_button.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
@@ -193,7 +195,18 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                   const SizedBox(
                     height: smallFontSize,
                   ),
-                  const AddHeader(title: "INVOICE INFORMATION"),
+                  Container(
+                    width: size.width * 0.7,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                         AddHeader(title: "ITEMS"),
+                    AddButton(title: "Add Category Item")
+                      ],
+                    ),
+                  ),
+                  
+                 
                   const SizedBox(
                     height: smallFontSize / 2,
                   ),
@@ -203,22 +216,28 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                         color: textWhite,
                         borderRadius:
                             BorderRadius.all(Radius.circular(smallFontSize))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(appPadding),
+                    child:  const Padding(
+                      padding: EdgeInsets.all(appPadding),
                       child: Column(
                         children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AddSubHeader(title: "Name"),
                               AddSubHeader(title: "Quantity"),
                               AddSubHeader(title: "Price"),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [],
-                          )
+                          // RemoveItemButton(title: "Battery"),
+                          SizedBox(height: smallFontSize,),
+                          AddRowItem(name: "Battery", quantity: 1, price: 1000),
+                          AddRowItem(name: "Battery 23", quantity: 3, price: 2000),
+                          Divider(thickness: 0.2,),
+                          SizedBox(height: smallFontSize,),
+                          Center(child: AddButton(title: "Add Item"),)
+
+
                         ],
                       ),
                     ),
