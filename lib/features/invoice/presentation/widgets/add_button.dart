@@ -1,8 +1,9 @@
-import 'package:facturo/constants/size.dart';
+import 'package:facturo/core/constants/color.dart';
+import 'package:facturo/core/constants/size.dart';
 import 'package:flutter/material.dart';
 
-class RemoveItemButton extends StatelessWidget {
-  const RemoveItemButton({super.key, required this.title});
+class AddButton extends StatelessWidget {
+  const AddButton({super.key, required this.title});
   final String title;
 
   @override
@@ -11,9 +12,9 @@ class RemoveItemButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Icon(
-          Icons.remove_circle,
-          size: mediumFontSize,
-          color: Colors.red,
+          Icons.add_circle_outlined,
+          size: smallFontSize,
+          color: primary,
         ),
         const SizedBox(
           width: smallFontSize,
@@ -21,7 +22,7 @@ class RemoveItemButton extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-              fontSize: smallFontSize * 0.8, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: smallFontSize * 0.8, fontWeight: FontWeight.bold, color: primary),
         )
       ],
     );

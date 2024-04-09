@@ -1,15 +1,15 @@
-import 'package:facturo/common/widgets/custom_item.dart';
-import 'package:facturo/common/widgets/custom_searchbar.dart';
-import 'package:facturo/common/widgets/custom_total_item.dart';
-import 'package:facturo/common/widgets/custom_type_item.dart';
-import 'package:facturo/common/widgets/dashboard_menu.dart';
-import 'package:facturo/common/widgets/header_invoice_table.dart';
-import 'package:facturo/common/widgets/invoice/row_invoice_table.dart';
-import 'package:facturo/constants/color.dart';
-import 'package:facturo/constants/padding.dart';
-import 'package:facturo/constants/size.dart';
+import 'package:facturo/core/common/widgets/custom_item.dart';
+import 'package:facturo/core/common/widgets/custom_searchbar.dart';
+import 'package:facturo/core/common/widgets/custom_total_item.dart';
+import 'package:facturo/core/common/widgets/custom_type_item.dart';
+import 'package:facturo/core/common/widgets/dashboard_menu.dart';
+import 'package:facturo/features/invoice/presentation/widgets/header_invoice_table.dart';
+import 'package:facturo/features/invoice/presentation/widgets/row_invoice_table.dart';
+import 'package:facturo/core/constants/color.dart';
+import 'package:facturo/core/constants/padding.dart';
+import 'package:facturo/core/constants/size.dart';
 import 'package:facturo/data/invoice.dart';
-import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
+import 'package:facturo/features/invoice/presentation/screens/add_invoice_screen.dart';
 import 'package:flutter/material.dart';
 
 class InvoiceScreen extends StatefulWidget {
@@ -183,7 +183,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           smallFontSize / 2))),
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                vertical:miniSpacer / 2, horizontal: appPadding),
+                                                vertical:miniSpacer , horizontal: appPadding),
                                             child: Column(
                                               children: [
                                                 Row(
@@ -312,7 +312,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           smallFontSize / 2))),
                                           child: const Padding(
                                             padding:
-                                                EdgeInsets.symmetric(vertical:miniSpacer / 2, horizontal: appPadding),
+                                                EdgeInsets.symmetric(vertical:miniSpacer , horizontal: appPadding),
                                             child: Column(
                                               children: [
                                                 CustomTypeItem(),

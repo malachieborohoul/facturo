@@ -1,4 +1,4 @@
-import 'package:facturo/constants/size.dart';
+import 'package:facturo/core/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class AddRowItem extends StatelessWidget {

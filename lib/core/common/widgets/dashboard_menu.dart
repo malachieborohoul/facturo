@@ -1,11 +1,11 @@
-import 'package:facturo/common/widgets/dashboard_menu_item.dart';
-import 'package:facturo/constants/color.dart';
-import 'package:facturo/constants/padding.dart';
-import 'package:facturo/constants/size.dart';
+import 'package:facturo/core/common/widgets/dashboard_menu_item.dart';
+import 'package:facturo/core/constants/color.dart';
+import 'package:facturo/core/constants/padding.dart';
+import 'package:facturo/core/constants/size.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
 import 'package:facturo/features/inventory/screens/inventory_screen.dart';
 
-import 'package:facturo/features/invoice/screens/invoice_screen.dart';
+import 'package:facturo/features/invoice/presentation/screens/invoice_screen.dart';
 import 'package:facturo/features/setting/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
-import 'package:facturo/common/widgets/dashboard_menu.dart';
-import 'package:facturo/constants/color.dart';
+import 'package:facturo/core/common/widgets/dashboard_menu.dart';
+import 'package:facturo/core/constants/color.dart';
 import 'package:flutter/material.dart';
 
 class InventoryScreen extends StatefulWidget {
