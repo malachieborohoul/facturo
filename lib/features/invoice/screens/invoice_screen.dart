@@ -23,7 +23,7 @@ class InvoiceScreen extends StatefulWidget {
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
 
-  int selectedRowInvoice = invoices.first.id;
+  // int selectedRowInvoice = invoices.first.id;
 
   @override
   Widget build(BuildContext context) {
@@ -105,29 +105,29 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     const Padding(
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
-                                    Expanded(
-                                      child: ListView.builder(
-                                          itemCount: invoices.length,
-                                          itemBuilder: (context, i) {
-                                            return GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedRowInvoice =
-                                                      invoices[i].id;
-                                                });
-                                              },
-                                              child: RowInvoiceTable(
-                                                  selected:
-                                                      selectedRowInvoice ==
-                                                              invoices[i].id
-                                                          ? true
-                                                          : false,
-                                                  client: invoices[i].client,
-                                                  amount: invoices[i].amount,
-                                                  status: invoices[i].status),
-                                            );
-                                          }),
-                                    )
+                                    // Expanded(
+                                    //   child: ListView.builder(
+                                    //       itemCount: invoices.length,
+                                    //       itemBuilder: (context, i) {
+                                    //         return GestureDetector(
+                                    //           onTap: () {
+                                    //             setState(() {
+                                    //               selectedRowInvoice =
+                                    //                   invoices[i].id;
+                                    //             });
+                                    //           },
+                                    //           child: RowInvoiceTable(
+                                    //               selected:
+                                    //                   selectedRowInvoice ==
+                                    //                           invoices[i].id
+                                    //                       ? true
+                                    //                       : false,
+                                    //               client: invoices[i].client,
+                                    //               amount: invoices[i].amount,
+                                    //               status: invoices[i].status),
+                                    //         );
+                                    //       }),
+                                    // )
                                   ],
                                 ),
                               )),

@@ -2,6 +2,7 @@ import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/invoice/widgets/add_button.dart';
 import 'package:facturo/features/invoice/widgets/add_header.dart';
 import 'package:facturo/features/invoice/widgets/add_row_item.dart';
+import 'package:facturo/features/invoice/widgets/add_row_paid_invoice.dart';
 import 'package:facturo/features/invoice/widgets/add_row_total_item.dart';
 import 'package:facturo/features/invoice/widgets/add_sub_header.dart';
 import 'package:facturo/constants/color.dart';
@@ -201,7 +202,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             BorderRadius.all(Radius.circular(smallFontSize))),
                     child: Padding(
                         padding: const EdgeInsets.all(appPadding),
-                        child: GestureDetector(
+                        child: InkWell(
                             onTap: () {
                               Navigator.pushNamed(
                                   context, SelectClientScreen.routeName);
@@ -258,7 +259,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             height: smallFontSize,
                           ),
                           Center(
-                            child: GestureDetector(
+                            child: InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(
                                       context, SelectItemScreen.routeName);
@@ -276,7 +277,15 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                   const SizedBox(
                     height: smallFontSize / 2,
                   ),
-                  const AddRowTotalItem(total: 3000)
+                  const AddRowTotalItem(total: 3000),
+                    const SizedBox(
+                    height: smallFontSize,
+                  ),
+                  const AddHeader(title: "Payment status"),
+                  const SizedBox(
+                    height: smallFontSize / 2,
+                  ),
+                  const AddRowPaidInvoice()
                 ],
               ),
             )
