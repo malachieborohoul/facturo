@@ -1,12 +1,11 @@
-import 'package:facturo/core/common/widgets/client/client_card.dart';
-import 'package:facturo/core/common/widgets/custom_header.dart';
-import 'package:facturo/core/common/widgets/custom_not_found.dart';
-import 'package:facturo/core/common/widgets/custom_searchbar.dart';
-import 'package:facturo/core/constants/color.dart';
-import 'package:facturo/core/constants/padding.dart';
-import 'package:facturo/core/constants/size.dart';
+import 'package:facturo/common/widgets/client/client_card.dart';
+import 'package:facturo/common/widgets/custom_header.dart';
+import 'package:facturo/common/widgets/custom_not_found.dart';
+import 'package:facturo/common/widgets/custom_searchbar.dart';
+import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/padding.dart';
+import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SelectClientScreen extends StatefulWidget {
   static const routeName = '/add-client';
