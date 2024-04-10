@@ -7,16 +7,16 @@ import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_card.dart';
 import 'package:flutter/material.dart';
 
-class SelectItemScreen extends StatefulWidget {
-  static const routeName = '/select-item';
+class SelectItemTypeScreen extends StatefulWidget {
+  static const routeName = '/select-item-type';
 
-  const SelectItemScreen({super.key});
+  const SelectItemTypeScreen({super.key});
 
   @override
-  State<SelectItemScreen> createState() => _SelectItemScreenState();
+  State<SelectItemTypeScreen> createState() => _SelectItemTypeScreenState();
 }
 
-class _SelectItemScreenState extends State<SelectItemScreen> {
+class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
   TextEditingController searchController = TextEditingController();
 
   @override
