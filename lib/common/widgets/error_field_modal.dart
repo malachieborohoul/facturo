@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/custom_button.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
@@ -22,11 +23,11 @@ class ErrorFieldModal extends StatelessWidget {
               color: Colors.black26,
             )),
             Positioned(
-                top: size.height / 2 - (size.height * 0.8) / 2,
-                right: size.width / 2 - (size.width * 0.4) / 2,
+                top: size.height / 2 - (size.height * 0.4) / 2,
+                right: size.width / 2 - (size.width * 0.2) / 2,
                 child: Container(
-                  height: size.height * 0.8,
-                  width: size.width * 0.4,
+                  height: size.height * 0.4,
+                  width: size.width * 0.2,
                   decoration: const BoxDecoration(
                       color: background,
                       borderRadius:
@@ -35,15 +36,34 @@ class ErrorFieldModal extends StatelessWidget {
                     padding: const EdgeInsets.all(appPadding),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
                           Icons.error_outline,
                           size: 100,
+                          color: Colors.redAccent,
                         ),
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        Text("Enter $message ")
+                        Text(
+                          "Enter $message ",
+                          style: TextStyle(
+                              color: textBlack, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: smallFontSize,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const CustomButtom(
+                            title: "OK",
+                            bgColor: neutral,
+                            color: textBlack,
+                          ),
+                        ),
                       ],
                     ),
                   ),

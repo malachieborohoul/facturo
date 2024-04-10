@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/custom_button.dart';
 import 'package:facturo/common/widgets/custom_item.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
@@ -100,9 +101,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     color: background,
                                     border: Border(
                                         right: BorderSide(color: neutral))),
-                                child: Column(
+                                child: const Column(
                                   children: [
-                                    const Padding(
+                                    Padding(
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
                                     // Expanded(
@@ -327,30 +328,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       ],
                                     ),
                                   ),
-                                  Positioned(
+                                  const Positioned(
                                       left: 0,
                                       right: 0,
                                       bottom: 0,
                                       child: Padding(
                                         padding:
-                                            const EdgeInsets.all(appPadding),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                              color: secondary,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      smallFontSize))),
-                                          child: const Padding(
-                                            padding:
-                                                EdgeInsets.all(miniSpacer / 2),
-                                            child: Center(
-                                                child: Text(
-                                              "Mark as Paid",
-                                              style:
-                                                  TextStyle(color: textWhite),
-                                            )),
-                                          ),
-                                        ),
+                                            EdgeInsets.all(appPadding),
+                                        child: CustomButtom(title: "Mark as paid")
                                       ))
                                 ],
                               )),
