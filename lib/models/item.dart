@@ -2,13 +2,29 @@ import 'dart:convert';
 
 import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/item_type.dart';
+import 'package:hive/hive.dart';
+part 'item.g.dart';
+
+@HiveType(typeId: 2)
 
 class Item {
+  @HiveField(0)
+
   final String id;
+  @HiveField(1)
+
   final String name;
+  @HiveField(2)
+
   final int quantity;
+  @HiveField(3)
+
   final double price;
+  @HiveField(4)
+
   final Invoice invoice;
+  @HiveField(5)
+
   final ItemType itemType;
 
   Item(

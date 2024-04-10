@@ -1,9 +1,20 @@
 import 'dart:convert';
+import 'package:hive/hive.dart';
+part 'client.g.dart';
+
+@HiveType(typeId: 3)
 
 class Client {
+  @HiveField(0)
   final String id;
+  @HiveField(1)
+
   final String businessName;
+  @HiveField(2)
+
   final String name;
+  @HiveField(3)
+
   final String address;
 
   Client( {required this.id, required this.businessName, required this.name, required this.address});

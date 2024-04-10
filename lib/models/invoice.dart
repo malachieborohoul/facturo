@@ -2,13 +2,29 @@
 import 'dart:convert';
 
 import 'package:facturo/models/client.dart';
+import 'package:hive/hive.dart';
+part 'invoice.g.dart';
 
+
+@HiveType(typeId: 1)
 class Invoice {
+  @HiveField(0)
+
   final String id;
+  @HiveField(1)
+
   final String number;
+  @HiveField(2)
+
   final String currentDate;
+  @HiveField(3)
+
   final String dueDate;
+  @HiveField(4)
+
   final Client client;
+  @HiveField(5)
+
   final bool paid;
 
   Invoice({required this.id, required this.client, required this.number, required this.paid, required this.currentDate, required this.dueDate});
