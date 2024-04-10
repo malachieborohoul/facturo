@@ -20,6 +20,8 @@ class ClientService {
         'name': name,
         'address': address,
       }));
+      onSuccess();
+
 
       print(client);
     } catch (e) {

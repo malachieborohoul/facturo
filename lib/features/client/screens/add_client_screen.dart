@@ -1,7 +1,9 @@
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/common/widgets/error_field_modal.dart';
+import 'package:facturo/common/widgets/success_field_modal.dart';
 import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +71,19 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
                                         arguments: "Company Name");
+                                  } else {
+                                    clientService.addClient(
+                                        context: context,
+                                        businessName:
+                                            businessNameController.text,
+                                        name: nameController.text,
+                                        address: addressController.text,
+                                        onSuccess: () {
+                                          Navigator.pushNamed(context,
+                                              SuccessFieldModal.routeName,
+                                              arguments: "Client added");
+                                        },
+                                        onFailed: () {});
                                   }
                                 },
                                 child: const Text(
@@ -93,8 +108,8 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CustomTextfield(
-                                      controller: nameController,
-                                      hintText: "Business Name",
+                                      controller: businessNameController,
+                                      hintText: "Company Name",
                                       onSuccess: () {}),
                                   const SizedBox(
                                     height: smallFontSize,
@@ -107,7 +122,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
-                                      controller: nameController,
+                                      controller: addressController,
                                       hintText: "Address",
                                       onSuccess: () {}),
                                 ],

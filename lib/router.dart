@@ -1,4 +1,5 @@
 import 'package:facturo/common/widgets/error_field_modal.dart';
+import 'package:facturo/common/widgets/success_field_modal.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
 import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
@@ -114,6 +115,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
             return FadeTransition(
               opacity: animation,
               child:  ErrorFieldModal(message: message,),
+            );
+          });
+
+     case SuccessFieldModal.routeName:
+      var message = routeSettings.arguments as String;
+      return PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child:  SuccessFieldModal(message: message,),
             );
           });
 
