@@ -1,6 +1,4 @@
-import 'package:facturo/common/widgets/client/client_card.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
-import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';

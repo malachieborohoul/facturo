@@ -1,3 +1,5 @@
+import 'package:facturo/features/inventory/screens/add_item_screen.dart';
+import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/invoice/widgets/add_button.dart';
 import 'package:facturo/features/invoice/widgets/add_header.dart';
 import 'package:facturo/features/invoice/widgets/add_row_item.dart';
@@ -199,13 +201,13 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                         borderRadius:
                             BorderRadius.all(Radius.circular(smallFontSize))),
                     child: Padding(
-                        padding: EdgeInsets.all(appPadding),
+                        padding: const EdgeInsets.all(appPadding),
                         child: GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
                                   context, SelectClientScreen.routeName);
                             },
-                            child: AddButton(title: "Add Client"))),
+                            child: const AddButton(title: "Add Client"))),
                   ),
                   const SizedBox(
                     height: smallFontSize,
@@ -229,34 +231,40 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                         color: textWhite,
                         borderRadius:
                             BorderRadius.all(Radius.circular(smallFontSize))),
-                    child: const Padding(
-                      padding: EdgeInsets.all(appPadding),
+                    child: Padding(
+                      padding: const EdgeInsets.all(appPadding),
                       child: Column(
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AddSubHeader(title: "Name"),
+                               AddSubHeader(title: "Name"),
                               AddSubHeader(title: "Quantity"),
                               AddSubHeader(title: "Price"),
                             ],
                           ),
                           // RemoveItemButton(title: "Battery"),
-                          SizedBox(
+                          const SizedBox(
                             height: smallFontSize,
                           ),
-                          AddRowItem(name: "Battery", quantity: 1, price: 1000),
-                          AddRowItem(
+                          const AddRowItem(
+                              name: "Battery", quantity: 1, price: 1000),
+                          const AddRowItem(
                               name: "Battery 23", quantity: 3, price: 2000),
-                          Divider(
+                          const Divider(
                             thickness: 0.2,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: smallFontSize,
                           ),
                           Center(
-                            child: AddButton(title: "Add Item"),
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, SelectItemScreen.routeName);
+                                },
+                                child: const AddButton(title: "Add Item")),
                           )
                         ],
                       ),

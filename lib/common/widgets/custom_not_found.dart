@@ -1,5 +1,4 @@
 import 'package:facturo/constants/color.dart';
-import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class CustomNotFound extends StatelessWidget {

@@ -1,14 +1,15 @@
-import 'package:facturo/common/widgets/client/client_card.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
+import 'package:facturo/features/inventory/screens/add_item_screen.dart';
+import 'package:facturo/features/inventory/widgets/item_card.dart';
 import 'package:flutter/material.dart';
 
 class SelectItemScreen extends StatefulWidget {
-  static const routeName = '/select-client';
+  static const routeName = '/select-item';
 
   const SelectItemScreen({super.key});
 
@@ -65,7 +66,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                             IconButton(
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, AddClientScreen.routeName);
+                                      context, AddItemScreen.routeName);
                                 },
                                 icon: const Icon(
                                   Icons.add,
@@ -86,7 +87,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        ClientCard(),
+                        const ItemCard(),
                       ],
                     ),
                   ),

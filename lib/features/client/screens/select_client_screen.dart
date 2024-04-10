@@ -1,4 +1,4 @@
-import 'package:facturo/common/widgets/client/client_card.dart';
+import 'package:facturo/features/client/widgets/client_card.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/constants/color.dart';
@@ -86,7 +86,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        ClientCard(),
+                        const ClientCard(),
                       ],
                     ),
                   ),
