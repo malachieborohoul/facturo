@@ -1,23 +1,23 @@
 import 'package:facturo/common/widgets/client/client_card.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
+import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:facturo/features/client/screens/add_client_screen.dart';
 import 'package:flutter/material.dart';
 
-class SelectClientScreen extends StatefulWidget {
-  static const routeName = '/select-client';
+class AddItemScreen extends StatefulWidget {
+  static const routeName = '/add-item';
 
-  const SelectClientScreen({super.key});
+  const AddItemScreen({super.key});
 
   @override
-  State<SelectClientScreen> createState() => _SelectClientScreenState();
+  State<AddItemScreen> createState() => _AddItemScreenState();
 }
 
-class _SelectClientScreenState extends State<SelectClientScreen> {
-  TextEditingController searchController = TextEditingController();
+class _AddItemScreenState extends State<AddItemScreen> {
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,31 +62,52 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                   "Cancel",
                                   style: TextStyle(color: primary),
                                 )),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, AddClientScreen.routeName);
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
                                 },
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: primary,
-                                ))
+                                child: const Text(
+                                  "Done",
+                                  style: TextStyle(color: primary),
+                                )),
                           ],
                         ),
-                        const CustomHeader(title: "Clients"),
+                        const CustomHeader(title: "Add Item"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        CustomSearchbar(
-                            controller: searchController,
-                            hintText: "Search",
+                        Container(
                             width: double.infinity,
-                            height: 40,
-                            onSuccess: () {}),
-                        const SizedBox(
-                          height: smallFontSize,
-                        ),
-                        ClientCard(),
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(smallFontSize))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(appPadding),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomTextfield(
+                                      controller: nameController,
+                                      hintText: "Business Name",
+                                      onSuccess: () {}),
+                                  const SizedBox(
+                                    height: smallFontSize,
+                                  ),
+                                  CustomTextfield(
+                                      controller: nameController,
+                                      hintText: "Name",
+                                      onSuccess: () {}),
+                                  const SizedBox(
+                                    height: smallFontSize,
+                                  ),
+                                  CustomTextfield(
+                                      controller: nameController,
+                                      hintText: "Address",
+                                      onSuccess: () {}),
+                                ],
+                              ),
+                            )),
                       ],
                     ),
                   ),

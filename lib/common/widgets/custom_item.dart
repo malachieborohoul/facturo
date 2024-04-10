@@ -1,5 +1,5 @@
-import 'package:facturo/core/constants/padding.dart';
-import 'package:facturo/core/constants/size.dart';
+import 'package:facturo/constants/padding.dart';
+import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class CustomItem extends StatelessWidget {

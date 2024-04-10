@@ -1,6 +1,6 @@
-import 'package:facturo/core/constants/color.dart';
-import 'package:facturo/core/constants/padding.dart';
-import 'package:facturo/core/constants/size.dart';
+import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/padding.dart';
+import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class ClientCard extends StatelessWidget {

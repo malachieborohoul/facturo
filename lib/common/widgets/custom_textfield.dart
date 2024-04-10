@@ -1,12 +1,12 @@
 
 
-import 'package:facturo/core/constants/color.dart';
-import 'package:facturo/core/constants/padding.dart';
-import 'package:facturo/core/constants/size.dart';
+import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/padding.dart';
+import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
-class CustomSearchbar extends StatelessWidget {
-  const CustomSearchbar(
+class CustomTextfield extends StatelessWidget {
+  const CustomTextfield(
       {super.key,
       required this.controller,
       this.textInputType = TextInputType.text,
@@ -14,9 +14,9 @@ class CustomSearchbar extends StatelessWidget {
       this.isPassword = false,
       this.readOnly = false,
       this.onTap = false,
-      this.width=200,
+      this.width=double.infinity,
     
-      required this.onSuccess,  this.height=55});
+      required this.onSuccess,  this.height=30});
 
   final TextEditingController controller;
   final TextInputType textInputType;
@@ -45,29 +45,20 @@ class CustomSearchbar extends StatelessWidget {
               readOnly: readOnly ? true : false,
               controller: controller,
               keyboardType: TextInputType.name,
+              textAlign: TextAlign.left,
+              style: const TextStyle(fontSize: smallFontSize * 0.8, color: textBlack),
               decoration: InputDecoration(
-                 enabledBorder: const OutlineInputBorder(
-                      borderSide:  BorderSide(color: neutralBorder, width: 0.5),
-                          
-                      borderRadius: BorderRadius.all(Radius.circular(miniSpacer)),
-                    ),
+                contentPadding: const EdgeInsets.symmetric(vertical: appPadding),
+                 enabledBorder:  UnderlineInputBorder(borderSide: BorderSide(color:neutralBorder.withOpacity(0.5) )),
 
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide:  BorderSide(color: primary, width: 1),
-                          
-                      borderRadius: BorderRadius.all(Radius.circular(miniSpacer)),
-                    ),
+                    focusedBorder:  UnderlineInputBorder(borderSide: BorderSide(color:neutralBorder.withOpacity(0.5) )),
                   hintText: hintText,
                   hintStyle: const TextStyle(
-                      color: textGrey, fontSize: smallFontSize),
+                      color: textGrey, fontSize: smallFontSize * 0.8),
                   filled: true,
                   fillColor: Colors.transparent,
                   border: InputBorder.none,
-                  prefixIcon:  const Icon(
-                    size: smallFontSize,
-                    Icons.search,
-                    color: blueLight,
-                  )),
+                  ),
             ),
     );
   }

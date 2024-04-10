@@ -7,16 +7,16 @@ import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
 import 'package:flutter/material.dart';
 
-class SelectClientScreen extends StatefulWidget {
+class SelectItemScreen extends StatefulWidget {
   static const routeName = '/select-client';
 
-  const SelectClientScreen({super.key});
+  const SelectItemScreen({super.key});
 
   @override
-  State<SelectClientScreen> createState() => _SelectClientScreenState();
+  State<SelectItemScreen> createState() => _SelectItemScreenState();
 }
 
-class _SelectClientScreenState extends State<SelectClientScreen> {
+class _SelectItemScreenState extends State<SelectItemScreen> {
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -73,7 +73,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                 ))
                           ],
                         ),
-                        const CustomHeader(title: "Clients"),
+                        const CustomHeader(title: "Items"),
                         const SizedBox(
                           height: smallFontSize,
                         ),

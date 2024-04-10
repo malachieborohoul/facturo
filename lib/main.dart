@@ -1,6 +1,5 @@
-import 'package:facturo/core/constants/color.dart';
-import 'package:facturo/core/theme/theme.dart';
-import 'package:facturo/features/invoice/presentation/screens/invoice_screen.dart';
+import 'package:facturo/constants/color.dart';
+import 'package:facturo/features/invoice/screens/invoice_screen.dart';
 import 'package:facturo/router.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,10 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) => generateRoute(settings),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: AppTheme.themeMode,
+      theme:  ThemeData(
+          useMaterial3: true,
+          primaryColor: primary,
+        ),
       home: const InvoiceScreen(),
     );
   }
