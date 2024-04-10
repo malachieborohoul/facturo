@@ -1,5 +1,6 @@
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_textfield.dart';
+import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
@@ -15,7 +16,9 @@ class AddClientScreen extends StatefulWidget {
 }
 
 class _AddClientScreenState extends State<AddClientScreen> {
+  TextEditingController businessNameController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,11 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                 )),
                             InkWell(
                                 onTap: () {
-                                  Navigator.pop(context);
+                                  if (businessNameController.text.isEmpty) {
+                                    Navigator.pushNamed(
+                                        context, ErrorFieldModal.routeName,
+                                        arguments: "Company Name");
+                                  }
                                 },
                                 child: const Text(
                                   "Done",

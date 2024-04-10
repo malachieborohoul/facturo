@@ -1,5 +1,4 @@
-
-
+import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
 import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
@@ -23,14 +22,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         );
       });
 
-      case AddInvoiceScreen.routeName:
+    case AddInvoiceScreen.routeName:
       return PageRouteBuilder(pageBuilder: (_, animation, __) {
         return FadeTransition(
           opacity: animation,
           child: const AddInvoiceScreen(),
         );
       });
-    
+
     case ClientScreen.routeName:
       return PageRouteBuilder(pageBuilder: (_, animation, __) {
         return FadeTransition(
@@ -41,24 +40,23 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
 
     case SelectClientScreen.routeName:
       return PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (_, animation, __) {
-        return FadeTransition(
-          opacity: animation,
-          child: const SelectClientScreen(),
-        );
-      });
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: const SelectClientScreen(),
+            );
+          });
 
-      case AddClientScreen.routeName:
+    case AddClientScreen.routeName:
       return PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (_, animation, __) {
-        return FadeTransition(
-          opacity: animation,
-          child: const AddClientScreen(),
-        );
-      });
-
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: const AddClientScreen(),
+            );
+          });
 
     case InventoryScreen.routeName:
       return PageRouteBuilder(pageBuilder: (_, animation, __) {
@@ -68,47 +66,56 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         );
       });
 
-     case AddItemScreen.routeName:
+    case AddItemScreen.routeName:
       return PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (_, animation, __) {
-        return FadeTransition(
-          opacity: animation,
-          child: const AddItemScreen(),
-        );
-      });
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: const AddItemScreen(),
+            );
+          });
 
-      case SelectItemScreen.routeName:
+    case SelectItemScreen.routeName:
       return PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (_, animation, __) {
-        return FadeTransition(
-          opacity: animation,
-          child: const SelectItemScreen(),
-        );
-      });
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: const SelectItemScreen(),
+            );
+          });
 
-      case AddItemTypeScreen.routeName:
+    case AddItemTypeScreen.routeName:
       return PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (_, animation, __) {
-        return FadeTransition(
-          opacity: animation,
-          child: const AddItemTypeScreen(),
-        );
-      });
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: const AddItemTypeScreen(),
+            );
+          });
 
-      case SelectItemTypeScreen.routeName:
+    case SelectItemTypeScreen.routeName:
       return PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (_, animation, __) {
-        return FadeTransition(
-          opacity: animation,
-          child: const SelectItemTypeScreen(),
-        );
-      });
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: const SelectItemTypeScreen(),
+            );
+          });
 
-
+    case ErrorFieldModal.routeName:
+      var message = routeSettings.arguments as String;
+      return PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child:  ErrorFieldModal(message: message,),
+            );
+          });
 
     case SettingScreen.routeName:
       return PageRouteBuilder(pageBuilder: (_, animation, __) {
@@ -117,7 +124,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           child: const SettingScreen(),
         );
       });
-    
+
     default:
       return MaterialPageRoute(
           builder: (_) => const Scaffold(
