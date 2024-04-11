@@ -5,11 +5,9 @@ import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/custom_type_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/features/invoice/widgets/header_invoice_table.dart';
-import 'package:facturo/features/invoice/widgets/row_invoice_table.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:facturo/data/invoice.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:flutter/material.dart';
 

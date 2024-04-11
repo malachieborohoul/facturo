@@ -48,7 +48,7 @@ class SuccessFieldModal extends StatelessWidget {
                         ),
                         Text(
                           " $message ",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: textBlack, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(

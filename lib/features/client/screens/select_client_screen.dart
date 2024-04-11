@@ -1,3 +1,4 @@
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/client/widgets/client_card.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
@@ -5,6 +6,7 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
+import 'package:facturo/models/client.dart';
 import 'package:flutter/material.dart';
 
 class SelectClientScreen extends StatefulWidget {
@@ -18,6 +20,20 @@ class SelectClientScreen extends StatefulWidget {
 
 class _SelectClientScreenState extends State<SelectClientScreen> {
   TextEditingController searchController = TextEditingController();
+  late Future<List<Client>> clients;
+
+  @override
+  void initState() {
+    super.initState();
+    getAllClients();
+  }
+
+  void getAllClients() {
+    clients = clientService.getAllClients(context);
+    setState(() {
+      print(clients);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +102,34 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        const ClientCard(),
+                        Expanded(
+                            child: FutureBuilder(
+                                future: clients,
+                                builder: (context,
+                                    AsyncSnapshot<List<Client>> snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  } else if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else if (snapshot.hasData &&
+                                        snapshot.data!.isNotEmpty) {
+                                      return ListView.builder(
+                                          itemCount: snapshot.data!.length,
+                                          itemBuilder: (context, i) {
+                                            return  ClientCard(client: snapshot.data![i],);
+                                          });
+                                    } else {
+                                      return const Text("No CLient found");
+                                    }
+                                  }else{
+                                  return const SizedBox();
+                                }
+                                }
+                                
+                                ))
                       ],
                     ),
                   ),

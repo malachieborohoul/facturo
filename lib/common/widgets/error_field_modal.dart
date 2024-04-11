@@ -48,7 +48,7 @@ class ErrorFieldModal extends StatelessWidget {
                         ),
                         Text(
                           "Enter $message ",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: textBlack, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
