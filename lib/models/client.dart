@@ -31,7 +31,7 @@ class Client {
 
   factory Client.fromMap(Map<String, dynamic> map) {
     return Client(
-      id: map['id'] ?? '',
+      id: map['id'] ?? 0,
       businessName: map['businessName'] ?? '',
       name: map['name'] ?? '',
       address: map['address'] ?? '',

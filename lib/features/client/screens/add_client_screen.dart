@@ -1,7 +1,6 @@
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/common/widgets/error_field_modal.dart';
-import 'package:facturo/common/widgets/success_field_modal.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
@@ -23,6 +22,29 @@ class _AddClientScreenState extends State<AddClientScreen> {
   TextEditingController addressController = TextEditingController();
 
   @override
+  void dispose() {
+    businessNameController.dispose();
+    nameController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
+
+  void addClient() {
+    clientService.addClient(
+        context: context,
+        businessName: businessNameController.text,
+        name: nameController.text,
+        address: addressController.text,
+        onSuccess: () {
+          // Navigator.pushNamed(context, SuccessFieldModal.routeName,
+          //     arguments: "Client added");
+
+          Navigator.pop(context, true);
+        },
+        onFailed: () {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
@@ -33,7 +55,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             Positioned.fill(
                 child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               child: Container(
                 color: Colors.black26,
@@ -72,18 +94,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                         context, ErrorFieldModal.routeName,
                                         arguments: "Company Name");
                                   } else {
-                                    clientService.addClient(
-                                        context: context,
-                                        businessName:
-                                            businessNameController.text,
-                                        name: nameController.text,
-                                        address: addressController.text,
-                                        onSuccess: () {
-                                          Navigator.pushNamed(context,
-                                              SuccessFieldModal.routeName,
-                                              arguments: "Client added");
-                                        },
-                                        onFailed: () {});
+                                    addClient();
                                   }
                                 },
                                 child: const Text(

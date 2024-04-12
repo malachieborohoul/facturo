@@ -1,5 +1,4 @@
 import 'package:facturo/models/client.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -15,16 +14,16 @@ class ClientService {
     required VoidCallback onFailed,
   }) async {
     try {
-      var client = await clients.add(Client.fromMap({
+       await clients.add(Client.fromMap({
         'businessName': businessName,
         'name': name,
         'address': address,
       }));
       onSuccess();
 
-      if (kDebugMode) {
-        print(client);
-      }
+      // if (kDebugMode) {
+      //   print(client);
+      // }
     } catch (e) {
       // showSnackBar(context, e.toString());
       // showSnackBar(context, "Please Check your internet connection");

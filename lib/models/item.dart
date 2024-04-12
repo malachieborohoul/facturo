@@ -50,7 +50,7 @@ class Item {
 
   factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
-      id: map['id'] ?? '',
+      id: map['id'] ?? 0,
       name: map['name'] ?? '',
       quantity: map['quantity'] ?? 0,
       price: map['price'] ?? 0.0,

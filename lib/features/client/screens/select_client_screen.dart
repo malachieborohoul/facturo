@@ -32,7 +32,6 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
   void getAllClients() {
     clients = clientService.getAllClients(context);
     setState(() {
-      print(clients);
     });
   }
 
@@ -45,7 +44,6 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
         },
         onFailed: () {});
     setState(() {
-      print(clients);
     });
   }
 
@@ -93,9 +91,13 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                   style: TextStyle(color: primary),
                                 )),
                             IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
+                                onPressed: () async {
+                                  final result = await Navigator.pushNamed(
                                       context, AddClientScreen.routeName);
+
+                                  if (result == true) {
+                                    getAllClients();
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.add,
@@ -143,8 +145,16 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                             );
                                           });
                                     } else {
-                                      return const CustomNotFound(
-                                          message: "client");
+                                      return const Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CustomNotFound(
+                                                message: "client"),
+                                          ),
+                                        ],
+                                      );
                                     }
                                   } else {
                                     return const SizedBox();

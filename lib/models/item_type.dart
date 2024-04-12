@@ -28,7 +28,7 @@ class ItemType {
 
   factory ItemType.fromMap(Map<String, dynamic> map) {
     return ItemType(
-      id: map['id'] ?? '',
+      id: map['id'] ?? 0,
       name: map['name'] ?? '',
       description: map['description'] ?? '',
   

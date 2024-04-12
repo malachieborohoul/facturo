@@ -8,9 +8,8 @@ import 'package:facturo/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-
-void main() async{
-    // Initialize hive before MyApp runs
+void main() async {
+  // Initialize hive before MyApp runs
   WidgetsFlutterBinding.ensureInitialized();
   // Provide path
   await Hive.initFlutter();
@@ -24,6 +23,7 @@ void main() async{
   await Hive.openBox("clients");
   await Hive.openBox("items");
   await Hive.openBox("item_types");
+
   runApp(const MyApp());
 }
 
@@ -37,12 +37,11 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) => generateRoute(settings),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme:  ThemeData(
-          useMaterial3: true,
-          primaryColor: primary,
-        ),
+      theme: ThemeData(
+        useMaterial3: true,
+        primaryColor: primary,
+      ),
       home: const InvoiceScreen(),
     );
   }
 }
-

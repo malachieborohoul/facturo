@@ -43,7 +43,7 @@ class Invoice {
 
   factory Invoice.fromMap(Map<String, dynamic> map) {
     return Invoice(
-      id: map['id'] ?? '',
+      id: map['id'] ?? 0,
       number: map['number'] ?? '',
       currentDate: map['currentDate'] ?? '',
       dueDate: map['dueDate'] ?? '',
