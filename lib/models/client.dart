@@ -6,7 +6,7 @@ part 'client.g.dart';
 
 class Client {
   @HiveField(0)
-  final String id;
+   int id;
   @HiveField(1)
 
   final String businessName;

@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/custom_not_found.dart';
 import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/client/widgets/client_card.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
@@ -30,6 +31,19 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
 
   void getAllClients() {
     clients = clientService.getAllClients(context);
+    setState(() {
+      print(clients);
+    });
+  }
+
+  void deleteClient(Client client) {
+    clientService.deleteClient(
+        context: context,
+        client: client,
+        onSuccess: () {
+          getAllClients();
+        },
+        onFailed: () {});
     setState(() {
       print(clients);
     });
@@ -109,7 +123,9 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                     AsyncSnapshot<List<Client>> snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
+                                    return const CircularProgressIndicator(
+                                      color: primary,
+                                    );
                                   } else if (snapshot.connectionState ==
                                       ConnectionState.done) {
                                     if (snapshot.hasError) {
@@ -119,17 +135,21 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                       return ListView.builder(
                                           itemCount: snapshot.data!.length,
                                           itemBuilder: (context, i) {
-                                            return  ClientCard(client: snapshot.data![i],);
+                                            return ClientCard(
+                                              client: snapshot.data![i],
+                                              onSuccess: () {
+                                                deleteClient(snapshot.data![i]);
+                                              },
+                                            );
                                           });
                                     } else {
-                                      return const Text("No CLient found");
+                                      return const CustomNotFound(
+                                          message: "client");
                                     }
-                                  }else{
-                                  return const SizedBox();
-                                }
-                                }
-                                
-                                ))
+                                  } else {
+                                    return const SizedBox();
+                                  }
+                                }))
                       ],
                     ),
                   ),

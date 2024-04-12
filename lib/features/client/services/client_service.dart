@@ -1,5 +1,3 @@
-
-
 import 'package:facturo/models/client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:hive/hive.dart';
 class ClientService {
   final clients = Hive.box("clients");
 
-  // RESERVE BOOK
   void addClient({
     required BuildContext context,
     required String businessName,
@@ -38,27 +35,31 @@ class ClientService {
     List<Client> clientList = [];
 
     try {
-      clients.keys.map((key){
+      clients.keys.map((key) {
         var client = clients.get(key) as Client;
+        client.id = key;
         clientList.add(client);
       }).toList();
-      // Map on books and add in Hive
-
-      // for (int i = 0; i < jsonDecode(res.body)["books"].length; i++) {
-      //   // Add in clientList
-      //   clientList.add(
-      //     Book.fromMap(
-      //       jsonDecode(res.body)["books"][i],
-      //     ),
-      //   );
-
-      //   // Add in Hive DB
-      //   booksBox.add(Book.fromMap(jsonDecode(res.body)["books"][i]));
-      // }
     } catch (e) {
       // showSnackBar(context, e.toString());
       // showSnackBar(context, "Please Check your internet connection");
     }
     return clientList;
+  }
+
+  void deleteClient({
+    required BuildContext context,
+    required Client client,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+      clients.delete(client.id);
+
+      onSuccess();
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
   }
 }

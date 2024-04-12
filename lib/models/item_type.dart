@@ -7,7 +7,7 @@ part 'item_type.g.dart';
 class ItemType {
   @HiveField(0)
 
-  final String id;
+  final int id;
   @HiveField(1)
 
   final String name;

@@ -5,8 +5,9 @@ import 'package:facturo/models/client.dart';
 import 'package:flutter/material.dart';
 
 class ClientCard extends StatelessWidget {
-  const ClientCard({super.key, required this.client});
+  const ClientCard({super.key, required this.client, required this.onSuccess});
   final Client client;
+  final VoidCallback onSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class ClientCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Row(
+              Row(
                 children: [
                   const Icon(
                     Icons.person,
@@ -34,12 +35,24 @@ class ClientCard extends StatelessWidget {
                   Text(client.businessName)
                 ],
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.delete_outline_outlined,
-                    color: Colors.redAccent,
-                  ))
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.edit,
+                        color: textBlack,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        onSuccess();
+                      },
+                      icon: const Icon(
+                        Icons.delete_outline_outlined,
+                        color: Colors.redAccent,
+                      ))
+                ],
+              )
             ],
           ),
         ),

@@ -17,7 +17,7 @@ class InvoiceAdapter extends TypeAdapter<Invoice> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Invoice(
-      id: fields[0] as String,
+      id: fields[0] as int,
       client: fields[4] as Client,
       number: fields[1] as String,
       paid: fields[5] as bool,
