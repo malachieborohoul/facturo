@@ -138,14 +138,20 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                           itemBuilder: (context, i) {
                                             return ClientCard(
                                               client: snapshot.data![i],
-                                              onSuccess: () async{
-                                              var result = await  Navigator.pushNamed(context,
-                                                    ConfirmationModal.routeName,
-                                                    arguments:
-                                                        "Do you want to delete this client");
-                                                if(result==true){
-
-                                                  deleteClient(snapshot.data![i]);
+                                              onSuccessEdit: () {
+                                                getAllClients();
+                                              },
+                                              onSuccessDelete: () async {
+                                                var result =
+                                                    await Navigator.pushNamed(
+                                                        context,
+                                                        ConfirmationModal
+                                                            .routeName,
+                                                        arguments:
+                                                            "Do you want to delete this client");
+                                                if (result == true) {
+                                                  deleteClient(
+                                                      snapshot.data![i]);
                                                 }
                                               },
                                             );

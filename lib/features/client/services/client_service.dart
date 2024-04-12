@@ -61,4 +61,30 @@ class ClientService {
       // showSnackBar(context, "Please Check your internet connection");
     }
   }
+
+    void editClient({
+    required BuildContext context,
+    required String businessName,
+    required String name,
+    required String address,
+    required Client client,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+       await clients.put(client.id,Client.fromMap({
+        'businessName': businessName,
+        'name': name,
+        'address': address,
+      }));
+      onSuccess();
+
+      // if (kDebugMode) {
+      //   print(client);
+      // }
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+  }
 }
