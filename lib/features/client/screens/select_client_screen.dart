@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/custom_not_found.dart';
 import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/client/widgets/client_card.dart';
@@ -31,8 +32,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
 
   void getAllClients() {
     clients = clientService.getAllClients(context);
-    setState(() {
-    });
+    setState(() {});
   }
 
   void deleteClient(Client client) {
@@ -43,8 +43,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
           getAllClients();
         },
         onFailed: () {});
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -139,8 +138,15 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                           itemBuilder: (context, i) {
                                             return ClientCard(
                                               client: snapshot.data![i],
-                                              onSuccess: () {
-                                                deleteClient(snapshot.data![i]);
+                                              onSuccess: () async{
+                                              var result = await  Navigator.pushNamed(context,
+                                                    ConfirmationModal.routeName,
+                                                    arguments:
+                                                        "Do you want to delete this client");
+                                                if(result==true){
+
+                                                  deleteClient(snapshot.data![i]);
+                                                }
                                               },
                                             );
                                           });

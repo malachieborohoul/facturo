@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/common/widgets/success_field_modal.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
@@ -129,6 +130,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
             );
           });
 
+    case ConfirmationModal.routeName:
+      var message = routeSettings.arguments as String;
+      return PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child:  ConfirmationModal(message: message,),
+            );
+          });
     case SettingScreen.routeName:
       return PageRouteBuilder(pageBuilder: (_, animation, __) {
         return FadeTransition(

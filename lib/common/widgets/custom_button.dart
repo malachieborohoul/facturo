@@ -16,7 +16,7 @@ class CustomButtom extends StatelessWidget {
           color: bgColor,
           borderRadius: const BorderRadius.all(Radius.circular(smallFontSize))),
       child:  Padding(
-        padding: const EdgeInsets.all(miniSpacer / 2),
+        padding: const EdgeInsets.symmetric(vertical: miniSpacer / 2, horizontal: smallSpacer),
         child: Center(
             child: Text(
           title,
