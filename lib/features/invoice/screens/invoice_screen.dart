@@ -81,7 +81,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       controller: searchController,
                                       hintText: "Search",
                                      
-                                      onSuccess: () {})
+                                      onChange: (value) {}
+                                      )
                                 ],
                               )
                             ],

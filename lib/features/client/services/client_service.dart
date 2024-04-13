@@ -30,7 +30,7 @@ class ClientService {
     }
   }
 
-  Future<List<Client>> getAllClients(BuildContext context) async {
+  List<Client> getAllClients(BuildContext context)  {
     List<Client> clientList = [];
 
     try {

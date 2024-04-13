@@ -82,7 +82,8 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                             hintText: "Search",
                             width: double.infinity,
                             height: 40,
-                            onSuccess: () {}),
+                            onChange: (value) {}
+                            ),
                         const SizedBox(
                           height: smallFontSize,
                         ),

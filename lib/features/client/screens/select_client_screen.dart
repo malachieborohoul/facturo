@@ -22,12 +22,20 @@ class SelectClientScreen extends StatefulWidget {
 
 class _SelectClientScreenState extends State<SelectClientScreen> {
   TextEditingController searchController = TextEditingController();
-  late Future<List<Client>> clients;
-
+  late List<Client> clients;
+  List<Client> searchResults = [];
+  bool isSeaching = false;
   @override
   void initState() {
     super.initState();
+
     getAllClients();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   void getAllClients() {
@@ -40,6 +48,8 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
         context: context,
         client: client,
         onSuccess: () {
+          searchController.text = "";
+          isSeaching = false;
           getAllClients();
         },
         onFailed: () {});
@@ -49,6 +59,25 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    void searchClients(String searchTerm) {
+      searchResults.clear();
+
+      for (var client in clients) {
+        if (client.businessName
+            .toLowerCase()
+            .contains(searchTerm.toLowerCase().trim())) {
+          searchResults.add(client);
+        }
+      }
+
+      setState(() {
+        // When search starts isSeaching to perform conditions on displaying the
+        isSeaching = true;
+
+        print(isSeaching);
+      });
+    }
 
     return Material(
         color: Colors.transparent,
@@ -113,51 +142,42 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                             hintText: "Search",
                             width: double.infinity,
                             height: 40,
-                            onSuccess: () {}),
+                            onChange: (value) {
+                              if (value.isEmpty) {
+                                getAllClients();
+                              }
+
+                              searchClients(value);
+                            }),
                         const SizedBox(
                           height: smallFontSize,
                         ),
                         Expanded(
-                            child: FutureBuilder(
-                                future: clients,
-                                builder: (context,
-                                    AsyncSnapshot<List<Client>> snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator(
-                                      color: primary,
-                                    );
-                                  } else if (snapshot.connectionState ==
-                                      ConnectionState.done) {
-                                    if (snapshot.hasError) {
-                                      return Text('Error: ${snapshot.error}');
-                                    } else if (snapshot.hasData &&
-                                        snapshot.data!.isNotEmpty) {
-                                      return ListView.builder(
-                                          itemCount: snapshot.data!.length,
-                                          itemBuilder: (context, i) {
-                                            return ClientCard(
-                                              client: snapshot.data![i],
-                                              onSuccessEdit: () {
-                                                getAllClients();
-                                              },
-                                              onSuccessDelete: () async {
-                                                var result =
-                                                    await Navigator.pushNamed(
-                                                        context,
-                                                        ConfirmationModal
-                                                            .routeName,
-                                                        arguments:
-                                                            "Do you want to delete this client");
-                                                if (result == true) {
-                                                  deleteClient(
-                                                      snapshot.data![i]);
-                                                }
-                                              },
-                                            );
-                                          });
-                                    } else {
-                                      return const Column(
+                            child: isSeaching == true
+                                ? searchResults.isNotEmpty
+                                    ? ListView.builder(
+                                        itemCount: searchResults.length,
+                                        itemBuilder: (context, i) {
+                                          return ClientCard(
+                                            client: searchResults[i],
+                                            onSuccessEdit: () {
+                                              getAllClients();
+                                            },
+                                            onSuccessDelete: () async {
+                                              var result =
+                                                  await Navigator.pushNamed(
+                                                      context,
+                                                      ConfirmationModal
+                                                          .routeName,
+                                                      arguments:
+                                                          "Do you want to delete this client");
+                                              if (result == true) {
+                                                deleteClient(searchResults[i]);
+                                              }
+                                            },
+                                          );
+                                        })
+                                    : const Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
@@ -166,12 +186,40 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                                 message: "client"),
                                           ),
                                         ],
-                                      );
-                                    }
-                                  } else {
-                                    return const SizedBox();
-                                  }
-                                }))
+                                      )
+                                : clients.isNotEmpty
+                                    ? ListView.builder(
+                                        itemCount: clients.length,
+                                        itemBuilder: (context, i) {
+                                          return ClientCard(
+                                            client: clients[i],
+                                            onSuccessEdit: () {
+                                              getAllClients();
+                                            },
+                                            onSuccessDelete: () async {
+                                              var result =
+                                                  await Navigator.pushNamed(
+                                                      context,
+                                                      ConfirmationModal
+                                                          .routeName,
+                                                      arguments:
+                                                          "Do you want to delete this client");
+                                              if (result == true) {
+                                                deleteClient(clients[i]);
+                                              }
+                                            },
+                                          );
+                                        })
+                                    : const Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CustomNotFound(
+                                                message: "client"),
+                                          ),
+                                        ],
+                                      ))
                       ],
                     ),
                   ),
