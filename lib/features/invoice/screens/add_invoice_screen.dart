@@ -1,3 +1,4 @@
+import 'package:facturo/features/client/widgets/client_card.dart';
 import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/invoice/widgets/add_button.dart';
 import 'package:facturo/features/invoice/widgets/add_header.dart';
@@ -9,9 +10,11 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/select_client_screen.dart';
+import 'package:facturo/providers/client_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddInvoiceScreen extends StatefulWidget {
   static const routeName = '/add-invoce';
@@ -23,12 +26,15 @@ class AddInvoiceScreen extends StatefulWidget {
 }
 
 class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
+
   TextEditingController issueDateController = TextEditingController(
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
   TextEditingController dueDateController = TextEditingController(
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
   @override
   Widget build(BuildContext context) {
+    final clientProvider = Provider.of<ClientProvider>(context).client;
+
     final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: background,
@@ -202,12 +208,17 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             BorderRadius.all(Radius.circular(smallFontSize))),
                     child: Padding(
                         padding: const EdgeInsets.all(appPadding),
-                        child: InkWell(
+                        child:   InkWell(
                             onTap: () {
                               Navigator.pushNamed(
                                   context, SelectClientScreen.routeName);
                             },
-                            child: const AddButton(title: "Add Client"))),
+                            child: 
+                            
+                           clientProvider.id==0? const AddButton(title: "Add Client"): ClientCard(client: clientProvider, onSuccessDelete: (){}, onSuccessEdit: (){},isActionButtons: false,)
+                            )
+                           
+                            ),
                   ),
                   const SizedBox(
                     height: smallFontSize,

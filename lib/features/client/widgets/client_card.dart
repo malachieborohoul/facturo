@@ -6,15 +6,22 @@ import 'package:facturo/models/client.dart';
 import 'package:flutter/material.dart';
 
 class ClientCard extends StatelessWidget {
-  const ClientCard({super.key, required this.client,  required this.onSuccessDelete, required this.onSuccessEdit});
+  const ClientCard(
+      {super.key,
+      required this.client,
+      required this.onSuccessDelete,
+      required this.onSuccessEdit, 
+       this.isActionButtons=true
+      });
   final Client client;
   final VoidCallback onSuccessDelete;
   final VoidCallback onSuccessEdit;
+  final bool isActionButtons; //The widget has edi and delte buttons 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: miniSpacer),
+      padding:  EdgeInsets.only(bottom: isActionButtons? miniSpacer:0),
       child: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -37,7 +44,7 @@ class ClientCard extends StatelessWidget {
                   Text(client.businessName)
                 ],
               ),
-              Row(
+            isActionButtons?  Row(
                 children: [
                   IconButton(
                       onPressed: () async {
@@ -61,7 +68,7 @@ class ClientCard extends StatelessWidget {
                         color: Colors.redAccent,
                       ))
                 ],
-              )
+              ): const SizedBox()
             ],
           ),
         ),

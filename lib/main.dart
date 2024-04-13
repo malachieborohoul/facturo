@@ -4,9 +4,11 @@ import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
+import 'package:facturo/providers/client_provider.dart';
 import 'package:facturo/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   // Initialize hive before MyApp runs
@@ -24,7 +26,13 @@ void main() async {
   await Hive.openBox("items");
   await Hive.openBox("item_types");
 
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => ClientProvider(),
+    ),
+  ],
+  child:  const MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {

@@ -9,7 +9,9 @@ import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/add_client_screen.dart';
 import 'package:facturo/models/client.dart';
+import 'package:facturo/providers/client_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SelectClientScreen extends StatefulWidget {
   static const routeName = '/select-client';
@@ -74,8 +76,6 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
       setState(() {
         // When search starts isSeaching to perform conditions on displaying the
         isSeaching = true;
-
-        print(isSeaching);
       });
     }
 
@@ -158,23 +158,33 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                     ? ListView.builder(
                                         itemCount: searchResults.length,
                                         itemBuilder: (context, i) {
-                                          return ClientCard(
-                                            client: searchResults[i],
-                                            onSuccessEdit: () {
-                                              getAllClients();
-                                            },
-                                            onSuccessDelete: () async {
-                                              var result =
-                                                  await Navigator.pushNamed(
+                                          return InkWell(
+                                            onTap: () {
+                                              Provider.of<ClientProvider>(
                                                       context,
-                                                      ConfirmationModal
-                                                          .routeName,
-                                                      arguments:
-                                                          "Do you want to delete this client");
-                                              if (result == true) {
-                                                deleteClient(searchResults[i]);
-                                              }
+                                                      listen: false)
+                                                  .setClient(clients[i]);
+                                              Navigator.pop(context);
                                             },
+                                            child: ClientCard(
+                                              client: searchResults[i],
+                                              onSuccessEdit: () {
+                                                getAllClients();
+                                              },
+                                              onSuccessDelete: () async {
+                                                var result =
+                                                    await Navigator.pushNamed(
+                                                        context,
+                                                        ConfirmationModal
+                                                            .routeName,
+                                                        arguments:
+                                                            "Do you want to delete this client");
+                                                if (result == true) {
+                                                  deleteClient(
+                                                      searchResults[i]);
+                                                }
+                                              },
+                                            ),
                                           );
                                         })
                                     : const Column(
@@ -191,23 +201,32 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                     ? ListView.builder(
                                         itemCount: clients.length,
                                         itemBuilder: (context, i) {
-                                          return ClientCard(
-                                            client: clients[i],
-                                            onSuccessEdit: () {
-                                              getAllClients();
-                                            },
-                                            onSuccessDelete: () async {
-                                              var result =
-                                                  await Navigator.pushNamed(
+                                          return InkWell(
+                                            onTap: () {
+                                              Provider.of<ClientProvider>(
                                                       context,
-                                                      ConfirmationModal
-                                                          .routeName,
-                                                      arguments:
-                                                          "Do you want to delete this client");
-                                              if (result == true) {
-                                                deleteClient(clients[i]);
-                                              }
+                                                      listen: false)
+                                                  .setClient(clients[i]);
+                                              Navigator.pop(context);
                                             },
+                                            child: ClientCard(
+                                              client: clients[i],
+                                              onSuccessEdit: () {
+                                                getAllClients();
+                                              },
+                                              onSuccessDelete: () async {
+                                                var result =
+                                                    await Navigator.pushNamed(
+                                                        context,
+                                                        ConfirmationModal
+                                                            .routeName,
+                                                        arguments:
+                                                            "Do you want to delete this client");
+                                                if (result == true) {
+                                                  deleteClient(clients[i]);
+                                                }
+                                              },
+                                            ),
                                           );
                                         })
                                     : const Column(

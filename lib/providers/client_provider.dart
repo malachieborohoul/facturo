@@ -5,8 +5,8 @@ class ClientProvider extends ChangeNotifier {
   Client _client = Client(id: 0, businessName: "", name: "", address: "");
   Client get client => _client;
 
-  void setClient(Map<String, dynamic> client) {
-    _client = Client.fromMap(client);
+  void setClient(Client client) {
+    _client = client;
     notifyListeners();
   }
 }
