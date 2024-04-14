@@ -4,7 +4,7 @@ import 'package:facturo/constants/color.dart';
 import 'package:flutter/material.dart';
 
 class ClientScreen extends StatefulWidget {
-   static const routeName = '/clients';
+  static const routeName = '/clients';
   const ClientScreen({super.key});
 
   @override
@@ -20,12 +20,16 @@ class _ClientScreenState extends State<ClientScreen> {
         children: [
           const Expanded(
               flex: 2,
-              child:  DashboardMenu(codeScreen: 2,)),
+              child: DashboardMenu(
+                codeScreen: 2,
+              )),
           Expanded(
               flex: 5,
               child: Container(
                 color: background,
-                child: const Center(child: Text("Clients"),),
+                child: const Center(
+                  child: Text("Clients"),
+                ),
               )),
           Expanded(
               flex: 3,

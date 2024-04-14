@@ -10,7 +10,7 @@ part 'item.g.dart';
 class Item {
   @HiveField(0)
 
-  final int id;
+   int id;
   @HiveField(1)
 
   final String name;

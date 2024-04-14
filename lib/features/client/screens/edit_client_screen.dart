@@ -24,8 +24,6 @@ class _EditClientScreenState extends State<EditClientScreen> {
   TextEditingController addressController = TextEditingController();
   bool isLoading = false;
 
-
-
   @override
   void dispose() {
     businessNameController.dispose();
@@ -36,25 +34,26 @@ class _EditClientScreenState extends State<EditClientScreen> {
 
   void editClient() {
     clientService.editClient(
-        context: context,
-        businessName: businessNameController.text,
-        name: nameController.text,
-        address: addressController.text,
-        client: widget.client,
-        onSuccess: () {
-          // Navigator.pushNamed(context, SuccessFieldModal.routeName,
-          //     arguments: "Client added");
+      context: context,
+      businessName: businessNameController.text,
+      name: nameController.text,
+      address: addressController.text,
+      client: widget.client,
+      onSuccess: () {
+        // Navigator.pushNamed(context, SuccessFieldModal.routeName,
+        //     arguments: "Client added");
 
-          Navigator.pop(context, true);
-        },
-        onFailed: () {}, );
+        Navigator.pop(context, true);
+      },
+      onFailed: () {},
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-     if (isLoading) {
+    if (isLoading) {
       businessNameController.text = businessNameController.text.trim();
       nameController.text = nameController.text.trim();
       addressController.text = addressController.text.trim();
@@ -63,7 +62,6 @@ class _EditClientScreenState extends State<EditClientScreen> {
       nameController.text = widget.client.name;
       addressController.text = widget.client.address;
     }
-
 
     return Material(
         color: Colors.transparent,
@@ -120,7 +118,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                 )),
                           ],
                         ),
-                         const SizedBox(
+                        const SizedBox(
                           height: smallFontSize,
                         ),
                         const CustomHeader(title: "Edit Client"),

@@ -70,7 +70,7 @@ class _AddItemTypeScreenState extends State<AddItemTypeScreen> {
                                 )),
                           ],
                         ),
-                        const CustomHeader(title: "Add Item"),
+                        const CustomHeader(title: "Add Item Type"),
                         const SizedBox(
                           height: smallFontSize,
                         ),

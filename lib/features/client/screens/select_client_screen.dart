@@ -163,7 +163,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                               Provider.of<ClientProvider>(
                                                       context,
                                                       listen: false)
-                                                  .setClient(clients[i]);
+                                                  .setClient(searchResults[i]);
                                               Navigator.pop(context);
                                             },
                                             child: ClientCard(

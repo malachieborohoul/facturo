@@ -1,28 +1,26 @@
-import 'package:facturo/models/client.dart';
+import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class ClientService {
-  final clients = Hive.box("clients");
+class InventoryService {
+  final itemTypes = Hive.box("item_types");
 
-  void addClient({
+  void addItemType({
     required BuildContext context,
-    required String businessName,
     required String name,
-    required String address,
+    required String description,
     required VoidCallback onSuccess,
     required VoidCallback onFailed,
   }) async {
     try {
-      await clients.add(Client.fromMap({
-        'businessName': businessName,
+      await itemTypes.add(ItemType.fromMap({
         'name': name,
-        'address': address,
+        'description': description,
       }));
       onSuccess();
 
       // if (kDebugMode) {
-      //   print(client);
+      //   print(item_types);
       // }
     } catch (e) {
       // showSnackBar(context, e.toString());
@@ -30,30 +28,30 @@ class ClientService {
     }
   }
 
-  List<Client> getAllClients(BuildContext context) {
-    List<Client> clientList = [];
+  List<ItemType> getAllItemTypes(BuildContext context) {
+    List<ItemType> itemTypesList = [];
 
     try {
-      clients.keys.map((key) {
-        var client = clients.get(key) as Client;
-        client.id = key;
-        clientList.add(client);
+      itemTypes.keys.map((key) {
+        var itemType = itemTypes.get(key) as ItemType;
+        itemType.id = key;
+        itemTypesList.add(itemType);
       }).toList();
     } catch (e) {
       // showSnackBar(context, e.toString());
       // showSnackBar(context, "Please Check your internet connection");
     }
-    return clientList;
+    return itemTypesList;
   }
 
-  void deleteClient({
+  void deleteItemType({
     required BuildContext context,
-    required Client client,
+    required ItemType itemType,
     required VoidCallback onSuccess,
     required VoidCallback onFailed,
   }) async {
     try {
-      clients.delete(client.id);
+      itemTypes.delete(itemType.id);
 
       onSuccess();
     } catch (e) {
@@ -62,27 +60,25 @@ class ClientService {
     }
   }
 
-  void editClient({
+  void editItemType({
     required BuildContext context,
-    required String businessName,
     required String name,
-    required String address,
-    required Client client,
+    required String description,
+    required ItemType itemType,
     required VoidCallback onSuccess,
     required VoidCallback onFailed,
   }) async {
     try {
-      await clients.put(
-          client.id,
-          Client.fromMap({
-            'businessName': businessName,
+      await itemTypes.put(
+          itemType.id,
+          ItemType.fromMap({
             'name': name,
-            'address': address,
+            'description': description,
           }));
       onSuccess();
 
       // if (kDebugMode) {
-      //   print(client);
+      //   print(item_types);
       // }
     } catch (e) {
       // showSnackBar(context, e.toString());

@@ -73,7 +73,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                 ))
                           ],
                         ),
-                        const CustomHeader(title: "Items"),
+                        const CustomHeader(title: "Items Type"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
