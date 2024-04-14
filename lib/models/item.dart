@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:hive/hive.dart';
 part 'item.g.dart';
@@ -22,9 +21,6 @@ class Item {
   final double price;
   @HiveField(4)
 
-  final Invoice invoice;
-  @HiveField(5)
-
   final ItemType itemType;
 
   Item(
@@ -32,7 +28,6 @@ class Item {
       required this.name,
       required this.quantity,
       required this.price,
-      required this.invoice,
       required this.itemType,
       
       });
@@ -43,7 +38,6 @@ class Item {
       'name': name,
       'quantity': quantity,
       'price': price,
-      'invoice': invoice,
       'itemType': itemType,
     };
   }
@@ -54,7 +48,6 @@ class Item {
       name: map['name'] ?? '',
       quantity: map['quantity'] ?? 0,
       price: map['price'] ?? 0.0,
-      invoice: Invoice.fromJson(map['invoice']),
       itemType: ItemType.fromJson(map['itemType']),
     );
   }

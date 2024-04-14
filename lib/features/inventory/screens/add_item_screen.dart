@@ -19,6 +19,8 @@ class AddItemScreen extends StatefulWidget {
 
 class _AddItemScreenState extends State<AddItemScreen> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -90,21 +92,24 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 children: [
                                   CustomTextfield(
                                       controller: nameController,
-                                      hintText: "Business Name",
-                                      onSuccess: () {}),
-                                  const SizedBox(
-                                    height: smallFontSize,
-                                  ),
-                                  CustomTextfield(
-                                      controller: nameController,
                                       hintText: "Name",
                                       onSuccess: () {}),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
-                                      controller: nameController,
-                                      hintText: "Address",
+                                      controller: quantityController,
+                                      hintText: "Quantity",
+                                      textInputType: TextInputType.number,
+                                      onSuccess: () {}),
+                                  const SizedBox(
+                                    height: smallFontSize,
+                                  ),
+                                  CustomTextfield(
+                                      controller: priceController,
+                                      textInputType: TextInputType.number,
+
+                                      hintText: "Price",
                                       onSuccess: () {}),
                                 ],
                               ),

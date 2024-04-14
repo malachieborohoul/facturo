@@ -1,44 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item.dart';
+part of 'invoice_item.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ItemAdapter extends TypeAdapter<Item> {
+class InvoiceItemAdapter extends TypeAdapter<InvoiceItem> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
-  Item read(BinaryReader reader) {
+  InvoiceItem read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Item(
+    return InvoiceItem(
       id: fields[0] as int,
-      name: fields[1] as String,
-      quantity: fields[2] as int,
-      price: fields[3] as double,
-      itemType: fields[4] as ItemType,
+      invoice: fields[1] as Invoice,
+      item: fields[2] as Item,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Item obj) {
+  void write(BinaryWriter writer, InvoiceItem obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.invoice)
       ..writeByte(2)
-      ..write(obj.quantity)
-      ..writeByte(3)
-      ..write(obj.price)
-      ..writeByte(4)
-      ..write(obj.itemType);
+      ..write(obj.item);
   }
 
   @override
@@ -47,7 +41,7 @@ class ItemAdapter extends TypeAdapter<Item> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ItemAdapter &&
+      other is InvoiceItemAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
