@@ -1,13 +1,14 @@
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:facturo/models/item.dart';
+import 'package:facturo/features/inventory/screens/edit_item_type_screen.dart';
+import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
-class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.item, required this.onSuccessDelete, required this.onSuccessEdit,  this.isActionButtons=true});
+class ItemTypeCard extends StatelessWidget {
+  const ItemTypeCard({super.key, required this.itemType, required this.onSuccessDelete, required this.onSuccessEdit,  this.isActionButtons=true});
 
-    final Item item;
+  final ItemType itemType;
   final VoidCallback onSuccessDelete;
   final VoidCallback onSuccessEdit;
   final bool isActionButtons; //The widget has edi and delte buttons 
@@ -32,19 +33,19 @@ class ItemCard extends StatelessWidget {
                Row(children: [
                 const Icon(Icons.inventory_2_outlined, color: textBlack,),
                 const SizedBox(width: smallFontSize,),
-                Text(item.name)
+                Text(itemType.name)
               ],),
           
                   isActionButtons?  Row(
                 children: [
                   IconButton(
                       onPressed: () async {
-                        // var result = await Navigator.pushNamed(
-                        //     context, EditI.routeName,
-                        //     arguments: client);
-                        // if (result == true) {
-                        //   onSuccessEdit();
-                        // }
+                        var result = await Navigator.pushNamed(
+                            context, EditItemTypeScreen.routeName,
+                            arguments: itemType);
+                        if (result == true) {
+                          onSuccessEdit();
+                        }
                       },
                       icon: const Icon(
                         Icons.edit,

@@ -7,6 +7,7 @@ import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
 import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/screens/add_item_type_screen.dart';
+import 'package:facturo/features/inventory/screens/edit_item_type_screen.dart';
 import 'package:facturo/features/inventory/screens/inventory_screen.dart';
 import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/inventory/screens/select_item_type_screen.dart';
@@ -14,6 +15,7 @@ import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:facturo/features/invoice/screens/invoice_screen.dart';
 import 'package:facturo/features/setting/screens/setting_screen.dart';
 import 'package:facturo/models/client.dart';
+import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -140,6 +142,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
             return FadeTransition(
               opacity: animation,
               child:  EditClientScreen(client: client,),
+            );
+          });
+
+      case EditItemTypeScreen.routeName:
+      var itemType = routeSettings.arguments as ItemType;
+      return PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child:  EditItemTypeScreen(itemType: itemType,),
             );
           });
     case ConfirmationModal.routeName:

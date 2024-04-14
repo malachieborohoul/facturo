@@ -4,7 +4,6 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/inventory/screens/add_item_screen.dart';
-import 'package:facturo/features/inventory/widgets/item_card.dart';
 import 'package:flutter/material.dart';
 
 class SelectItemScreen extends StatefulWidget {

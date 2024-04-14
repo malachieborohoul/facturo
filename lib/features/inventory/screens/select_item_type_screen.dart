@@ -6,9 +6,9 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
-import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/screens/add_item_type_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_card.dart';
+import 'package:facturo/features/inventory/widgets/item_type_card.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
@@ -163,7 +163,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                               //     .setClient(searchResults[i]);
                                               // Navigator.pop(context);
                                             },
-                                            child: ItemCard(
+                                            child: ItemTypeCard(
                                               itemType: searchResults[i],
                                               onSuccessEdit: () {
                                                 getAllItemTypes();
@@ -175,7 +175,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this client");
+                                                            "Do you want to delete this item type");
                                                 if (result == true) {
                                                   deleteItemType(
                                                       searchResults[i]);
@@ -206,7 +206,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                               //     .setClient(clients[i]);
                                               // Navigator.pop(context);
                                             },
-                                            child: ItemCard(
+                                            child: ItemTypeCard(
                                               itemType: itemTypes[i],
                                               onSuccessEdit: () {
                                                 getAllItemTypes();
@@ -218,7 +218,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this client");
+                                                            "Do you want to delete this item type");
                                                 if (result == true) {
                                                   deleteItemType(itemTypes[i]);
                                                 }

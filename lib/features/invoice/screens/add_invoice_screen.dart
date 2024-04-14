@@ -1,5 +1,4 @@
 import 'package:facturo/features/client/widgets/client_card.dart';
-import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/inventory/screens/select_item_type_screen.dart';
 import 'package:facturo/features/invoice/widgets/add_button.dart';
 import 'package:facturo/features/invoice/widgets/add_header.dart';
