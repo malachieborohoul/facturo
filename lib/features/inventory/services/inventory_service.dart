@@ -98,14 +98,14 @@ class InventoryService {
     required VoidCallback onFailed,
   }) async {
     try {
-      final item = await items.add(Item.fromMap({
+     await items.add(
+      Item.fromMap({
         'name': name,
         'quantity': quantity,
         'price': price,
-        'itemType': itemType.toMap(),
+        'itemType': itemType.toJson(),
       }));
 
-      print(item);
       onSuccess();
 
       // if (kDebugMode) {
@@ -142,7 +142,7 @@ class InventoryService {
     required VoidCallback onFailed,
   }) async {
     try {
-      itemTypes.delete(item.id);
+      items.delete(item.id);
 
       onSuccess();
     } catch (e) {
@@ -154,7 +154,9 @@ class InventoryService {
   void editItem({
     required BuildContext context,
     required String name,
-    required String description,
+    required int quantity,
+    required double price,
+    required ItemType itemType,
     required Item item,
     required VoidCallback onSuccess,
     required VoidCallback onFailed,
@@ -162,10 +164,13 @@ class InventoryService {
     try {
       await items.put(
           item.id,
-          ItemType.fromMap({
-            'name': name,
-            'description': description,
-          }));
+           Item.fromMap({
+        'name': name,
+        'quantity': quantity,
+        'price': price,
+        'itemType': itemType.toJson(),
+      })
+          );
       onSuccess();
 
       // if (kDebugMode) {

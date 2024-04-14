@@ -212,7 +212,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                               Navigator.pushNamed(
                                   context, SelectClientScreen.routeName);
                             },
-                            child: clientProvider.id == 0
+                            child: clientProvider.businessName.isEmpty
                                 ? const AddButton(title: "Add Client")
                                 : ClientCard(
                                     client: clientProvider,

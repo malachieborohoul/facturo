@@ -1,3 +1,4 @@
+import 'package:facturo/common/arguments/edit_item_args.dart';
 import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/common/widgets/success_field_modal.dart';
@@ -7,6 +8,7 @@ import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
 import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/screens/add_item_type_screen.dart';
+import 'package:facturo/features/inventory/screens/edit_item_screen.dart';
 import 'package:facturo/features/inventory/screens/edit_item_type_screen.dart';
 import 'package:facturo/features/inventory/screens/inventory_screen.dart';
 import 'package:facturo/features/inventory/screens/select_item_screen.dart';
@@ -157,6 +159,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
             return FadeTransition(
               opacity: animation,
               child:  EditItemTypeScreen(itemType: itemType,),
+            );
+          });
+
+     case EditItemScreen.routeName:
+      var editItemArgs = routeSettings.arguments as EditItemArgs;
+      return PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child:  EditItemScreen(itemType: editItemArgs.itemType, item: editItemArgs.item, ),
             );
           });
     case ConfirmationModal.routeName:

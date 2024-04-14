@@ -1,13 +1,17 @@
+import 'package:facturo/common/arguments/edit_item_args.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
+import 'package:facturo/features/inventory/screens/edit_item_screen.dart';
 import 'package:facturo/models/item.dart';
+import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.item, required this.onSuccessDelete, required this.onSuccessEdit,  this.isActionButtons=true});
+  const ItemCard({super.key, required this.item, required this.onSuccessDelete, required this.onSuccessEdit,  this.isActionButtons=true, required this.itemType});
 
     final Item item;
+    final ItemType itemType;
   final VoidCallback onSuccessDelete;
   final VoidCallback onSuccessEdit;
   final bool isActionButtons; //The widget has edi and delte buttons 
@@ -39,12 +43,12 @@ class ItemCard extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () async {
-                        // var result = await Navigator.pushNamed(
-                        //     context, EditI.routeName,
-                        //     arguments: client);
-                        // if (result == true) {
-                        //   onSuccessEdit();
-                        // }
+                        var result = await Navigator.pushNamed(
+                            context, EditItemScreen.routeName,
+                            arguments: EditItemArgs(item: item, itemType: itemType));
+                        if (result == true) {
+                          onSuccessEdit();
+                        }
                       },
                       icon: const Icon(
                         Icons.edit,

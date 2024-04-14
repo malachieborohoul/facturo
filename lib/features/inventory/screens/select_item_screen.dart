@@ -67,9 +67,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
       searchResults.clear();
 
       for (var item in items) {
-        if (item.name
-            .toLowerCase()
-            .contains(searchTerm.toLowerCase().trim())) {
+        if (item.name.toLowerCase().contains(searchTerm.toLowerCase().trim())) {
           searchResults.add(item);
         }
       }
@@ -122,7 +120,8 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                             IconButton(
                                 onPressed: () async {
                                   final result = await Navigator.pushNamed(
-                                      context, AddItemScreen.routeName, arguments: widget.itemType);
+                                      context, AddItemScreen.routeName,
+                                      arguments: widget.itemType);
                                   if (result == true) {
                                     getAllItems();
                                   }
@@ -167,6 +166,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                               // Navigator.pop(context);
                                             },
                                             child: ItemCard(
+                                              itemType: widget.itemType,
                                               item: searchResults[i],
                                               onSuccessEdit: () {
                                                 getAllItems();
@@ -180,8 +180,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                                         arguments:
                                                             "Do you want to delete this item ");
                                                 if (result == true) {
-                                                  deleteItem(
-                                                      searchResults[i]);
+                                                  deleteItem(searchResults[i]);
                                                 }
                                               },
                                             ),
@@ -192,8 +191,8 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Center(
-                                            child: CustomNotFound(
-                                                message: "item"),
+                                            child:
+                                                CustomNotFound(message: "item"),
                                           ),
                                         ],
                                       )
@@ -210,6 +209,8 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                               // Navigator.pop(context);
                                             },
                                             child: ItemCard(
+                                              itemType: widget.itemType,
+
                                               item: items[i],
                                               onSuccessEdit: () {
                                                 getAllItems();
@@ -234,8 +235,8 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Center(
-                                            child: CustomNotFound(
-                                                message: "item"),
+                                            child:
+                                                CustomNotFound(message: "item"),
                                           ),
                                         ],
                                       ))

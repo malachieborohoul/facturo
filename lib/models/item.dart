@@ -48,7 +48,7 @@ class Item {
       name: map['name'] ?? '',
       quantity: map['quantity'] ?? 0,
       price: map['price'] ?? 0.0,
-      itemType: map['itemType'] ,
+      itemType: ItemType.fromJson(map['itemType']),
     );
   }
 
