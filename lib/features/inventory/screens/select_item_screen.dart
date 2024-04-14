@@ -87,7 +87,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        const ItemCard(),
+                        // const ItemCard(),
                       ],
                     ),
                   ),

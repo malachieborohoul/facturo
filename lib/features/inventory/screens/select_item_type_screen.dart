@@ -1,10 +1,15 @@
+import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
+import 'package:facturo/common/widgets/custom_not_found.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/inventory/screens/add_item_screen.dart';
+import 'package:facturo/features/inventory/screens/add_item_type_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_card.dart';
+import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
 class SelectItemTypeScreen extends StatefulWidget {
@@ -18,10 +23,59 @@ class SelectItemTypeScreen extends StatefulWidget {
 
 class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
   TextEditingController searchController = TextEditingController();
+  late List<ItemType> itemTypes;
+  List<ItemType> searchResults = [];
+  bool isSeaching = false;
+  @override
+  void initState() {
+    super.initState();
+
+    getAllItemTypes();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void getAllItemTypes() {
+    itemTypes = inventoryService.getAllItemTypes(context);
+    setState(() {});
+  }
+
+    void deleteItemType(ItemType itemType) {
+    inventoryService.deleteItemType(
+        context: context,
+        itemType: itemType,
+        onSuccess: () {
+          searchController.text = "";
+          isSeaching = false;
+          getAllItemTypes();
+        },
+        onFailed: () {});
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+      void searchItemTypes(String searchTerm) {
+      searchResults.clear();
+
+      for (var itemType in itemTypes) {
+        if (itemType.name
+            .toLowerCase()
+            .contains(searchTerm.toLowerCase().trim())) {
+          searchResults.add(itemType);
+        }
+      }
+
+      setState(() {
+        // When search starts isSeaching to perform conditions on displaying the
+        isSeaching = true;
+      });
+    }
 
     return Material(
         color: Colors.transparent,
@@ -63,9 +117,12 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                   style: TextStyle(color: primary),
                                 )),
                             IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, AddItemScreen.routeName);
+                                onPressed: () async{
+                                 final result= await Navigator.pushNamed(
+                                      context, AddItemTypeScreen.routeName);
+                                  if (result == true) {
+                                    getAllItemTypes();
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.add,
@@ -73,7 +130,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                 ))
                           ],
                         ),
-                        const CustomHeader(title: "Items Type"),
+                        const CustomHeader(title: "Item Types"),  
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -82,12 +139,103 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                             hintText: "Search",
                             width: double.infinity,
                             height: 40,
-                            onChange: (value) {}
-                            ),
+                            onChange: (value) {
+                                if (value.isEmpty) {
+                                getAllItemTypes();
+                              }
+
+                              searchItemTypes(value);
+                            }),
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        const ItemCard(),
+                              Expanded(
+                            child: isSeaching == true
+                                ? searchResults.isNotEmpty
+                                    ? ListView.builder(
+                                        itemCount: searchResults.length,
+                                        itemBuilder: (context, i) {
+                                          return InkWell(
+                                            onTap: () {
+                                              // Provider.of<ClientProvider>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .setClient(searchResults[i]);
+                                              // Navigator.pop(context);
+                                            },
+                                            child: ItemCard(
+                                              itemType: searchResults[i],
+                                              onSuccessEdit: () {
+                                                getAllItemTypes();
+                                              },
+                                              onSuccessDelete: () async {
+                                                var result =
+                                                    await Navigator.pushNamed(
+                                                        context,
+                                                        ConfirmationModal
+                                                            .routeName,
+                                                        arguments:
+                                                            "Do you want to delete this client");
+                                                if (result == true) {
+                                                  deleteItemType(
+                                                      searchResults[i]);
+                                                }
+                                              },
+                                            ),
+                                          );
+                                        })
+                                    : const Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CustomNotFound(
+                                                message: "item type"),
+                                          ),
+                                        ],
+                                      )
+                                : itemTypes.isNotEmpty
+                                    ? ListView.builder(
+                                        itemCount: itemTypes.length,
+                                        itemBuilder: (context, i) {
+                                          return InkWell(
+                                            onTap: () {
+                                              // Provider.of<ClientProvider>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .setClient(clients[i]);
+                                              // Navigator.pop(context);
+                                            },
+                                            child: ItemCard(
+                                              itemType: itemTypes[i],
+                                              onSuccessEdit: () {
+                                                getAllItemTypes();
+                                              },
+                                              onSuccessDelete: () async {
+                                                var result =
+                                                    await Navigator.pushNamed(
+                                                        context,
+                                                        ConfirmationModal
+                                                            .routeName,
+                                                        arguments:
+                                                            "Do you want to delete this client");
+                                                if (result == true) {
+                                                  deleteItemType(itemTypes[i]);
+                                                }
+                                              },
+                                            ),
+                                          );
+                                        })
+                                    : const Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CustomNotFound(
+                                                message: "client"),
+                                          ),
+                                        ],
+                                      ))
                       ],
                     ),
                   ),

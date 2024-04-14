@@ -1,6 +1,8 @@
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_textfield.dart';
+import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,28 @@ class AddItemTypeScreen extends StatefulWidget {
 
 class _AddItemTypeScreenState extends State<AddItemTypeScreen> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+    @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
+    void addItemType() {
+    inventoryService.addItemType(
+        context: context,
+        name: nameController.text,
+        description: descriptionController.text,
+        onSuccess: () {
+          // Navigator.pushNamed(context, SuccessFieldModal.routeName,
+          //     arguments: "Client added");
+
+          Navigator.pop(context, true);
+        },
+        onFailed: () {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +86,22 @@ class _AddItemTypeScreenState extends State<AddItemTypeScreen> {
                                 )),
                             InkWell(
                                 onTap: () {
-                                  Navigator.pop(context);
+                                     if (nameController.text.isEmpty) {
+                                    Navigator.pushNamed(
+                                        context, ErrorFieldModal.routeName,
+                                        arguments: "Company Name");
+                                  } else {
+                                    addItemType();
+                                  }
                                 },
                                 child: const Text(
                                   "Done",
                                   style: TextStyle(color: primary),
                                 )),
                           ],
+                        ),
+                         const SizedBox(
+                          height: smallFontSize,
                         ),
                         const CustomHeader(title: "Add Item Type"),
                         const SizedBox(
@@ -87,22 +120,16 @@ class _AddItemTypeScreenState extends State<AddItemTypeScreen> {
                                 children: [
                                   CustomTextfield(
                                       controller: nameController,
-                                      hintText: "Business Name",
-                                      onSuccess: () {}),
-                                  const SizedBox(
-                                    height: smallFontSize,
-                                  ),
-                                  CustomTextfield(
-                                      controller: nameController,
                                       hintText: "Name",
                                       onSuccess: () {}),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
-                                      controller: nameController,
-                                      hintText: "Address",
+                                      controller: descriptionController,
+                                      hintText: "Description",
                                       onSuccess: () {}),
+                                 
                                 ],
                               ),
                             )),
