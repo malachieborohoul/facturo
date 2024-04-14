@@ -73,22 +73,26 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       });
 
     case AddItemScreen.routeName:
+      var itemType = routeSettings.arguments as ItemType;
+
       return PageRouteBuilder(
           opaque: false,
           pageBuilder: (_, animation, __) {
             return FadeTransition(
               opacity: animation,
-              child: const AddItemScreen(),
+              child:  AddItemScreen(itemType: itemType,),
             );
           });
 
     case SelectItemScreen.routeName:
+      var itemType = routeSettings.arguments as ItemType;
+
       return PageRouteBuilder(
           opaque: false,
           pageBuilder: (_, animation, __) {
             return FadeTransition(
               opacity: animation,
-              child: const SelectItemScreen(),
+              child:  SelectItemScreen(itemType: itemType,),
             );
           });
 

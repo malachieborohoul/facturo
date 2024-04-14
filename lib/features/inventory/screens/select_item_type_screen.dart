@@ -7,7 +7,7 @@ import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/inventory/screens/add_item_type_screen.dart';
-import 'package:facturo/features/inventory/widgets/item_card.dart';
+import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_type_card.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
     setState(() {});
   }
 
-    void deleteItemType(ItemType itemType) {
+  void deleteItemType(ItemType itemType) {
     inventoryService.deleteItemType(
         context: context,
         itemType: itemType,
@@ -60,7 +60,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-      void searchItemTypes(String searchTerm) {
+    void searchItemTypes(String searchTerm) {
       searchResults.clear();
 
       for (var itemType in itemTypes) {
@@ -117,8 +117,8 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                   style: TextStyle(color: primary),
                                 )),
                             IconButton(
-                                onPressed: () async{
-                                 final result= await Navigator.pushNamed(
+                                onPressed: () async {
+                                  final result = await Navigator.pushNamed(
                                       context, AddItemTypeScreen.routeName);
                                   if (result == true) {
                                     getAllItemTypes();
@@ -130,7 +130,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                 ))
                           ],
                         ),
-                        const CustomHeader(title: "Item Types"),  
+                        const CustomHeader(title: "Item Types"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -140,7 +140,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                             width: double.infinity,
                             height: 40,
                             onChange: (value) {
-                                if (value.isEmpty) {
+                              if (value.isEmpty) {
                                 getAllItemTypes();
                               }
 
@@ -149,7 +149,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                              Expanded(
+                        Expanded(
                             child: isSeaching == true
                                 ? searchResults.isNotEmpty
                                     ? ListView.builder(
@@ -205,6 +205,9 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                               //         listen: false)
                                               //     .setClient(clients[i]);
                                               // Navigator.pop(context);
+                                              Navigator.pushNamed(context,
+                                                  SelectItemScreen.routeName,
+                                                  arguments: itemTypes[i]);
                                             },
                                             child: ItemTypeCard(
                                               itemType: itemTypes[i],
@@ -232,7 +235,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                         children: [
                                           Center(
                                             child: CustomNotFound(
-                                                message: "client"),
+                                                message: "item type"),
                                           ),
                                         ],
                                       ))

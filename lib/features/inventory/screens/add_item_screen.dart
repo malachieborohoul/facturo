@@ -3,12 +3,15 @@ import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
+import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
 class AddItemScreen extends StatefulWidget {
   static const routeName = '/add-item';
 
-  const AddItemScreen({super.key});
+  const AddItemScreen({super.key, required this.itemType});
+  final ItemType itemType;
+
 
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();
@@ -28,7 +31,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             Positioned.fill(
                 child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               child: Container(
                 color: Colors.black26,

@@ -1,9 +1,11 @@
+import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class InventoryService {
   final itemTypes = Hive.box("item_types");
+  final items = Hive.box("items");
 
   void addItemType({
     required BuildContext context,
@@ -71,6 +73,92 @@ class InventoryService {
     try {
       await itemTypes.put(
           itemType.id,
+          ItemType.fromMap({
+            'name': name,
+            'description': description,
+          }));
+      onSuccess();
+
+      // if (kDebugMode) {
+      //   print(item_types);
+      // }
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+  }
+
+
+
+   void addItem({
+    required BuildContext context,
+    required String name,
+    required String description,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+      await items.add(Item.fromMap({
+        'name': name,
+        'description': description,
+      }));
+      onSuccess();
+
+      // if (kDebugMode) {
+      //   print(item_types);
+      // }
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+  }
+
+  List<Item> getAllItems(BuildContext context, ItemType itemType) {
+    List<Item> itemsList = [];
+
+    try {
+      items.keys.map((key) {
+        var item = items.get(key) as Item;
+        item.id = key;
+        if(item.itemType.id==itemType.id){
+          itemsList.add(item);
+
+        }
+      }).toList();
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+    return itemsList;
+  }
+
+  void deleteItem({
+    required BuildContext context,
+    required Item item,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+      itemTypes.delete(item.id);
+
+      onSuccess();
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+  }
+
+  void editItem({
+    required BuildContext context,
+    required String name,
+    required String description,
+    required Item item,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+      await items.put(
+          item.id,
           ItemType.fromMap({
             'name': name,
             'description': description,
