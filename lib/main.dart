@@ -25,6 +25,7 @@ void main() async {
   await Hive.openBox("clients");
   await Hive.openBox("items");
   await Hive.openBox("item_types");
+  await Hive.openBox("invoice_items");
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(

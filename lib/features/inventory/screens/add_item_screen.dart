@@ -101,6 +101,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                       controller: quantityController,
                                       hintText: "Quantity",
                                       textInputType: TextInputType.number,
+                                      
                                       onSuccess: () {}),
                                   const SizedBox(
                                     height: smallFontSize,

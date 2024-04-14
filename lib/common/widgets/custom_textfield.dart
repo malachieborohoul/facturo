@@ -4,6 +4,7 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextfield extends StatelessWidget {
   const CustomTextfield(
@@ -44,7 +45,10 @@ class CustomTextfield extends StatelessWidget {
       child:  TextField(
               readOnly: readOnly ? true : false,
               controller: controller,
-              keyboardType: TextInputType.name,
+              keyboardType: textInputType,
+              inputFormatters: textInputType==TextInputType.number ?  [
+                FilteringTextInputFormatter.digitsOnly
+              ]:[],
               textAlign: TextAlign.left,
               style: const TextStyle(fontSize: smallFontSize * 0.8, color: textBlack),
               decoration: InputDecoration(

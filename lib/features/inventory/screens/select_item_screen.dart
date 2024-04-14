@@ -122,7 +122,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                             IconButton(
                                 onPressed: () async {
                                   final result = await Navigator.pushNamed(
-                                      context, AddItemScreen.routeName);
+                                      context, AddItemScreen.routeName, arguments: widget.itemType);
                                   if (result == true) {
                                     getAllItems();
                                   }
