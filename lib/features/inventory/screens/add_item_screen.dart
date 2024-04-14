@@ -1,6 +1,8 @@
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_textfield.dart';
+import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/constants/color.dart';
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/models/item_type.dart';
@@ -12,7 +14,6 @@ class AddItemScreen extends StatefulWidget {
   const AddItemScreen({super.key, required this.itemType});
   final ItemType itemType;
 
-
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();
 }
@@ -21,6 +22,29 @@ class _AddItemScreenState extends State<AddItemScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  @override
+  void dispose() {
+    nameController.dispose();
+    quantityController.dispose();
+    priceController.dispose();
+    super.dispose();
+  }
+
+  void addItem() {
+    inventoryService.addItem(
+        context: context,
+        name: nameController.text,
+        quantity: int.parse(quantityController.text),
+        price: double.parse(priceController.text),
+        itemType: widget.itemType,
+        onSuccess: () {
+          // Navigator.pushNamed(context, SuccessFieldModal.routeName,
+          //     arguments: "Client added");
+
+          Navigator.pop(context, true);
+        },
+        onFailed: () {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +91,15 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 )),
                             InkWell(
                                 onTap: () {
-                                  Navigator.pop(context);
+                                  if (nameController.text.isEmpty ||
+                                      quantityController.text.isEmpty ||
+                                      priceController.text.isEmpty) {
+                                    Navigator.pushNamed(
+                                        context, ErrorFieldModal.routeName,
+                                        arguments: "empty fields");
+                                  } else {
+                                    addItem();
+                                  }
                                 },
                                 child: const Text(
                                   "Done",
@@ -101,7 +133,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                       controller: quantityController,
                                       hintText: "Quantity",
                                       textInputType: TextInputType.number,
-                                      
                                       onSuccess: () {}),
                                   const SizedBox(
                                     height: smallFontSize,
@@ -109,7 +140,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   CustomTextfield(
                                       controller: priceController,
                                       textInputType: TextInputType.number,
-
                                       hintText: "Price",
                                       onSuccess: () {}),
                                 ],

@@ -88,20 +88,24 @@ class InventoryService {
     }
   }
 
-
-
-   void addItem({
+  void addItem({
     required BuildContext context,
     required String name,
-    required String description,
+    required int quantity,
+    required double price,
+    required ItemType itemType,
     required VoidCallback onSuccess,
     required VoidCallback onFailed,
   }) async {
     try {
-      await items.add(Item.fromMap({
+      final item = await items.add(Item.fromMap({
         'name': name,
-        'description': description,
+        'quantity': quantity,
+        'price': price,
+        'itemType': itemType.toMap(),
       }));
+
+      print(item);
       onSuccess();
 
       // if (kDebugMode) {
@@ -120,9 +124,8 @@ class InventoryService {
       items.keys.map((key) {
         var item = items.get(key) as Item;
         item.id = key;
-        if(item.itemType.id==itemType.id){
+        if (item.itemType.id == itemType.id) {
           itemsList.add(item);
-
         }
       }).toList();
     } catch (e) {
