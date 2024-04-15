@@ -11,6 +11,7 @@ import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/providers/client_provider.dart';
+import 'package:facturo/providers/item_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,6 +34,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
   @override
   Widget build(BuildContext context) {
     final clientProvider = Provider.of<ClientProvider>(context).client;
+    final itemProvider = Provider.of<ItemProvider>(context).items;
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -260,10 +262,24 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                           const SizedBox(
                             height: smallFontSize,
                           ),
-                          const AddRowItem(
-                              name: "Battery", quantity: 1, price: 1000),
-                          const AddRowItem(
-                              name: "Battery 23", quantity: 3, price: 2000),
+                          itemProvider.length>0 ?
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: itemProvider.length,
+                            itemBuilder: (context, i){
+                              return  InkWell(
+                                onTap: (){
+                                  Provider.of<ItemProvider>(context,
+                                                      listen: false)
+                                                  .removeItem(itemProvider[i]);
+
+                                },
+                                child: AddRowItem(
+                                name: itemProvider[i].name, quantity: itemProvider[i].quantity, price: itemProvider[i].price),
+                              );
+                            }): SizedBox(),
+                          
+                        
                           const Divider(
                             thickness: 0.2,
                           ),

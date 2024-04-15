@@ -10,7 +10,10 @@ import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_card.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
+import 'package:facturo/providers/client_provider.dart';
+import 'package:facturo/providers/item_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SelectItemScreen extends StatefulWidget {
   static const routeName = '/select-item';
@@ -159,11 +162,11 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         itemBuilder: (context, i) {
                                           return InkWell(
                                             onTap: () {
-                                              // Provider.of<ClientProvider>(
-                                              //         context,
-                                              //         listen: false)
-                                              //     .setClient(searchResults[i]);
-                                              // Navigator.pop(context);
+                                              Provider.of<ItemProvider>(context,
+                                                      listen: false)
+                                                  .addItem(searchResults[i]);
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
                                             },
                                             child: ItemCard(
                                               itemType: widget.itemType,
@@ -202,15 +205,15 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         itemBuilder: (context, i) {
                                           return InkWell(
                                             onTap: () {
-                                              // Provider.of<ClientProvider>(
-                                              //         context,
-                                              //         listen: false)
-                                              //     .setClient(clients[i]);
-                                              // Navigator.pop(context);
+                                               Provider.of<ItemProvider>(context,
+                                                      listen: false)
+                                                  .addItem(items[i]);
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
                                             },
+                                            
                                             child: ItemCard(
                                               itemType: widget.itemType,
-
                                               item: items[i],
                                               onSuccessEdit: () {
                                                 getAllItems();

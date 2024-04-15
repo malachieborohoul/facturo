@@ -2,9 +2,11 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/features/invoice/screens/invoice_screen.dart';
 import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice.dart';
+import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:facturo/providers/client_provider.dart';
+import 'package:facturo/providers/item_provider.dart';
 import 'package:facturo/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,6 +22,7 @@ void main() async {
   Hive.registerAdapter(InvoiceAdapter());
   Hive.registerAdapter(ItemAdapter());
   Hive.registerAdapter(ItemTypeAdapter());
+  Hive.registerAdapter(InvoiceItemAdapter());
   // Open boxes
   await Hive.openBox("invoices");
   await Hive.openBox("clients");
@@ -30,6 +33,9 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => ClientProvider(),
+    ),
+     ChangeNotifierProvider(
+      create: (context) => ItemProvider(),
     ),
   ],
   child:  const MyApp()
