@@ -275,7 +275,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
 
                                 },
                                 child: AddRowItem(
-                                name: itemProvider[i].name, quantity: itemProvider[i].quantity, price: itemProvider[i].price),
+                                name: itemProvider[i].name,  price: itemProvider[i].price),
                               );
                             }): SizedBox(),
                           

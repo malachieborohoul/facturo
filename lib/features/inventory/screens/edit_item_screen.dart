@@ -62,7 +62,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
       priceController.text = priceController.text.trim();
     } else {
       nameController.text = widget.item.name;
-      quantityController.text = widget.item.quantity.toString();
+     
       priceController.text = widget.item.price.toString();
     }
 

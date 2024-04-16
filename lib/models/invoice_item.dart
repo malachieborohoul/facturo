@@ -13,11 +13,14 @@ class InvoiceItem {
   final Invoice invoice;
   @HiveField(2)
   final Item item;
+   @HiveField(3)
+  final int quantity;
 
   InvoiceItem({
     required this.id,
     required this.invoice,
     required this.item,
+    required this.quantity
   });
 
   Map<String, dynamic> toMap() {
@@ -31,6 +34,7 @@ class InvoiceItem {
   factory InvoiceItem.fromMap(Map<String, dynamic> map) {
     return InvoiceItem(
       id: map['id'] ?? 0,
+      quantity: map['quantity'] ?? 0,
       invoice: Invoice.fromJson(map['invoice']),
       item: Item.fromJson(map['item']),
     );

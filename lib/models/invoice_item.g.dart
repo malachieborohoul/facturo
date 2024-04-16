@@ -20,19 +20,22 @@ class InvoiceItemAdapter extends TypeAdapter<InvoiceItem> {
       id: fields[0] as int,
       invoice: fields[1] as Invoice,
       item: fields[2] as Item,
+      quantity: fields[3] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, InvoiceItem obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.invoice)
       ..writeByte(2)
-      ..write(obj.item);
+      ..write(obj.item)
+      ..writeByte(3)
+      ..write(obj.quantity);
   }
 
   @override

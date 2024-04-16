@@ -15,18 +15,18 @@ class Item {
   final String name;
   @HiveField(2)
 
-  final int quantity;
-  @HiveField(3)
+  
+
 
   final double price;
-  @HiveField(4)
+  @HiveField(3)
 
   final ItemType itemType;
 
   Item(
       {required this.id,
       required this.name,
-      required this.quantity,
+    
       required this.price,
       required this.itemType,
       
@@ -36,7 +36,6 @@ class Item {
     return {
       'id': id,
       'name': name,
-      'quantity': quantity,
       'price': price,
       'itemType': itemType,
     };
@@ -46,7 +45,7 @@ class Item {
     return Item(
       id: map['id'] ?? 0,
       name: map['name'] ?? '',
-      quantity: map['quantity'] ?? 0,
+     
       price: map['price'] ?? 0.0,
       itemType: ItemType.fromJson(map['itemType']),
     );

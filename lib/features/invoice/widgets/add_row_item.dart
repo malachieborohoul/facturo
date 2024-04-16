@@ -2,9 +2,9 @@ import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class AddRowItem extends StatelessWidget {
-  const AddRowItem({super.key, required this.name, required this.quantity, required this.price});
+  const AddRowItem({super.key, required this.name, required this.price});
   final String name;
-  final int quantity;
+  
   final double price;
 
   @override
@@ -32,7 +32,7 @@ class AddRowItem extends StatelessWidget {
               ],
             ),
           ),
-           Expanded(child: Text(quantity.toString())),
+          //  Expanded(child: Text(quantity.toString())),
            Expanded(child: Text(price.toString())),
         ],
       ),
