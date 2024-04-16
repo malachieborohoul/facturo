@@ -10,7 +10,6 @@ import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_card.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
-import 'package:facturo/providers/client_provider.dart';
 import 'package:facturo/providers/item_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
