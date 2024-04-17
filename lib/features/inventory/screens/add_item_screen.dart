@@ -20,12 +20,10 @@ class AddItemScreen extends StatefulWidget {
 
 class _AddItemScreenState extends State<AddItemScreen> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   @override
   void dispose() {
     nameController.dispose();
-    quantityController.dispose();
     priceController.dispose();
     super.dispose();
   }
@@ -34,7 +32,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
     inventoryService.addItem(
         context: context,
         name: nameController.text,
-        quantity: int.parse(quantityController.text),
         price: double.parse(priceController.text),
         itemType: widget.itemType,
         onSuccess: () {
@@ -92,7 +89,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             InkWell(
                                 onTap: () {
                                   if (nameController.text.isEmpty ||
-                                      quantityController.text.isEmpty ||
+                                      
                                       priceController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
@@ -126,14 +123,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                       controller: nameController,
                                       hintText: "Name",
                                       onSuccess: () {}),
-                                  const SizedBox(
-                                    height: smallFontSize,
-                                  ),
-                                  CustomTextfield(
-                                      controller: quantityController,
-                                      hintText: "Quantity",
-                                      textInputType: TextInputType.number,
-                                      onSuccess: () {}),
+                                
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),

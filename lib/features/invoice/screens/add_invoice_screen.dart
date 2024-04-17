@@ -31,6 +31,9 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
   TextEditingController dueDateController = TextEditingController(
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+  TextEditingController quantityController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     final clientProvider = Provider.of<ClientProvider>(context).client;
@@ -60,264 +63,266 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
             )
           ],
         ),
-        body: Column(
-          children: [
-            Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: smallFontSize,
-                  ),
-                  const AddHeader(title: "INVOICE INFORMATION"),
-                  const SizedBox(
-                    height: smallFontSize / 2,
-                  ),
-                  Container(
-                    width: size.width * 0.7,
-                    decoration: const BoxDecoration(
-                        color: textWhite,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(smallFontSize))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(appPadding),
-                      child: Column(
-                        children: [
-                          const Row(
-                            children: [
-                              AddSubHeader(
-                                title: "Invoice Date",
-                              ),
-                              AddSubHeader(title: "Due Date"),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                    style: const TextStyle(
-                                        fontSize: smallFontSize * 0.8,
-                                        fontWeight: FontWeight.bold),
-                                    controller:
-                                        issueDateController, //editing controller of this TextField
-                                    decoration: const InputDecoration(
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      //icon of text field
-                                    ),
-                                    readOnly:
-                                        true, // when true user cannot edit text
-                                    onTap: () async {
-                                      DateTime? pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime
-                                                  .now(), //get today's date
-                                              firstDate: DateTime(
-                                                  2000), //DateTime.now() - not to allow to choose before today.
-                                              lastDate: DateTime(2101));
-
-                                      if (pickedDate != null) {
-                                        if (kDebugMode) {
-                                          print(pickedDate);
-                                        } //get the picked date in the format => 2022-07-04 00:00:00.000
-                                        String formattedDate =
-                                            DateFormat('yyyy-MM-dd').format(
-                                                pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-                                        if (kDebugMode) {
-                                          print(formattedDate);
-                                        } //formatted date output using intl package =>  2022-07-04
-                                        //You can format date as per your need
-
-                                        setState(() {
-                                          issueDateController.text =
-                                              formattedDate; //set foratted date to TextField value.
-                                        });
-                                      } else {
-                                        if (kDebugMode) {
-                                          print("Date is not selected");
-                                        }
-                                      }
-                                    }),
-                              ),
-                              Expanded(
-                                child: TextField(
-                                    style: const TextStyle(
-                                        fontSize: smallFontSize * 0.8,
-                                        fontWeight: FontWeight.bold),
-                                    controller:
-                                        dueDateController, //editing controller of this TextField
-                                    decoration: const InputDecoration(
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      //icon of text field
-                                    ),
-                                    readOnly:
-                                        true, // when true user cannot edit text
-                                    onTap: () async {
-                                      DateTime? pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime
-                                                  .now(), //get today's date
-                                              firstDate: DateTime(
-                                                  2000), //DateTime.now() - not to allow to choose before today.
-                                              lastDate: DateTime(2101));
-
-                                      if (pickedDate != null) {
-                                        if (kDebugMode) {
-                                          print(pickedDate);
-                                        } //get the picked date in the format => 2022-07-04 00:00:00.000
-                                        String formattedDate =
-                                            DateFormat('yyyy-MM-dd').format(
-                                                pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-                                        if (kDebugMode) {
-                                          print(formattedDate);
-                                        } //formatted date output using intl package =>  2022-07-04
-                                        //You can format date as per your need
-
-                                        setState(() {
-                                          dueDateController.text =
-                                              formattedDate; //set foratted date to TextField value.
-                                        });
-                                      } else {
-                                        if (kDebugMode) {
-                                          print("Date is not selected");
-                                        }
-                                      }
-                                    }),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: smallFontSize,
                     ),
-                  ),
-                  const SizedBox(
-                    height: smallFontSize,
-                  ),
-                  const AddHeader(title: "CLIENT"),
-                  const SizedBox(
-                    height: smallFontSize / 2,
-                  ),
-                  Container(
-                    width: size.width * 0.7,
-                    decoration: const BoxDecoration(
-                        color: textWhite,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(smallFontSize))),
-                    child: Padding(
+                    const AddHeader(title: "INVOICE INFORMATION"),
+                    const SizedBox(
+                      height: smallFontSize / 2,
+                    ),
+                    Container(
+                      width: size.width * 0.7,
+                      decoration: const BoxDecoration(
+                          color: textWhite,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(smallFontSize))),
+                      child: Padding(
                         padding: const EdgeInsets.all(appPadding),
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, SelectClientScreen.routeName);
-                            },
-                            child: clientProvider.businessName.isEmpty
-                                ? const AddButton(title: "Add Client")
-                                : ClientCard(
-                                    client: clientProvider,
-                                    onSuccessDelete: () {},
-                                    onSuccessEdit: () {},
-                                    isActionButtons: false,
-                                  ))),
-                  ),
-                  const SizedBox(
-                    height: smallFontSize,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.7,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AddHeader(title: "ITEMS"),
-                        // AddButton(title: "Add Category Item")
-                      ],
+                        child: Column(
+                          children: [
+                            const Row(
+                              children: [
+                                AddSubHeader(
+                                  title: "Invoice Date",
+                                ),
+                                AddSubHeader(title: "Due Date"),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                      style: const TextStyle(
+                                          fontSize: smallFontSize * 0.8,
+                                          fontWeight: FontWeight.bold),
+                                      controller:
+                                          issueDateController, //editing controller of this TextField
+                                      decoration: const InputDecoration(
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        //icon of text field
+                                      ),
+                                      readOnly:
+                                          true, // when true user cannot edit text
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime
+                                                    .now(), //get today's date
+                                                firstDate: DateTime(
+                                                    2000), //DateTime.now() - not to allow to choose before today.
+                                                lastDate: DateTime(2101));
+          
+                                        if (pickedDate != null) {
+                                          if (kDebugMode) {
+                                            print(pickedDate);
+                                          } //get the picked date in the format => 2022-07-04 00:00:00.000
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd').format(
+                                                  pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+                                          if (kDebugMode) {
+                                            print(formattedDate);
+                                          } //formatted date output using intl package =>  2022-07-04
+                                          //You can format date as per your need
+          
+                                          setState(() {
+                                            issueDateController.text =
+                                                formattedDate; //set foratted date to TextField value.
+                                          });
+                                        } else {
+                                          if (kDebugMode) {
+                                            print("Date is not selected");
+                                          }
+                                        }
+                                      }),
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                      style: const TextStyle(
+                                          fontSize: smallFontSize * 0.8,
+                                          fontWeight: FontWeight.bold),
+                                      controller:
+                                          dueDateController, //editing controller of this TextField
+                                      decoration: const InputDecoration(
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        //icon of text field
+                                      ),
+                                      readOnly:
+                                          true, // when true user cannot edit text
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime
+                                                    .now(), //get today's date
+                                                firstDate: DateTime(
+                                                    2000), //DateTime.now() - not to allow to choose before today.
+                                                lastDate: DateTime(2101));
+          
+                                        if (pickedDate != null) {
+                                          if (kDebugMode) {
+                                            print(pickedDate);
+                                          } //get the picked date in the format => 2022-07-04 00:00:00.000
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd').format(
+                                                  pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+                                          if (kDebugMode) {
+                                            print(formattedDate);
+                                          } //formatted date output using intl package =>  2022-07-04
+                                          //You can format date as per your need
+          
+                                          setState(() {
+                                            dueDateController.text =
+                                                formattedDate; //set foratted date to TextField value.
+                                          });
+                                        } else {
+                                          if (kDebugMode) {
+                                            print("Date is not selected");
+                                          }
+                                        }
+                                      }),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: smallFontSize / 2,
-                  ),
-                  Container(
-                    width: size.width * 0.7,
-                    decoration: const BoxDecoration(
-                        color: textWhite,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(smallFontSize))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(appPadding),
-                      child: Column(
+                    const SizedBox(
+                      height: smallFontSize,
+                    ),
+                    const AddHeader(title: "CLIENT"),
+                    const SizedBox(
+                      height: smallFontSize / 2,
+                    ),
+                    Container(
+                      width: size.width * 0.7,
+                      decoration: const BoxDecoration(
+                          color: textWhite,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(smallFontSize))),
+                      child: Padding(
+                          padding: const EdgeInsets.all(appPadding),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, SelectClientScreen.routeName);
+                              },
+                              child: clientProvider.businessName.isEmpty
+                                  ? const AddButton(title: "Add Client")
+                                  : ClientCard(
+                                      client: clientProvider,
+                                      onSuccessDelete: () {},
+                                      onSuccessEdit: () {},
+                                      isActionButtons: false,
+                                    ))),
+                    ),
+                    const SizedBox(
+                      height: smallFontSize,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.7,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AddSubHeader(title: "Name"),
-                              AddSubHeader(title: "Quantity"),
-                              AddSubHeader(title: "Price"),
-                            ],
-                          ),
-                          // RemoveItemButton(title: "Battery"),
-                          const SizedBox(
-                            height: smallFontSize,
-                          ),
-                          itemProvider.length>0 ?
-                          ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: itemProvider.length,
-                            itemBuilder: (context, i){
-                              return  InkWell(
-                                onTap: (){
-                                  Provider.of<ItemProvider>(context,
-                                                      listen: false)
-                                                  .removeItem(itemProvider[i]);
-
-                                },
-                                child: AddRowItem(
-                                name: itemProvider[i].name,  price: itemProvider[i].price),
-                              );
-                            }): SizedBox(),
-                          
-                        
-                          const Divider(
-                            thickness: 0.2,
-                          ),
-                          const SizedBox(
-                            height: smallFontSize,
-                          ),
-                          Center(
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, SelectItemTypeScreen.routeName);
-                                },
-                                child: const AddButton(title: "Add Item")),
-                          )
+                          AddHeader(title: "ITEMS"),
+                          // AddButton(title: "Add Category Item")
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: smallFontSize,
-                  ),
-                  const AddHeader(title: "SUMMARY"),
-                  const SizedBox(
-                    height: smallFontSize / 2,
-                  ),
-                  const AddRowTotalItem(total: 3000),
-                  const SizedBox(
-                    height: smallFontSize,
-                  ),
-                  const AddHeader(title: "Payment status"),
-                  const SizedBox(
-                    height: smallFontSize / 2,
-                  ),
-                  const AddRowPaidInvoice()
-                ],
-              ),
-            )
-          ],
+                    const SizedBox(
+                      height: smallFontSize / 2,
+                    ),
+                    Container(
+                      width: size.width * 0.7,
+                      decoration: const BoxDecoration(
+                          color: textWhite,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(smallFontSize))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(appPadding),
+                        child: Column(
+                          children: [
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AddSubHeader(title: "Name"),
+                                AddSubHeader(title: "Quantity"),
+                                AddSubHeader(title: "Price"),
+                              ],
+                            ),
+                            // RemoveItemButton(title: "Battery"),
+                            const SizedBox(
+                              height: smallFontSize,
+                            ),
+                            itemProvider.length>0 ?
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: itemProvider.length,
+                              itemBuilder: (context, i){
+                                return  InkWell(
+                                  onTap: (){
+                                    Provider.of<ItemProvider>(context,
+                                                        listen: false)
+                                                    .removeItem(itemProvider[i]);
+          
+                                  },
+                                  child: AddRowItem(
+                                  name: itemProvider[i].name,  price: itemProvider[i].price, quantityController: quantityController,),
+                                );
+                              }): SizedBox(),
+                            
+                          
+                            const Divider(
+                              thickness: 0.2,
+                            ),
+                            const SizedBox(
+                              height: smallFontSize,
+                            ),
+                            Center(
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, SelectItemTypeScreen.routeName);
+                                  },
+                                  child: const AddButton(title: "Add Item")),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: smallFontSize,
+                    ),
+                    const AddHeader(title: "SUMMARY"),
+                    const SizedBox(
+                      height: smallFontSize / 2,
+                    ),
+                    const AddRowTotalItem(total: 3000),
+                    const SizedBox(
+                      height: smallFontSize,
+                    ),
+                    const AddHeader(title: "Payment status"),
+                    const SizedBox(
+                      height: smallFontSize / 2,
+                    ),
+                    const AddRowPaidInvoice()
+                  ],
+                ),
+              )
+            ],
+          ),
         ));
   }
 }

@@ -91,7 +91,6 @@ class InventoryService {
   void addItem({
     required BuildContext context,
     required String name,
-    required int quantity,
     required double price,
     required ItemType itemType,
     required VoidCallback onSuccess,
@@ -101,7 +100,6 @@ class InventoryService {
      await items.add(
       Item.fromMap({
         'name': name,
-        'quantity': quantity,
         'price': price,
         'itemType': itemType.toJson(),
       }));

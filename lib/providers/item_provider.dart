@@ -6,8 +6,11 @@ class ItemProvider extends ChangeNotifier {
   List<Item> get items => _items;
 
   void addItem(Item item) {
+    if(!_items.contains(item)){
     _items.add(item); // Ajoute l'élément à la liste
+
     notifyListeners();
+    }
   }
 
   void removeItem(Item item) {

@@ -1,11 +1,14 @@
+import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class AddRowItem extends StatelessWidget {
-  const AddRowItem({super.key, required this.name, required this.price});
+  const AddRowItem({super.key, required this.name, required this.price, required this.quantityController});
   final String name;
   
   final double price;
+  final TextEditingController quantityController;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,13 @@ class AddRowItem extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          Expanded(
+            child: CustomTextfield(
+                                        controller: quantityController,
+                                        textInputType: TextInputType.number,
+                                        hintText: "Quantity",
+                                        onSuccess: () {}),
           ),
           //  Expanded(child: Text(quantity.toString())),
            Expanded(child: Text(price.toString())),
