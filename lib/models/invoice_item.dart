@@ -13,15 +13,14 @@ class InvoiceItem {
   final Invoice invoice;
   @HiveField(2)
   final Item item;
-   @HiveField(3)
+  @HiveField(3)
   final int quantity;
 
-  InvoiceItem({
-    required this.id,
-    required this.invoice,
-    required this.item,
-    required this.quantity
-  });
+  InvoiceItem(
+      {required this.id,
+      required this.invoice,
+      required this.item,
+      required this.quantity});
 
   Map<String, dynamic> toMap() {
     return {

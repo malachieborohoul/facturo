@@ -1,16 +1,17 @@
 import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice.dart';
+import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
+import 'package:facturo/providers/item_invoice_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class InvoiceService {
   final invoices = Hive.box("invoices");
   final invoiceItems = Hive.box("invoice_items");
 
-  
- 
   void addInvoice({
     required BuildContext context,
     required String number,
@@ -21,13 +22,35 @@ class InvoiceService {
     required VoidCallback onFailed,
   }) async {
     try {
-    final clientRes = await invoiceItems.add(
-      Invoice.fromMap({
+      // Add invoice and get its returned id
+      final invoiceId = await invoices.add(Invoice.fromMap({
         'number': number,
         'currentDate': currentDate,
         'dueDate': dueDate,
         'client': client.toJson(),
       }));
+      // Get the invoice object by id
+      final invoice = invoices.getAt(invoiceId);
+      final itemInvoiceProvider =
+          Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
+
+      // Loop through the item invoice provider which is a list
+
+      for (var itemInvoice in itemInvoiceProvider) {
+        // Retreive item element to construct an item object
+        Item item = Item.fromMap({
+          'id': itemInvoice.id,
+          'name': itemInvoice.name,
+          'price': itemInvoice.price,
+          'itemType': itemInvoice.itemType.toJson(),
+        });
+        //Add invoiceItem with invoice, item objects and quantity variable
+        await invoiceItems.add(InvoiceItem.fromMap({
+          'invoice': invoice.toJson(),
+          'item': item.toJson(),
+          'quantity': itemInvoice.quantity,
+        }));
+      }
 
       onSuccess();
 
