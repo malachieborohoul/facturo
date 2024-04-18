@@ -122,7 +122,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   CustomTextfield(
                                       controller: nameController,
                                       hintText: "Name",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                 
                                   const SizedBox(
                                     height: smallFontSize,
@@ -131,7 +131,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                       controller: priceController,
                                       textInputType: TextInputType.number,
                                       hintText: "Price",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                 ],
                               ),
                             )),

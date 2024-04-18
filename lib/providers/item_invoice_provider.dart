@@ -6,23 +6,40 @@ class ItemInvoiceProvider extends ChangeNotifier {
 
   List<ItemInvoice> get itemsInvoice => _itemsInvoice;
   bool isFound = false;
+
   // Check if item exist? If it doesn't add to the list
   void addItem(ItemInvoice itemInvoice) {
     for (var item in _itemsInvoice) {
-      
       if (item.id == itemInvoice.id) {
         isFound = true;
-         
+
         break;
       }
       isFound = false;
-     
     }
-    
+
     if (!isFound) {
       _itemsInvoice.add(itemInvoice); // Ajoute l'élément à la liste
       notifyListeners();
     }
+  }
+
+  void editItemQuantity(ItemInvoice itemInvoice, int quantity) {
+    for (var item in _itemsInvoice) {
+      if (item.id == itemInvoice.id) {
+        isFound = true;
+        item.quantity = quantity;
+        print(item);
+        notifyListeners();
+        break;
+      }
+      isFound = false;
+    }
+
+    // if (!isFound) {
+    //   _itemsInvoice.add(itemInvoice); // Ajoute l'élément à la liste
+    //   notifyListeners();
+    // }
   }
 
   // void editItemQuantity(Item item, int quantity) {

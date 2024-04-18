@@ -6,6 +6,7 @@ import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+typedef SuccessCallback = void Function(String param);
 class CustomTextfield extends StatelessWidget {
   const CustomTextfield(
       {super.key,
@@ -17,7 +18,9 @@ class CustomTextfield extends StatelessWidget {
       this.onTap = false,
       this.width=double.infinity,
     
-      required this.onSuccess,  this.height=30});
+      required this.onSuccess, 
+      required this.onChange, 
+       this.height=30});
 
   final TextEditingController controller;
   final TextInputType textInputType;
@@ -29,6 +32,9 @@ class CustomTextfield extends StatelessWidget {
   final double height;
 
   final VoidCallback onSuccess;
+
+  final SuccessCallback onChange;
+
 
   @override
   Widget build(BuildContext context) {

@@ -139,21 +139,21 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                   CustomTextfield(
                                       controller: businessNameController,
                                       hintText: "Company Name",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: nameController,
                                       hintText: "Name",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: addressController,
                                       hintText: "Address",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                 ],
                               ),
                             )),

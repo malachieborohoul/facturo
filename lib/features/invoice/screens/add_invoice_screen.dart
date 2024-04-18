@@ -279,8 +279,8 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                     //                 .removeItem(itemProvider[i]);
           
                                   },
-                                  child: AddRowItem(
-                                  name: itemInvoiceProvider[i].name,  price: itemInvoiceProvider[i].price, quantityController: quantityController,),
+                                  child: AddRowItem(itemInvoice: itemInvoiceProvider[i],
+                                   quantityController: quantityController,),
                                 );
                               }): const SizedBox(),
                             

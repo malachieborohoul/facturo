@@ -142,7 +142,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                  CustomTextfield(
                                       controller: nameController,
                                       hintText: "Name",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
@@ -150,7 +150,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                       controller: quantityController,
                                       hintText: "Quantity",
                                       textInputType: TextInputType.number,
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
@@ -158,7 +158,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                       controller: priceController,
                                       textInputType: TextInputType.number,
                                       hintText: "Price",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                 ],
                               ),
                             )),

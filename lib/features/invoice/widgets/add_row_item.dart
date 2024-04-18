@@ -1,19 +1,28 @@
 import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/constants/size.dart';
+import 'package:facturo/models/item_invoice.dart';
+import 'package:facturo/providers/item_invoice_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class AddRowItem extends StatelessWidget {
-  const AddRowItem({super.key, required this.name, required this.price, required this.quantityController});
-  final String name;
-  
-  final double price;
-  final TextEditingController quantityController;
+  AddRowItem(
+      {super.key, required this.quantityController, required this.itemInvoice});
+  final ItemInvoice itemInvoice;
+
+  TextEditingController quantityController;
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.only(bottom: smallFontSize*0.5),
+    if (isLoading) {
+      quantityController.text = quantityController.text.trim();
+    } else {
+      quantityController.text = itemInvoice.quantity.toString();
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: smallFontSize * 0.5),
       child: Row(
         children: [
           Expanded(
@@ -28,22 +37,31 @@ class AddRowItem extends StatelessWidget {
                   width: smallFontSize,
                 ),
                 Text(
-                  name,
+                  itemInvoice.name,
                   style: const TextStyle(
-                      fontSize: smallFontSize * 0.8, fontWeight: FontWeight.bold, color: Colors.black),
+                      fontSize: smallFontSize * 0.8,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 )
               ],
             ),
           ),
           Expanded(
             child: CustomTextfield(
-                                        controller: quantityController,
-                                        textInputType: TextInputType.number,
-                                        hintText: "Quantity",
-                                        onSuccess: () {}),
+              controller: quantityController,
+              textInputType: TextInputType.number,
+              hintText: "Quantity",
+              onSuccess: () {},
+              onChange: (String param) {
+                print(param);
+                // Provider.of<ItemInvoiceProvider>(context, listen: false)
+                //     .editItemQuantity(itemInvoice, int.parse(param));
+                // isLoading = true;
+              },
+            ),
           ),
           //  Expanded(child: Text(quantity.toString())),
-           Expanded(child: Text(price.toString())),
+          Expanded(child: Text(itemInvoice.price.toString())),
         ],
       ),
     );

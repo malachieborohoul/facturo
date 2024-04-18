@@ -121,14 +121,14 @@ class _AddItemTypeScreenState extends State<AddItemTypeScreen> {
                                   CustomTextfield(
                                       controller: nameController,
                                       hintText: "Name",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: descriptionController,
                                       hintText: "Description",
-                                      onSuccess: () {}),
+                                      onSuccess: () {}, onChange: (String param) {  },),
                                  
                                 ],
                               ),
