@@ -54,8 +54,14 @@ class AddRowItem extends StatelessWidget {
               onSuccess: () {},
               onChange: (String param) {
                 print(param);
-                // Provider.of<ItemInvoiceProvider>(context, listen: false)
-                //     .editItemQuantity(itemInvoice, int.parse(param));
+                if (quantityController.text.isNotEmpty){
+                  Provider.of<ItemInvoiceProvider>(context, listen: false)
+                    .editItemQuantity(itemInvoice, int.parse(param));
+                }else{
+                  Provider.of<ItemInvoiceProvider>(context, listen: false)
+                    .editItemQuantity(itemInvoice, 0);
+                }
+                
                 // isLoading = true;
               },
             ),

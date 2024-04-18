@@ -32,14 +32,18 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
   TextEditingController dueDateController = TextEditingController(
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
-  TextEditingController quantityController = TextEditingController();
-  
+  List<TextEditingController> _quantityController = [];
+
   @override
   Widget build(BuildContext context) {
     final clientProvider = Provider.of<ClientProvider>(context).client;
     // final itemProvider = Provider.of<ItemProvider>(context).items;
-    final itemInvoiceProvider = Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
+    final itemInvoiceProvider =
+        Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
 
+    itemInvoiceProvider.forEach((item) {
+      _quantityController.add(TextEditingController());
+    });
     final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: background,
@@ -122,7 +126,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                                 firstDate: DateTime(
                                                     2000), //DateTime.now() - not to allow to choose before today.
                                                 lastDate: DateTime(2101));
-          
+
                                         if (pickedDate != null) {
                                           if (kDebugMode) {
                                             print(pickedDate);
@@ -134,7 +138,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                             print(formattedDate);
                                           } //formatted date output using intl package =>  2022-07-04
                                           //You can format date as per your need
-          
+
                                           setState(() {
                                             issueDateController.text =
                                                 formattedDate; //set foratted date to TextField value.
@@ -169,7 +173,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                                 firstDate: DateTime(
                                                     2000), //DateTime.now() - not to allow to choose before today.
                                                 lastDate: DateTime(2101));
-          
+
                                         if (pickedDate != null) {
                                           if (kDebugMode) {
                                             print(pickedDate);
@@ -181,7 +185,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                             print(formattedDate);
                                           } //formatted date output using intl package =>  2022-07-04
                                           //You can format date as per your need
-          
+
                                           setState(() {
                                             dueDateController.text =
                                                 formattedDate; //set foratted date to TextField value.
@@ -267,24 +271,26 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             const SizedBox(
                               height: smallFontSize,
                             ),
-                            itemInvoiceProvider.isNotEmpty ?
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: itemInvoiceProvider.length,
-                              itemBuilder: (context, i){
-                                return  InkWell(
-                                  onTap: (){
-                                    // Provider.of<ItemProvider>(context,
-                                    //                     listen: false)
-                                    //                 .removeItem(itemProvider[i]);
-          
-                                  },
-                                  child: AddRowItem(itemInvoice: itemInvoiceProvider[i],
-                                   quantityController: quantityController,),
-                                );
-                              }): const SizedBox(),
-                            
-                          
+                            itemInvoiceProvider.isNotEmpty
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: itemInvoiceProvider.length,
+                                    itemBuilder: (context, i) {
+                                      return InkWell(
+                                        onTap: () {
+                                          // Provider.of<ItemProvider>(context,
+                                          //                     listen: false)
+                                          //                 .removeItem(itemProvider[i]);
+                                        },
+                                        child: AddRowItem(
+                                          itemInvoice: itemInvoiceProvider[i],
+                                          quantityController:
+                                              _quantityController[i],
+                                        ),
+                                      );
+                                    })
+                                : const SizedBox(),
+
                             const Divider(
                               thickness: 0.2,
                             ),
@@ -294,8 +300,8 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             Center(
                               child: InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, SelectItemTypeScreen.routeName);
+                                    Navigator.pushNamed(context,
+                                        SelectItemTypeScreen.routeName);
                                   },
                                   child: const AddButton(title: "Add Item")),
                             )
