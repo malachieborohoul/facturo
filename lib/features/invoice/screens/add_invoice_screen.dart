@@ -278,9 +278,9 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                     itemBuilder: (context, i) {
                                       return InkWell(
                                         onTap: () {
-                                          // Provider.of<ItemProvider>(context,
-                                          //                     listen: false)
-                                          //                 .removeItem(itemProvider[i]);
+                                          Provider.of<ItemInvoiceProvider>(context,
+                                                              listen: false)
+                                                          .removeItem(itemInvoiceProvider[i],int.parse(_quantityController[i].text));
                                         },
                                         child: AddRowItem(
                                           itemInvoice: itemInvoiceProvider[i],
