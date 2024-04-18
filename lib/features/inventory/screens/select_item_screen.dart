@@ -9,7 +9,9 @@ import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/inventory/screens/add_item_screen.dart';
 import 'package:facturo/features/inventory/widgets/item_card.dart';
 import 'package:facturo/models/item.dart';
+import 'package:facturo/models/item_invoice.dart';
 import 'package:facturo/models/item_type.dart';
+import 'package:facturo/providers/item_invoice_provider.dart';
 import 'package:facturo/providers/item_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -204,13 +206,22 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         itemBuilder: (context, i) {
                                           return InkWell(
                                             onTap: () {
-                                               Provider.of<ItemProvider>(context,
+                                              //  Provider.of<ItemProvider>(context,
+                                              //         listen: false)
+                                              //     .addItem(items[i]);
+                                              final itemInvoice = ItemInvoice(
+                                                  id: items[i].id,
+                                                  name: items[i].name,
+                                                  quantity: 0,
+                                                  price: items[i].price,
+                                                  itemType: items[i].itemType);
+                                              Provider.of<ItemInvoiceProvider>(
+                                                      context,
                                                       listen: false)
-                                                  .addItem(items[i]);
+                                                  .addItem(itemInvoice);
                                               Navigator.of(context).pop();
                                               Navigator.of(context).pop();
                                             },
-                                            
                                             child: ItemCard(
                                               itemType: widget.itemType,
                                               item: items[i],

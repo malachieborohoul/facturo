@@ -11,7 +11,7 @@ import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/providers/client_provider.dart';
-import 'package:facturo/providers/item_provider.dart';
+import 'package:facturo/providers/item_invoice_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -37,7 +37,8 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
   @override
   Widget build(BuildContext context) {
     final clientProvider = Provider.of<ClientProvider>(context).client;
-    final itemProvider = Provider.of<ItemProvider>(context).items;
+    // final itemProvider = Provider.of<ItemProvider>(context).items;
+    final itemInvoiceProvider = Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -266,22 +267,22 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             const SizedBox(
                               height: smallFontSize,
                             ),
-                            itemProvider.length>0 ?
+                            itemInvoiceProvider.isNotEmpty ?
                             ListView.builder(
                               shrinkWrap: true,
-                              itemCount: itemProvider.length,
+                              itemCount: itemInvoiceProvider.length,
                               itemBuilder: (context, i){
                                 return  InkWell(
                                   onTap: (){
-                                    Provider.of<ItemProvider>(context,
-                                                        listen: false)
-                                                    .removeItem(itemProvider[i]);
+                                    // Provider.of<ItemProvider>(context,
+                                    //                     listen: false)
+                                    //                 .removeItem(itemProvider[i]);
           
                                   },
                                   child: AddRowItem(
-                                  name: itemProvider[i].name,  price: itemProvider[i].price, quantityController: quantityController,),
+                                  name: itemInvoiceProvider[i].name,  price: itemInvoiceProvider[i].price, quantityController: quantityController,),
                                 );
-                              }): SizedBox(),
+                              }): const SizedBox(),
                             
                           
                             const Divider(

@@ -6,6 +6,7 @@ import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:facturo/providers/client_provider.dart';
+import 'package:facturo/providers/item_invoice_provider.dart';
 import 'package:facturo/providers/item_provider.dart';
 import 'package:facturo/router.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,10 @@ void main() async {
     ),
      ChangeNotifierProvider(
       create: (context) => ItemProvider(),
+    ),
+
+    ChangeNotifierProvider(
+      create: (context) => ItemInvoiceProvider(),
     ),
   ],
   child:  const MyApp()
