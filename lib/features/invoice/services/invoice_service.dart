@@ -32,8 +32,6 @@ class InvoiceService {
       }));
       // Get the invoice object by id
       final invoice = invoices.getAt(invoiceId);
-      
-
 
       // Loop through the item invoice provider which is a list
 
@@ -64,23 +62,23 @@ class InvoiceService {
     }
   }
 
-  // List<Item> getAllItems(BuildContext context, ItemType itemType) {
-  //   List<Item> itemsList = [];
+  List<Invoice> getAllInvoices(
+    BuildContext context,
+  ) {
+    List<Invoice> invoicesList = [];
 
-  //   try {
-  //     items.keys.map((key) {
-  //       var item = items.get(key) as Item;
-  //       item.id = key;
-  //       if (item.itemType.id == itemType.id) {
-  //         itemsList.add(item);
-  //       }
-  //     }).toList();
-  //   } catch (e) {
-  //     // showSnackBar(context, e.toString());
-  //     // showSnackBar(context, "Please Check your internet connection");
-  //   }
-  //   return itemsList;
-  // }
+    try {
+      invoices.keys.map((key) {
+        var invoice = invoices.get(key) as Invoice;
+        invoice.id = key;
+        invoicesList.add(invoice);
+      }).toList();
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+    return invoicesList;
+  }
 
   // void deleteItem({
   //   required BuildContext context,

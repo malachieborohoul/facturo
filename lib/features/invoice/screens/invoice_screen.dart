@@ -4,11 +4,14 @@ import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/custom_type_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/invoice/widgets/header_invoice_table.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
+import 'package:facturo/features/invoice/widgets/row_invoice_table.dart';
+import 'package:facturo/models/invoice.dart';
 import 'package:flutter/material.dart';
 
 class InvoiceScreen extends StatefulWidget {
@@ -21,8 +24,21 @@ class InvoiceScreen extends StatefulWidget {
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
+  late int selectedRowInvoice;
 
-  // int selectedRowInvoice = invoices.first.id;
+  @override
+  void initState() {
+    getAllInvoices();
+    super.initState();
+  }
+
+  late List<Invoice> invoices;
+
+  void getAllInvoices() {
+    invoices = invoiceService.getAllInvoices(context);
+    selectedRowInvoice = invoices.first.id;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +96,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   CustomSearchbar(
                                       controller: searchController,
                                       hintText: "Search",
-                                     
-                                      onChange: (value) {}
-                                      )
+                                      onChange: (value) {})
                                 ],
                               )
                             ],
@@ -100,34 +114,37 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     color: background,
                                     border: Border(
                                         right: BorderSide(color: neutral))),
-                                child: const Column(
+                                child: Column(
                                   children: [
-                                    Padding(
+                                    const Padding(
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
-                                    // Expanded(
-                                    //   child: ListView.builder(
-                                    //       itemCount: invoices.length,
-                                    //       itemBuilder: (context, i) {
-                                    //         return GestureDetector(
-                                    //           onTap: () {
-                                    //             setState(() {
-                                    //               selectedRowInvoice =
-                                    //                   invoices[i].id;
-                                    //             });
-                                    //           },
-                                    //           child: RowInvoiceTable(
-                                    //               selected:
-                                    //                   selectedRowInvoice ==
-                                    //                           invoices[i].id
-                                    //                       ? true
-                                    //                       : false,
-                                    //               client: invoices[i].client,
-                                    //               amount: invoices[i].amount,
-                                    //               status: invoices[i].status),
-                                    //         );
-                                    //       }),
-                                    // )
+                                    Expanded(
+                                      child: ListView.builder(
+                                          itemCount: invoices.length,
+                                          itemBuilder: (context, i) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedRowInvoice =
+                                                      invoices[i].id;
+                                                });
+                                              },
+                                              child: RowInvoiceTable(
+                                                  selected: 
+                                                  selectedRowInvoice ==
+                                                          invoices[i].id
+                                                      ? true
+                                                      : false,
+                                                  client:
+                                                      invoices[i].client.name,
+                                                  amount: 2000.0,
+                                                  status: invoices[i]
+                                                      .paid
+                                                      .toString()),
+                                            );
+                                          }),
+                                    )
                                   ],
                                 ),
                               )),
@@ -164,8 +181,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       Radius.circular(
                                                           smallFontSize / 2))),
                                           child: const Padding(
-                                            padding:
-                                                EdgeInsets.symmetric(vertical:miniSpacer / 2, horizontal: appPadding),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: miniSpacer / 2,
+                                                horizontal: appPadding),
                                             child: Text("Inv "),
                                           ),
                                         ),
@@ -183,7 +201,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           smallFontSize / 2))),
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                vertical:miniSpacer , horizontal: appPadding),
+                                                vertical: miniSpacer,
+                                                horizontal: appPadding),
                                             child: Column(
                                               children: [
                                                 Row(
@@ -311,8 +330,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       Radius.circular(
                                                           smallFontSize / 2))),
                                           child: const Padding(
-                                            padding:
-                                                EdgeInsets.symmetric(vertical:miniSpacer , horizontal: appPadding),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: miniSpacer,
+                                                horizontal: appPadding),
                                             child: Column(
                                               children: [
                                                 CustomTypeItem(),
@@ -332,10 +352,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       right: 0,
                                       bottom: 0,
                                       child: Padding(
-                                        padding:
-                                            EdgeInsets.all(appPadding),
-                                        child: CustomButtom(title: "Mark as paid")
-                                      ))
+                                          padding: EdgeInsets.all(appPadding),
+                                          child: CustomButtom(
+                                              title: "Mark as paid")))
                                 ],
                               )),
                         ],
