@@ -2,6 +2,7 @@ import 'package:facturo/common/widgets/custom_textfield.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/models/item_invoice.dart';
 import 'package:facturo/providers/item_invoice_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,9 @@ class AddRowItem extends StatelessWidget {
               hintText: "Quantity",
               onSuccess: () {},
               onChange: (String param) {
-                print(param);
+                if (kDebugMode) {
+                  print(param);
+                }
                 if (quantityController.text.isNotEmpty){
                   Provider.of<ItemInvoiceProvider>(context, listen: false)
                     .editItemQuantity(itemInvoice, int.parse(param));

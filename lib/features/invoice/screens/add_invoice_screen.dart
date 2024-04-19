@@ -1,3 +1,4 @@
+import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/client/widgets/client_card.dart';
 import 'package:facturo/features/inventory/screens/select_item_type_screen.dart';
 import 'package:facturo/features/invoice/widgets/add_button.dart';
@@ -35,6 +36,16 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
   List<TextEditingController> _quantityController = [];
 
   @override
+  void dispose() {
+    issueDateController.dispose();
+    dueDateController.dispose();
+    for (var element in _quantityController) {
+      element.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final clientProvider = Provider.of<ClientProvider>(context).client;
     // final itemProvider = Provider.of<ItemProvider>(context).items;
@@ -45,6 +56,22 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
       _quantityController.add(TextEditingController());
     });
     final size = MediaQuery.of(context).size;
+
+    void addInvoice() {
+      invoiceService.addInvoice(
+          context: context,
+          number: "INV",
+          currentDate: issueDateController.text,
+          dueDate: dueDateController.text,
+          client: clientProvider,
+          paid: true,
+          itemInvoiceProvider: itemInvoiceProvider,
+          onSuccess: () {
+            Navigator.pop(context);
+          },
+          onFailed: () {});
+    }
+
     return Scaffold(
         backgroundColor: background,
         appBar: AppBar(
@@ -62,7 +89,11 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
             IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.remove_red_eye_outlined)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.check)),
+            IconButton(
+                onPressed: () {
+                  addInvoice();
+                },
+                icon: const Icon(Icons.check)),
             const SizedBox(
               width: appPadding,
             )
@@ -278,9 +309,14 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                     itemBuilder: (context, i) {
                                       return InkWell(
                                         onTap: () {
-                                          Provider.of<ItemInvoiceProvider>(context,
-                                                              listen: false)
-                                                          .removeItem(itemInvoiceProvider[i],int.parse(_quantityController[i].text));
+                                          Provider.of<ItemInvoiceProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .removeItem(
+                                                  itemInvoiceProvider[i],
+                                                  int.parse(
+                                                      _quantityController[i]
+                                                          .text));
                                         },
                                         child: AddRowItem(
                                           itemInvoice: itemInvoiceProvider[i],

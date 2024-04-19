@@ -2,11 +2,9 @@ import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/item.dart';
-import 'package:facturo/models/item_type.dart';
-import 'package:facturo/providers/item_invoice_provider.dart';
+import 'package:facturo/models/item_invoice.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 
 class InvoiceService {
   final invoices = Hive.box("invoices");
@@ -18,6 +16,8 @@ class InvoiceService {
     required String currentDate,
     required String dueDate,
     required Client client,
+    required bool paid,
+    required List<ItemInvoice> itemInvoiceProvider,
     required VoidCallback onSuccess,
     required VoidCallback onFailed,
   }) async {
@@ -27,12 +27,13 @@ class InvoiceService {
         'number': number,
         'currentDate': currentDate,
         'dueDate': dueDate,
+        'paid': paid,
         'client': client.toJson(),
       }));
       // Get the invoice object by id
       final invoice = invoices.getAt(invoiceId);
-      final itemInvoiceProvider =
-          Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
+      
+
 
       // Loop through the item invoice provider which is a list
 

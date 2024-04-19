@@ -10,7 +10,9 @@ class ItemInvoiceProvider extends ChangeNotifier {
   // Check if item exist? If it doesn't add to the list
   void addItem(ItemInvoice itemInvoice) {
     bool isFound = false;
-    print("addItem");
+    if (kDebugMode) {
+      print("addItem");
+    }
     for (var item in _itemsInvoice) {
       if (item.id == itemInvoice.id) {
         isFound = true;
