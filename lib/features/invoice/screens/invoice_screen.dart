@@ -38,6 +38,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   void getAllInvoices() {
     invoices = invoiceService.getAllInvoices(context);
     selectedRowInvoice = invoices.first;
+    print(selectedRowInvoice.number);
     setState(() {});
   }
 
