@@ -80,21 +80,21 @@ class InvoiceService {
     return invoicesList;
   }
 
-  // void deleteItem({
-  //   required BuildContext context,
-  //   required Item item,
-  //   required VoidCallback onSuccess,
-  //   required VoidCallback onFailed,
-  // }) async {
-  //   try {
-  //     items.delete(item.id);
+  void deleteInvoice({
+    required BuildContext context,
+    required Invoice invoice,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+      invoices.delete(invoice.id);
 
-  //     onSuccess();
-  //   } catch (e) {
-  //     // showSnackBar(context, e.toString());
-  //     // showSnackBar(context, "Please Check your internet connection");
-  //   }
-  // }
+      onSuccess();
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+  }
 
   // void editItem({
   //   required BuildContext context,

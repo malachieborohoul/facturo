@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/custom_button.dart';
 import 'package:facturo/common/widgets/custom_item.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
@@ -24,7 +25,7 @@ class InvoiceScreen extends StatefulWidget {
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
-  late int selectedRowInvoice;
+  late Invoice selectedRowInvoice;
 
   @override
   void initState() {
@@ -36,7 +37,20 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
 
   void getAllInvoices() {
     invoices = invoiceService.getAllInvoices(context);
-    selectedRowInvoice = invoices.first.id;
+    selectedRowInvoice = invoices.first;
+    setState(() {});
+  }
+
+  void deleteInvoice(Invoice invoice) {
+    invoiceService.deleteInvoice(
+        context: context,
+        invoice: invoice,
+        onSuccess: () {
+          // searchController.text = "";
+          // isSeaching = false;
+          getAllInvoices();
+        },
+        onFailed: () {});
     setState(() {});
   }
 
@@ -82,7 +96,17 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        var result = await Navigator.pushNamed(
+                                            context,
+                                            ConfirmationModal.routeName,
+                                            arguments:
+                                                "Do you want to delete this invoice");
+                                        if (result == true) {
+                                          // deleteItem(items[i]);
+                                          deleteInvoice(selectedRowInvoice);
+                                        }
+                                      },
                                       icon: const Icon(Icons.delete_outlined)),
                                   const SizedBox(
                                     width: miniSpacer,
@@ -126,16 +150,16 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                             return GestureDetector(
                                               onTap: () {
                                                 setState(() {
-                                                  selectedRowInvoice =
+                                                  selectedRowInvoice.id =
                                                       invoices[i].id;
                                                 });
                                               },
                                               child: RowInvoiceTable(
-                                                  selected: 
-                                                  selectedRowInvoice ==
-                                                          invoices[i].id
-                                                      ? true
-                                                      : false,
+                                                  selected:
+                                                      selectedRowInvoice.id ==
+                                                              invoices[i].id
+                                                          ? true
+                                                          : false,
                                                   client:
                                                       invoices[i].client.name,
                                                   amount: 2000.0,
