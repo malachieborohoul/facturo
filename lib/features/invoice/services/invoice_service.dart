@@ -31,8 +31,11 @@ class InvoiceService {
         'paid': paid,
         'client': client.toJson(),
       }));
+      print(invoiceId);
       // Get the invoice object by id
-      final invoice = invoices.getAt(invoiceId);
+      var invoice = invoices.get(invoiceId) as Invoice;
+      invoice.id = invoiceId;
+      print("Ok ${invoice.id} ${invoice.client.businessName}");
 
       // Loop through the item invoice provider which is a list
 
@@ -93,11 +96,11 @@ class InvoiceService {
             InvoiceWithItems(invoice: invoice, itemsInvoice: itemsInvoiceList));
       });
     } catch (e) {
-      // showSnackBar(context, "Please Check your internet connection");
       // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
     }
 
-    print(invoicesList.first.itemsInvoice.toString());
+    // print(invoicesList.first.itemsInvoice.toString());
     return invoicesList;
   }
 

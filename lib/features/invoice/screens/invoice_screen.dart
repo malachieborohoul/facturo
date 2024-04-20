@@ -13,9 +13,11 @@ import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:facturo/features/invoice/widgets/row_invoice_table.dart';
 import 'package:facturo/models/invoice.dart';
+import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/invoice_with_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive/hive.dart';
 
 class InvoiceScreen extends StatefulWidget {
   static const routeName = '/invoices';
@@ -28,10 +30,17 @@ class InvoiceScreen extends StatefulWidget {
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
   late InvoiceWithItems selectedRowInvoice;
+  final invoiceItems = Hive.box("invoice_items");
 
   @override
   void initState() {
     getAllInvoices();
+
+    invoiceItems.keys.forEach((invoiceItemKey) {
+      var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+
+      print(invoiceItem.invoice.id);
+    });
     super.initState();
   }
 
@@ -41,7 +50,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     invoices = invoiceService.getAllInvoices(context);
     if (invoices.isNotEmpty) {
       selectedRowInvoice = invoices.first;
-      print(selectedRowInvoice.itemsInvoice.toString());
+      // print(selectedRowInvoice.itemsInvoice.toString());
     }
 
     setState(() {});
@@ -381,15 +390,42 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                             child: Column(
                                               children: [
                                                 // CustomTypeItem(),
-                                              invoices.isNotEmpty?  ListView.builder(
-                                                    shrinkWrap: true,
-                                                    itemCount:
-                                                        selectedRowInvoice
-                                                            .itemsInvoice
-                                                            .length,
-                                                    itemBuilder: (context, i) {
-                                                      return CustomItem(id: selectedRowInvoice.itemsInvoice[i].id, name: selectedRowInvoice.itemsInvoice[i].name, quantity: selectedRowInvoice.itemsInvoice[i].quantity, price: selectedRowInvoice.itemsInvoice[i].price, itemType: selectedRowInvoice.itemsInvoice[i].itemType);
-                                                    }): SizedBox(),
+                                                invoices.isNotEmpty
+                                                    ? SingleChildScrollView(
+                                                      child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount:
+                                                              selectedRowInvoice
+                                                                  .itemsInvoice
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (context, i) {
+                                                            return CustomItem(
+                                                                id: selectedRowInvoice
+                                                                    .itemsInvoice[
+                                                                        i]
+                                                                    .id,
+                                                                name: selectedRowInvoice
+                                                                    .itemsInvoice[
+                                                                        i]
+                                                                    .name,
+                                                                quantity:
+                                                                    selectedRowInvoice
+                                                                        .itemsInvoice[
+                                                                            i]
+                                                                        .quantity,
+                                                                price: selectedRowInvoice
+                                                                    .itemsInvoice[
+                                                                        i]
+                                                                    .price,
+                                                                itemType:
+                                                                    selectedRowInvoice
+                                                                        .itemsInvoice[
+                                                                            i]
+                                                                        .itemType);
+                                                          }),
+                                                    )
+                                                    : SizedBox(),
                                                 CustomTotalItem()
                                               ],
                                             ),
