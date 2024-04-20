@@ -13,7 +13,9 @@ import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:facturo/features/invoice/widgets/row_invoice_table.dart';
 import 'package:facturo/models/invoice.dart';
+import 'package:facturo/models/invoice_with_items.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class InvoiceScreen extends StatefulWidget {
   static const routeName = '/invoices';
@@ -25,7 +27,7 @@ class InvoiceScreen extends StatefulWidget {
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
-  late Invoice selectedRowInvoice;
+  late InvoiceWithItems selectedRowInvoice;
 
   @override
   void initState() {
@@ -33,12 +35,15 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     super.initState();
   }
 
-  late List<Invoice> invoices;
+  late List<InvoiceWithItems> invoices;
 
   void getAllInvoices() {
     invoices = invoiceService.getAllInvoices(context);
-    selectedRowInvoice = invoices.first;
-    print(selectedRowInvoice.number);
+    if (invoices.isNotEmpty) {
+      selectedRowInvoice = invoices.first;
+      print(selectedRowInvoice.itemsInvoice.toString());
+    }
+
     setState(() {});
   }
 
@@ -86,9 +91,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                               Row(
                                 children: [
                                   IconButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(context,
-                                            AddInvoiceScreen.routeName);
+                                      onPressed: () async {
+                                        final result =
+                                            await Navigator.pushNamed(context,
+                                                AddInvoiceScreen.routeName);
+
+                                        if (result == true) {
+                                          getAllInvoices();
+                                        }
                                       },
                                       icon: const Icon(
                                         Icons.add,
@@ -105,7 +115,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                 "Do you want to delete this invoice");
                                         if (result == true) {
                                           // deleteItem(items[i]);
-                                          deleteInvoice(selectedRowInvoice);
+                                          deleteInvoice(
+                                              selectedRowInvoice.invoice);
                                         }
                                       },
                                       icon: const Icon(Icons.delete_outlined)),
@@ -145,30 +156,39 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
                                     Expanded(
-                                      child: ListView.builder(
-                                          itemCount: invoices.length,
-                                          itemBuilder: (context, i) {
-                                            return GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedRowInvoice.id =
-                                                      invoices[i].id;
-                                                });
-                                              },
-                                              child: RowInvoiceTable(
-                                                  selected:
-                                                      selectedRowInvoice.id ==
-                                                              invoices[i].id
-                                                          ? true
-                                                          : false,
-                                                  client:
-                                                      invoices[i].client.name,
-                                                  amount: 2000.0,
-                                                  status: invoices[i]
-                                                      .paid
-                                                      .toString()),
-                                            );
-                                          }),
+                                      child: invoices.isNotEmpty
+                                          ? ListView.builder(
+                                              itemCount: invoices.length,
+                                              itemBuilder: (context, i) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      selectedRowInvoice =
+                                                          invoices[i];
+                                                    });
+                                                  },
+                                                  child: RowInvoiceTable(
+                                                      selected:
+                                                          selectedRowInvoice
+                                                                      .invoice
+                                                                      .id ==
+                                                                  invoices[i]
+                                                                      .invoice
+                                                                      .id
+                                                              ? true
+                                                              : false,
+                                                      client: invoices[i]
+                                                          .invoice
+                                                          .client
+                                                          .businessName,
+                                                      amount: 2000.0,
+                                                      status: invoices[i]
+                                                          .invoice
+                                                          .paid
+                                                          .toString()),
+                                                );
+                                              })
+                                          : const SizedBox(),
                                     )
                                   ],
                                 ),
@@ -354,16 +374,22 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                   const BorderRadius.all(
                                                       Radius.circular(
                                                           smallFontSize / 2))),
-                                          child: const Padding(
+                                          child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: miniSpacer,
                                                 horizontal: appPadding),
                                             child: Column(
                                               children: [
-                                                CustomTypeItem(),
-                                                CustomItem(),
-                                                CustomItem(),
-                                                CustomItem(),
+                                                // CustomTypeItem(),
+                                              invoices.isNotEmpty?  ListView.builder(
+                                                    shrinkWrap: true,
+                                                    itemCount:
+                                                        selectedRowInvoice
+                                                            .itemsInvoice
+                                                            .length,
+                                                    itemBuilder: (context, i) {
+                                                      return CustomItem(id: selectedRowInvoice.itemsInvoice[i].id, name: selectedRowInvoice.itemsInvoice[i].name, quantity: selectedRowInvoice.itemsInvoice[i].quantity, price: selectedRowInvoice.itemsInvoice[i].price, itemType: selectedRowInvoice.itemsInvoice[i].itemType);
+                                                    }): SizedBox(),
                                                 CustomTotalItem()
                                               ],
                                             ),

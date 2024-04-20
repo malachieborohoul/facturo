@@ -1,6 +1,7 @@
 import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/invoice_item.dart';
+import 'package:facturo/models/invoice_with_items.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_invoice.dart';
 import 'package:flutter/material.dart';
@@ -62,21 +63,41 @@ class InvoiceService {
     }
   }
 
-  List<Invoice> getAllInvoices(
+  List<InvoiceWithItems> getAllInvoices(
     BuildContext context,
   ) {
-    List<Invoice> invoicesList = [];
+    List<InvoiceWithItems> invoicesList = [];
 
     try {
-      invoices.keys.map((key) {
-        var invoice = invoices.get(key) as Invoice;
-        invoice.id = key;
-        invoicesList.add(invoice);
-      }).toList();
+      invoices.keys.forEach((invoiceKey) {
+        var invoice = invoices.get(invoiceKey) as Invoice;
+        invoice.id = invoiceKey;
+
+        List<ItemInvoice> itemsInvoiceList = [];
+
+        invoiceItems.keys.forEach((invoiceItemKey) {
+          var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+          invoiceItem.id = invoiceItemKey;
+          if (invoiceItem.invoice.id == invoice.id) {
+            ItemInvoice itemInvoice = ItemInvoice(
+                id: invoiceItem.item.id,
+                name: invoiceItem.item.name,
+                quantity: invoiceItem.quantity,
+                price: invoiceItem.item.price,
+                itemType: invoiceItem.item.itemType);
+
+            itemsInvoiceList.add(itemInvoice);
+          }
+        });
+        invoicesList.add(
+            InvoiceWithItems(invoice: invoice, itemsInvoice: itemsInvoiceList));
+      });
     } catch (e) {
-      // showSnackBar(context, e.toString());
       // showSnackBar(context, "Please Check your internet connection");
+      // showSnackBar(context, e.toString());
     }
+
+    print(invoicesList.first.itemsInvoice.toString());
     return invoicesList;
   }
 
