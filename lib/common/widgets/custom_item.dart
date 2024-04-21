@@ -37,9 +37,9 @@ class CustomItem extends StatelessWidget {
               ),
             ],
           ),
-          const Text(
-            "2000",
-            style: TextStyle(
+           Text(
+            "${quantity*price}",
+            style: const TextStyle(
                 fontSize: smallFontSize * 0.8, fontWeight: FontWeight.bold),
           ),
         ],

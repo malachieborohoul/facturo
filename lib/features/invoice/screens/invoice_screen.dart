@@ -3,7 +3,6 @@ import 'package:facturo/common/widgets/custom_button.dart';
 import 'package:facturo/common/widgets/custom_item.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
-import 'package:facturo/common/widgets/custom_type_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/invoice/widgets/header_invoice_table.dart';
@@ -16,8 +15,8 @@ import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/invoice_with_items.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 class InvoiceScreen extends StatefulWidget {
   static const routeName = '/invoices';
@@ -30,6 +29,7 @@ class InvoiceScreen extends StatefulWidget {
 class _InvoiceScreenState extends State<InvoiceScreen> {
   TextEditingController searchController = TextEditingController();
   late InvoiceWithItems selectedRowInvoice;
+  double selectedTotalItemsPrice = 0.0;
   final invoiceItems = Hive.box("invoice_items");
 
   @override
@@ -40,6 +40,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
 
       print(invoiceItem.invoice.id);
+      selectedTotalItemsPrice = 0;
+      selectedRowInvoice.itemsInvoice.forEach((element) {
+        selectedTotalItemsPrice += element.quantity * element.price;
+      });
     });
     super.initState();
   }
@@ -174,6 +178,16 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                     setState(() {
                                                       selectedRowInvoice =
                                                           invoices[i];
+                                                      selectedTotalItemsPrice =
+                                                          0;
+
+                                                      selectedRowInvoice
+                                                          .itemsInvoice
+                                                          .forEach((element) {
+                                                        selectedTotalItemsPrice +=
+                                                            element.quantity *
+                                                                element.price;
+                                                      });
                                                     });
                                                   },
                                                   child: RowInvoiceTable(
@@ -217,9 +231,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                          "ALC",
-                                          style: TextStyle(
+                                         Text(
+                                           selectedRowInvoice.invoice.client.businessName,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         const SizedBox(
@@ -264,38 +278,39 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    const Column(
+                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
+                                                        const Text(
                                                           "Amount due",
                                                           style: TextStyle(
                                                               fontSize:
                                                                   smallFontSize *
                                                                       0.8),
                                                         ),
-                                                        Text("2000",
-                                                            style: TextStyle(
+                                                        Text("$selectedTotalItemsPrice",
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold)),
                                                       ],
                                                     ),
                                                     Container(
-                                                      decoration: const BoxDecoration(
-                                                          color: Colors.amber,
+                                                      decoration:  BoxDecoration(
+                                                          color: selectedRowInvoice.invoice.paid? primary: Colors.amber,
                                                           borderRadius:
-                                                              BorderRadius.all(
+                                                              const BorderRadius.all(
                                                                   Radius.circular(
                                                                       smallFontSize))),
-                                                      child: const Padding(
-                                                        padding: EdgeInsets.all(
+                                                      child:  Padding(
+                                                        padding: const EdgeInsets.all(
                                                             miniSpacer / 2),
                                                         child: Text(
-                                                          "Pending",
-                                                          style: TextStyle(
+                                                          selectedRowInvoice.invoice.paid? "Paid": "Pending",
+                                                          style: const TextStyle(
+                                                            color: textWhite,
                                                             fontSize:
                                                                 smallFontSize *
                                                                     0.8,
@@ -308,7 +323,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                 const SizedBox(
                                                   height: miniSpacer,
                                                 ),
-                                                const Row(
+                                                Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceBetween,
@@ -318,15 +333,18 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
+                                                        const Text(
                                                           "Issued on",
                                                           style: TextStyle(
                                                               fontSize:
                                                                   smallFontSize *
                                                                       0.8),
                                                         ),
-                                                        Text("31 Jan 2024",
-                                                            style: TextStyle(
+                                                        Text(
+                                                            selectedRowInvoice
+                                                                .invoice
+                                                                .currentDate,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -340,15 +358,18 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
+                                                        const Text(
                                                           "Due on",
                                                           style: TextStyle(
                                                               fontSize:
                                                                   smallFontSize *
                                                                       0.8),
                                                         ),
-                                                        Text("31 Jan 2024",
-                                                            style: TextStyle(
+                                                        Text(
+                                                            selectedRowInvoice
+                                                                .invoice
+                                                                .dueDate,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -384,7 +405,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       Radius.circular(
                                                           smallFontSize / 2))),
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: miniSpacer,
                                                 horizontal: appPadding),
                                             child: Column(
@@ -392,41 +413,42 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                 // CustomTypeItem(),
                                                 invoices.isNotEmpty
                                                     ? SingleChildScrollView(
-                                                      child: ListView.builder(
-                                                          shrinkWrap: true,
-                                                          itemCount:
-                                                              selectedRowInvoice
-                                                                  .itemsInvoice
-                                                                  .length,
-                                                          itemBuilder:
-                                                              (context, i) {
-                                                            return CustomItem(
-                                                                id: selectedRowInvoice
-                                                                    .itemsInvoice[
-                                                                        i]
-                                                                    .id,
-                                                                name: selectedRowInvoice
-                                                                    .itemsInvoice[
-                                                                        i]
-                                                                    .name,
-                                                                quantity:
-                                                                    selectedRowInvoice
-                                                                        .itemsInvoice[
-                                                                            i]
-                                                                        .quantity,
-                                                                price: selectedRowInvoice
-                                                                    .itemsInvoice[
-                                                                        i]
-                                                                    .price,
-                                                                itemType:
-                                                                    selectedRowInvoice
-                                                                        .itemsInvoice[
-                                                                            i]
-                                                                        .itemType);
-                                                          }),
-                                                    )
-                                                    : SizedBox(),
-                                                CustomTotalItem()
+                                                        child: ListView.builder(
+                                                            shrinkWrap: true,
+                                                            itemCount:
+                                                                selectedRowInvoice
+                                                                    .itemsInvoice
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (context, i) {
+                                                              return CustomItem(
+                                                                  id: selectedRowInvoice
+                                                                      .itemsInvoice[
+                                                                          i]
+                                                                      .id,
+                                                                  name: selectedRowInvoice
+                                                                      .itemsInvoice[
+                                                                          i]
+                                                                      .name,
+                                                                  quantity: selectedRowInvoice
+                                                                      .itemsInvoice[
+                                                                          i]
+                                                                      .quantity,
+                                                                  price: selectedRowInvoice
+                                                                      .itemsInvoice[
+                                                                          i]
+                                                                      .price,
+                                                                  itemType: selectedRowInvoice
+                                                                      .itemsInvoice[
+                                                                          i]
+                                                                      .itemType);
+                                                            }),
+                                                      )
+                                                    : const SizedBox(),
+                                                CustomTotalItem(
+                                                  total:
+                                                      selectedTotalItemsPrice,
+                                                )
                                               ],
                                             ),
                                           ),

@@ -4,24 +4,29 @@ import 'package:facturo/constants/size.dart';
 import 'package:flutter/material.dart';
 
 class CustomTotalItem extends StatelessWidget {
-  const CustomTotalItem({super.key});
+  const CustomTotalItem({super.key, required this.total});
+  final double total;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: miniSpacer),
+    return  Padding(
+      padding: const EdgeInsets.only(bottom: miniSpacer),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Total",
             style: TextStyle(
-                fontSize: smallFontSize * 0.8, fontWeight: FontWeight.bold,color: primary),
+                fontSize: smallFontSize * 0.8,
+                fontWeight: FontWeight.bold,
+                color: primary),
           ),
           Text(
-            "2000",
-            style: TextStyle(
-                fontSize: smallFontSize * 0.9, fontWeight: FontWeight.bold,color: primary),
+            "$total",
+            style: const TextStyle(
+                fontSize: smallFontSize * 0.9,
+                fontWeight: FontWeight.bold,
+                color: primary),
           ),
         ],
       ),
