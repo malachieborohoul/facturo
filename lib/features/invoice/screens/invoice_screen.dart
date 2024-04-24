@@ -16,7 +16,6 @@ import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/invoice_with_items.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 
 class InvoiceScreen extends StatefulWidget {
   static const routeName = '/invoices';

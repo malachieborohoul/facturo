@@ -67,7 +67,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
           paid: true,
           itemInvoiceProvider: itemInvoiceProvider,
           onSuccess: () {
-            Navigator.pop(context);
+            Navigator.pop(context,true);
           },
           onFailed: () {});
     }

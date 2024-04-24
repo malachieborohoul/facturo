@@ -33,11 +33,11 @@ class RowInvoiceTable extends StatelessWidget {
                 padding: const EdgeInsets.only(left: appPadding),
                 child: Text("Inv", style: TextStyle(color: selected ? textWhite: textBlack),),
               )),
-               Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: appPadding),
-                child: Text(amount.toString(), style: TextStyle(color: selected ? textWhite: textBlack),),
-              )),
+              //  Expanded(
+              //     child: Padding(
+              //   padding: const EdgeInsets.only(left: appPadding),
+              //   child: Text(amount.toString(), style: TextStyle(color: selected ? textWhite: textBlack),),
+              // )),
                Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(left: appPadding),
