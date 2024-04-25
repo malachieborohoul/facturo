@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
+import 'package:open_document/open_document.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
 class PdfService {
@@ -23,6 +22,6 @@ class PdfService {
   static Future openFile(File file) async {
     final url = file.path;
 
-    await OpenFile.open(url);
+    await OpenDocument.openDocument(filePath: url);
   }
 }

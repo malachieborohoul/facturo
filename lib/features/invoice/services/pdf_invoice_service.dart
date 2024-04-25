@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:facturo/constants/utils.dart';
 import 'package:facturo/features/invoice/services/pdf_service.dart';
 import 'package:facturo/models/client.dart';
-import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/invoice_with_items.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -16,8 +15,7 @@ class PdfInvoiceService {
     pdf.addPage(MultiPage(
       build: (context) => [
         buildHeader(invoiceWithItems),
-        SizedBox(height: 3 * PdfPageFormat.cm),
-        buildTitle(invoiceWithItems),
+        SizedBox(height: 1 * PdfPageFormat.cm),
         buildInvoice(invoiceWithItems),
         Divider(),
         buildTotal(invoiceWithItems),
@@ -31,19 +29,62 @@ class PdfInvoiceService {
   static Widget buildHeader(InvoiceWithItems invoiceWithItems) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 1 * PdfPageFormat.cm),
+          // SizedBox(height: 1 * PdfPageFormat.cm),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text(
+                'Facture',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Logo',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 1 * PdfPageFormat.cm),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 100,
+                child: Text(
+                  'Vendeur',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(width: 1 * PdfPageFormat.cm),
               buildSupplierAddress(invoiceWithItems),
-              // Container(
-              //   height: 50,
-              //   width: 50,
-              //   child: BarcodeWidget(
-              //     barcode: Barcode.qrCode(),
-              //     data: invoice.info.number,
-              //   ),
-              // ),
+            ],
+          ),
+          SizedBox(height: 1 * PdfPageFormat.cm),
+
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 100,
+                child: Text(
+                  'Client',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(width: 1 * PdfPageFormat.cm),
+              buildClientAddress(invoiceWithItems.invoice.client),
             ],
           ),
           SizedBox(height: 1 * PdfPageFormat.cm),
@@ -51,14 +92,40 @@ class PdfInvoiceService {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildCustomerAddress(invoiceWithItems.invoice.client),
-              buildInvoiceInfo(invoiceWithItems.invoice),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Date de facturation",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 1 * PdfPageFormat.mm),
+                  Text(Utils.formatDate(
+                      DateTime.parse(invoiceWithItems.invoice.currentDate))),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Numero", style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 1 * PdfPageFormat.mm),
+                  Text("INV"),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Echéance",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 1 * PdfPageFormat.mm),
+                  Text(Utils.formatDate(
+                      DateTime.parse(invoiceWithItems.invoice.dueDate))),
+                ],
+              ),
             ],
           ),
         ],
       );
 
-  static Widget buildCustomerAddress(Client client) => Column(
+  static Widget buildClientAddress(Client client) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(client.name, style: TextStyle(fontWeight: FontWeight.bold)),
@@ -66,37 +133,15 @@ class PdfInvoiceService {
         ],
       );
 
-  static Widget buildInvoiceInfo(Invoice invoice) {
-    // final paymentTerms = '${info.dueDate.difference(info.date).inDays} days';
-    final titles = <String>[
-      'Invoice Number:',
-      'Invoice Date:',
-      // 'Payment Terms:',
-      'Due Date:'
-    ];
-    final data = <String>[
-      "INV",
-      Utils.formatDate(DateTime.parse(invoice.currentDate)),
-      Utils.formatDate(DateTime.parse(invoice.dueDate)),
-    ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(titles.length, (index) {
-        final title = titles[index];
-        final value = data[index];
 
-        return buildText(title: title, value: value, width: 200);
-      }),
-    );
-  }
-
-  static Widget buildSupplierAddress(InvoiceWithItems invoiceWithItems) => Column(
+  static Widget buildSupplierAddress(InvoiceWithItems invoiceWithItems) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(invoiceWithItems.invoice.client.businessName, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("CWorth Energy", style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(invoiceWithItems.invoice.client.address),
+          Text("N'Djamena"),
         ],
       );
 
@@ -114,20 +159,15 @@ class PdfInvoiceService {
       );
 
   static Widget buildInvoice(InvoiceWithItems invoiceWithItems) {
-    final headers = [
-      'Designation',
-      'Quantité',
-      'Prix unitaire',
-      'Total'
-    ];
+    final headers = ['Designation', 'Quantité', 'Prix unitaire', 'Total'];
     final data = invoiceWithItems.itemsInvoice.map((item) {
-      final total = item.price * item.quantity ;
+      final total = item.price * item.quantity;
 
       return [
         item.name,
         '${item.quantity}',
         ' ${item.price} FCFA',
-        '\$ ${total.toStringAsFixed(2)}',
+        '${total.toStringAsFixed(2)} FCFA',
       ];
     }).toList();
 
@@ -150,10 +190,10 @@ class PdfInvoiceService {
   }
 
   static Widget buildTotal(InvoiceWithItems invoiceWithItems) {
-      double total = 0.0;
-      invoiceWithItems.itemsInvoice.forEach((element) {
-        total += element.quantity * element.price;
-      });
+    double total = 0.0;
+    invoiceWithItems.itemsInvoice.forEach((element) {
+      total += element.quantity * element.price;
+    });
     return Container(
       alignment: Alignment.centerRight,
       child: Row(
@@ -176,7 +216,7 @@ class PdfInvoiceService {
                 // ),
                 // Divider(),
                 buildText(
-                  title: 'Total amount due',
+                  title: 'Total',
                   titleStyle: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -201,7 +241,8 @@ class PdfInvoiceService {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Adresse', value: invoiceWithItems.invoice.client.address),
+          buildSimpleText(
+              title: 'Adresse', value: invoiceWithItems.invoice.client.address),
           // SizedBox(height: 1 * PdfPageFormat.mm),
           // buildSimpleText(title: 'Paypal', value: invoice.supplier.paymentInfo),
         ],
