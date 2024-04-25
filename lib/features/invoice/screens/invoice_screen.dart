@@ -16,6 +16,7 @@ import 'package:facturo/features/invoice/widgets/row_invoice_table.dart';
 import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/invoice_with_items.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -40,7 +41,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     invoiceItems.keys.forEach((invoiceItemKey) {
       var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
 
-      print(invoiceItem.invoice.id);
+      if (kDebugMode) {
+        print(invoiceItem.invoice.id);
+      }
       selectedTotalItemsPrice = 0;
       selectedRowInvoice.itemsInvoice.forEach((element) {
         selectedTotalItemsPrice += element.quantity * element.price;

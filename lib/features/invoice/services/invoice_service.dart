@@ -4,6 +4,7 @@ import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/invoice_with_items.dart';
 import 'package:facturo/models/item.dart';
 import 'package:facturo/models/item_invoice.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -31,11 +32,15 @@ class InvoiceService {
         'paid': paid,
         'client': client.toJson(),
       }));
-      print(invoiceId);
+      if (kDebugMode) {
+        print(invoiceId);
+      }
       // Get the invoice object by id
       var invoice = invoices.get(invoiceId) as Invoice;
       invoice.id = invoiceId;
-      print("Ok ${invoice.id} ${invoice.client.businessName}");
+      if (kDebugMode) {
+        print("Ok ${invoice.id} ${invoice.client.businessName}");
+      }
 
       // Loop through the item invoice provider which is a list
 
