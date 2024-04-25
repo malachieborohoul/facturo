@@ -5,6 +5,8 @@ import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/constants/global.dart';
+import 'package:facturo/features/invoice/services/pdf_invoice_service.dart';
+import 'package:facturo/features/invoice/services/pdf_service.dart';
 import 'package:facturo/features/invoice/widgets/header_invoice_table.dart';
 import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
@@ -136,7 +138,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: ()async {
+                                        final pdfFile = await PdfInvoiceService.generate(selectedRowInvoice);
+
+                                        PdfService.openFile(pdfFile);
+                                      },
                                       icon: const Icon(Icons.edit_outlined)),
                                   const SizedBox(
                                     width: miniSpacer,
