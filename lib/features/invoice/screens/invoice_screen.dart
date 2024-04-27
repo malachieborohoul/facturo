@@ -13,12 +13,16 @@ import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
 import 'package:facturo/features/invoice/widgets/row_invoice_table.dart';
+import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice.dart';
 import 'package:facturo/models/invoice_item.dart';
 import 'package:facturo/models/invoice_with_items.dart';
+import 'package:facturo/providers/client_provider.dart';
+import 'package:facturo/providers/item_invoice_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class InvoiceScreen extends StatefulWidget {
   static const routeName = '/invoices';
@@ -79,6 +83,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final clientProvider = Provider.of<ClientProvider>(context);
+    final itemInvoiceProvider =
+        Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
+
     return Scaffold(
       body: SafeArea(
           child: Row(
@@ -114,6 +122,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                 AddInvoiceScreen.routeName);
 
                                         if (result == true) {
+                                          itemInvoiceProvider.clear();
+                                          clientProvider.setClient(Client(
+                                              id: 0,
+                                              businessName: "",
+                                              name: "",
+                                              address: ""));
+
                                           getAllInvoices();
                                         }
                                       },
@@ -141,8 +156,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
-                                      onPressed: ()async {
-                                        final pdfFile = await PdfInvoiceService.generate(selectedRowInvoice);
+                                      onPressed: () async {
+                                        final pdfFile =
+                                            await PdfInvoiceService.generate(
+                                                selectedRowInvoice);
 
                                         PdfService.openFile(pdfFile);
                                       },
@@ -239,8 +256,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                         Text(
-                                           selectedRowInvoice.invoice.client.businessName,
+                                        Text(
+                                          selectedRowInvoice
+                                              .invoice.client.businessName,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -286,7 +304,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                     Column(
+                                                    Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -298,7 +316,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                                   smallFontSize *
                                                                       0.8),
                                                         ),
-                                                        Text("$selectedTotalItemsPrice",
+                                                        Text(
+                                                            "$selectedTotalItemsPrice",
                                                             style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -306,18 +325,31 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                       ],
                                                     ),
                                                     Container(
-                                                      decoration:  BoxDecoration(
-                                                          color: selectedRowInvoice.invoice.paid? primary: Colors.amber,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              selectedRowInvoice
+                                                                      .invoice
+                                                                      .paid
+                                                                  ? primary
+                                                                  : Colors
+                                                                      .amber,
                                                           borderRadius:
-                                                              const BorderRadius.all(
+                                                              const BorderRadius
+                                                                  .all(
                                                                   Radius.circular(
                                                                       smallFontSize))),
-                                                      child:  Padding(
-                                                        padding: const EdgeInsets.all(
-                                                            miniSpacer / 2),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(
+                                                                miniSpacer / 2),
                                                         child: Text(
-                                                          selectedRowInvoice.invoice.paid? "Paid": "Pending",
-                                                          style: const TextStyle(
+                                                          selectedRowInvoice
+                                                                  .invoice.paid
+                                                              ? "Paid"
+                                                              : "Pending",
+                                                          style:
+                                                              const TextStyle(
                                                             color: textWhite,
                                                             fontSize:
                                                                 smallFontSize *
