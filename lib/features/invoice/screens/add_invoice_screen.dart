@@ -1,3 +1,4 @@
+import 'package:facturo/common/widgets/error_field_modal.dart';
 import 'package:facturo/constants/global.dart';
 import 'package:facturo/features/client/widgets/client_card.dart';
 import 'package:facturo/features/inventory/screens/select_item_type_screen.dart';
@@ -34,6 +35,8 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
   List<TextEditingController> _quantityController = [];
+  //Variable to verify if quantity of each item is added
+  bool isQuantityAdded = true;
 
   @override
   void dispose() {
@@ -52,8 +55,18 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
     final itemInvoiceProvider =
         Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
 
+    
+    //Every time build is called set is to true
+    isQuantityAdded = true;
     itemInvoiceProvider.forEach((item) {
       _quantityController.add(TextEditingController());
+    });
+
+    //Every time build is called verify if a quantity item has been added if not it is false
+    itemInvoiceProvider.forEach((element) {
+      if (element.quantity == 0) {
+        isQuantityAdded = false;
+      }
     });
     final size = MediaQuery.of(context).size;
 
@@ -67,7 +80,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
           paid: true,
           itemInvoiceProvider: itemInvoiceProvider,
           onSuccess: () {
-            Navigator.pop(context,true);
+            Navigator.pop(context, true);
           },
           onFailed: () {});
     }
@@ -91,7 +104,13 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                 icon: const Icon(Icons.remove_red_eye_outlined)),
             IconButton(
                 onPressed: () {
-                  addInvoice();
+                  if (itemInvoiceProvider.isNotEmpty &&
+                      clientProvider.businessName.isNotEmpty && isQuantityAdded ) {
+                    addInvoice();
+                  } else {
+                    Navigator.pushNamed(context, ErrorFieldModal.routeName,
+                        arguments: "empty fields");
+                  }
                 },
                 icon: const Icon(Icons.check)),
             const SizedBox(

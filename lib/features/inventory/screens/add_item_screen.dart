@@ -89,7 +89,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             InkWell(
                                 onTap: () {
                                   if (nameController.text.isEmpty ||
-                                      
                                       priceController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
@@ -120,18 +119,21 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CustomTextfield(
-                                      controller: nameController,
-                                      hintText: "Name",
-                                      onSuccess: () {}, onChange: (String param) {  },),
-                                
+                                    controller: nameController,
+                                    hintText: "Name",
+                                    onSuccess: () {},
+                                    onChange: (String param) {},
+                                  ),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
-                                      controller: priceController,
-                                      textInputType: TextInputType.number,
-                                      hintText: "Price",
-                                      onSuccess: () {}, onChange: (String param) {  },),
+                                    controller: priceController,
+                                    textInputType: TextInputType.number,
+                                    hintText: "Price",
+                                    onSuccess: () {},
+                                    onChange: (String param) {},
+                                  ),
                                 ],
                               ),
                             )),
