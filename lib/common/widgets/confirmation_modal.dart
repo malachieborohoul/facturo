@@ -62,7 +62,7 @@ class ConfirmationModal extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               child: const CustomButtom(
-                                title: "Cancel",
+                                title: "Annuler",
                                 bgColor: neutral,
                                 color: textBlack,
                               ),
@@ -73,7 +73,7 @@ class ConfirmationModal extends StatelessWidget {
                                 Navigator.pop(context, true);
                               },
                               child: const CustomButtom(
-                                title: "Delete",
+                                title: "Supprimer",
                                 bgColor: neutral,
                                 color: Colors.redAccent,
                               ),

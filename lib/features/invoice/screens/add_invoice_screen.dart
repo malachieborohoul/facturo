@@ -89,7 +89,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            "Add Invoice",
+            "Ajouter une facture",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
@@ -109,7 +109,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                     addInvoice();
                   } else {
                     Navigator.pushNamed(context, ErrorFieldModal.routeName,
-                        arguments: "empty fields");
+                        arguments: "champs vides");
                   }
                 },
                 icon: const Icon(Icons.check)),
@@ -128,7 +128,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                     const SizedBox(
                       height: smallFontSize,
                     ),
-                    const AddHeader(title: "INVOICE INFORMATION"),
+                    const AddHeader(title: "INFORMATION DE LA FACTURE"),
                     const SizedBox(
                       height: smallFontSize / 2,
                     ),
@@ -145,9 +145,9 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             const Row(
                               children: [
                                 AddSubHeader(
-                                  title: "Invoice Date",
+                                  title: "Date de création",
                                 ),
-                                AddSubHeader(title: "Due Date"),
+                                AddSubHeader(title: "Date d'échance"),
                               ],
                             ),
                             Row(
@@ -274,7 +274,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                     context, SelectClientScreen.routeName);
                               },
                               child: clientProvider.businessName.isEmpty
-                                  ? const AddButton(title: "Add Client")
+                                  ? const AddButton(title: "Ajouter un Client")
                                   : ClientCard(
                                       client: clientProvider,
                                       onSuccessDelete: () {},
@@ -290,7 +290,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          AddHeader(title: "ITEMS"),
+                          AddHeader(title: "ARTICLES"),
                           // AddButton(title: "Add Category Item")
                         ],
                       ),
@@ -312,9 +312,9 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AddSubHeader(title: "Name"),
-                                AddSubHeader(title: "Quantity"),
-                                AddSubHeader(title: "Price"),
+                                AddSubHeader(title: "Nom"),
+                                AddSubHeader(title: "Quantité"),
+                                AddSubHeader(title: "Prix"),
                               ],
                             ),
                             // RemoveItemButton(title: "Battery"),
@@ -358,7 +358,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                                     Navigator.pushNamed(context,
                                         SelectItemTypeScreen.routeName);
                                   },
-                                  child: const AddButton(title: "Add Item")),
+                                  child: const AddButton(title: "Ajouter un article")),
                             )
                           ],
                         ),
@@ -367,7 +367,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                     const SizedBox(
                       height: smallFontSize,
                     ),
-                    const AddHeader(title: "SUMMARY"),
+                    const AddHeader(title: "RESUME"),
                     const SizedBox(
                       height: smallFontSize / 2,
                     ),
@@ -375,11 +375,11 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                     const SizedBox(
                       height: smallFontSize,
                     ),
-                    const AddHeader(title: "Payment status"),
-                    const SizedBox(
-                      height: smallFontSize / 2,
-                    ),
-                    const AddRowPaidInvoice()
+                    // const AddHeader(title: "Payment status"),
+                    // const SizedBox(
+                    //   height: smallFontSize / 2,
+                    // ),
+                    // const AddRowPaidInvoice()
                   ],
                 ),
               )

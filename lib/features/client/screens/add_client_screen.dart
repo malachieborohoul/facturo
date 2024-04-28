@@ -84,7 +84,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Cancel",
+                                  "Annuler",
                                   style: TextStyle(color: primary),
                                 )),
                             InkWell(
@@ -92,18 +92,18 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                   if (businessNameController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
-                                        arguments: "Company Name");
+                                        arguments: "Nom de l'entreprise");
                                   } else {
                                     addClient();
                                   }
                                 },
                                 child: const Text(
-                                  "Done",
+                                  "Fait",
                                   style: TextStyle(color: primary),
                                 )),
                           ],
                         ),
-                        const CustomHeader(title: "Add Client"),
+                        const CustomHeader(title: "Ajouter Client"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -120,21 +120,21 @@ class _AddClientScreenState extends State<AddClientScreen> {
                                 children: [
                                   CustomTextfield(
                                       controller: businessNameController,
-                                      hintText: "Company Name",
+                                      hintText: "Nom de l'entreprise",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: nameController,
-                                      hintText: "Name",
+                                      hintText: "Nom",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: addressController,
-                                      hintText: "Address",
+                                      hintText: "Adresse",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                 ],
                               ),

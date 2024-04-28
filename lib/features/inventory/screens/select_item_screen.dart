@@ -118,7 +118,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Back",
+                                  "Retour",
                                   style: TextStyle(color: primary),
                                 )),
                             IconButton(
@@ -136,13 +136,13 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                 ))
                           ],
                         ),
-                        const CustomHeader(title: "Items"),
+                        const CustomHeader(title: "Articles"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
                         CustomSearchbar(
                             controller: searchController,
-                            hintText: "Search",
+                            hintText: "Rechercher",
                             width: double.infinity,
                             height: 40,
                             onChange: (value) {
@@ -182,7 +182,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this item ");
+                                                            "Voulez-vous supprimer cet article ?");
                                                 if (result == true) {
                                                   deleteItem(searchResults[i]);
                                                 }
@@ -196,7 +196,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         children: [
                                           Center(
                                             child:
-                                                CustomNotFound(message: "item"),
+                                                CustomNotFound(message: "article"),
                                           ),
                                         ],
                                       )
@@ -235,7 +235,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this item type");
+                                                            "Voulez vous supprimer ce type d'article");
                                                 if (result == true) {
                                                   deleteItem(items[i]);
                                                 }
@@ -249,7 +249,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         children: [
                                           Center(
                                             child:
-                                                CustomNotFound(message: "item"),
+                                                CustomNotFound(message: "article"),
                                           ),
                                         ],
                                       ))

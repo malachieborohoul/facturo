@@ -14,8 +14,8 @@ class CustomNotFound extends StatelessWidget {
           size: 100,
           color: textBlack,
         ),
-        Text("No $message found"),
-        Text("Tap on + to add new $message"),
+        Text("Pas de $message trouvé(es)"),
+        Text("Appuyer sur + pour ajouter $message"),
       ],
     );
   }

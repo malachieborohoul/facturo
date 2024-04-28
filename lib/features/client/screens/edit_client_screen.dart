@@ -99,7 +99,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Cancel",
+                                  "Annuler",
                                   style: TextStyle(color: primary),
                                 )),
                             InkWell(
@@ -107,13 +107,13 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                   if (businessNameController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
-                                        arguments: "Company Name");
+                                        arguments: "Nom de l'entreprise");
                                   } else {
                                     editClient();
                                   }
                                 },
                                 child: const Text(
-                                  "Done",
+                                  "Fait",
                                   style: TextStyle(color: primary),
                                 )),
                           ],
@@ -121,7 +121,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        const CustomHeader(title: "Edit Client"),
+                        const CustomHeader(title: "Modfier Client"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -138,21 +138,21 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                 children: [
                                   CustomTextfield(
                                       controller: businessNameController,
-                                      hintText: "Company Name",
+                                      hintText: "Nom de l'entreprise",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: nameController,
-                                      hintText: "Name",
+                                      hintText: "Nom",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
                                       controller: addressController,
-                                      hintText: "Address",
+                                      hintText: "Adresse",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                 ],
                               ),

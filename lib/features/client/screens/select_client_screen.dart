@@ -115,7 +115,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Cancel",
+                                  "Annuler",
                                   style: TextStyle(color: primary),
                                 )),
                             IconButton(
@@ -139,7 +139,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                         ),
                         CustomSearchbar(
                             controller: searchController,
-                            hintText: "Search",
+                            hintText: "Rechercher",
                             width: double.infinity,
                             height: 40,
                             onChange: (value) {
@@ -178,7 +178,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this client");
+                                                            "Voulez vous supprimer ce client ?");
                                                 if (result == true) {
                                                   deleteClient(
                                                       searchResults[i]);
@@ -221,7 +221,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this client");
+                                                            "Voulez vous supprimer ce client ?");
                                                 if (result == true) {
                                                   deleteClient(clients[i]);
                                                 }

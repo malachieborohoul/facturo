@@ -23,7 +23,7 @@ class HeaderInvoiceTable extends StatelessWidget {
                     border: Border(right: BorderSide(color: neutralBorder))),
                 child: const Padding(
                   padding: EdgeInsets.only(left: appPadding),
-                  child: Text("Invoice"),
+                  child: Text("Facture"),
                 ))),
         // Expanded(
         //     child: Container(
@@ -38,7 +38,7 @@ class HeaderInvoiceTable extends StatelessWidget {
                 decoration: const BoxDecoration(),
                 child: const Padding(
                   padding: EdgeInsets.only(left: appPadding),
-                  child: Text("Status"),
+                  child: Text("Statut"),
                 ))),
       ],
     );

@@ -41,7 +41,7 @@ class DashboardMenu extends StatelessWidget {
                     },
                     child: DashboardMenuItem(
                       icon: Icons.file_present_outlined,
-                      name: 'Invoices',
+                      name: 'Factures',
                       selected: codeScreen == 1 ? true : false,
                     )):
                      GestureDetector(
@@ -51,7 +51,7 @@ class DashboardMenu extends StatelessWidget {
                     },
                     child: DashboardMenuItem(
                       icon: Icons.file_present_outlined,
-                      name: 'Invoices',
+                      name: 'Factures',
                       selected: codeScreen == 1 ? true : false,
                     )),
               
@@ -87,7 +87,7 @@ class DashboardMenu extends StatelessWidget {
                     },
                     child: DashboardMenuItem(
                         icon: Icons.inventory_2_outlined,
-                        name: 'Inventory',
+                        name: 'Articles',
                         selected: codeScreen == 3 ? true : false))
                 : 
                 GestureDetector(
@@ -97,7 +97,7 @@ class DashboardMenu extends StatelessWidget {
                     },
                     child: DashboardMenuItem(
                         icon: Icons.inventory_2_outlined,
-                        name: 'Inventory',
+                        name: 'Articles',
                         selected: codeScreen == 3 ? true : false)),
             codeScreen == 4
                 ? GestureDetector(
@@ -107,7 +107,7 @@ class DashboardMenu extends StatelessWidget {
                     },
                     child: DashboardMenuItem(
                         icon: Icons.settings_outlined,
-                        name: 'Settings',
+                        name: 'Paramètres',
                         selected: codeScreen == 4 ? true : false))
                 : 
                 GestureDetector(
@@ -117,7 +117,7 @@ class DashboardMenu extends StatelessWidget {
                     },
                     child: DashboardMenuItem(
                         icon: Icons.settings_outlined,
-                        name: 'Settings',
+                        name: 'Paramètres',
                         selected: codeScreen == 4 ? true : false)),
             const SizedBox()
           ],

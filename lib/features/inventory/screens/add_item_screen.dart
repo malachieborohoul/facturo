@@ -83,7 +83,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Cancel",
+                                  "Annuler",
                                   style: TextStyle(color: primary),
                                 )),
                             InkWell(
@@ -92,18 +92,18 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                       priceController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
-                                        arguments: "empty fields");
+                                        arguments: "champs vides");
                                   } else {
                                     addItem();
                                   }
                                 },
                                 child: const Text(
-                                  "Done",
+                                  "Fait",
                                   style: TextStyle(color: primary),
                                 )),
                           ],
                         ),
-                        const CustomHeader(title: "Add Item"),
+                        const CustomHeader(title: "Ajouter un article"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -120,7 +120,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 children: [
                                   CustomTextfield(
                                     controller: nameController,
-                                    hintText: "Name",
+                                    hintText: "Nom",
                                     onSuccess: () {},
                                     onChange: (String param) {},
                                   ),
@@ -130,7 +130,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   CustomTextfield(
                                     controller: priceController,
                                     textInputType: TextInputType.number,
-                                    hintText: "Price",
+                                    hintText: "Prix",
                                     onSuccess: () {},
                                     onChange: (String param) {},
                                   ),

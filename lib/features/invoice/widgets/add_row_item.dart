@@ -51,7 +51,7 @@ class AddRowItem extends StatelessWidget {
             child: CustomTextfield(
               controller: quantityController,
               textInputType: TextInputType.number,
-              hintText: "Quantity",
+              hintText: "Quantité",
               onSuccess: () {},
               onChange: (String param) {
                 if (kDebugMode) {

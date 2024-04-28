@@ -94,7 +94,7 @@ class _EditItemTypeScreenState extends State<EditItemTypeScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Cancel",
+                                  "Annuler",
                                   style: TextStyle(color: primary),
                                 )),
                             InkWell(
@@ -102,13 +102,13 @@ class _EditItemTypeScreenState extends State<EditItemTypeScreen> {
                                   if (nameController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
-                                        arguments: "Name");
+                                        arguments: "Nom");
                                   } else {
                                     editItemType();
                                   }
                                 },
                                 child: const Text(
-                                  "Done",
+                                  "Fait",
                                   style: TextStyle(color: primary),
                                 )),
                           ],
@@ -116,7 +116,7 @@ class _EditItemTypeScreenState extends State<EditItemTypeScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        const CustomHeader(title: "Edit Item Type"),
+                        const CustomHeader(title: "Modifier le type d'article "),
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -134,7 +134,7 @@ class _EditItemTypeScreenState extends State<EditItemTypeScreen> {
                                
                                   CustomTextfield(
                                       controller: nameController,
-                                      hintText: "Name",
+                                      hintText: "Nom",
                                       onSuccess: () {}, onChange: (String param) {  },),
                                   const SizedBox(
                                     height: smallFontSize,

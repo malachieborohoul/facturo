@@ -130,13 +130,13 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                 ))
                           ],
                         ),
-                        const CustomHeader(title: "Item Types"),
+                        const CustomHeader(title: "Types d'articles"),
                         const SizedBox(
                           height: smallFontSize,
                         ),
                         CustomSearchbar(
                             controller: searchController,
-                            hintText: "Search",
+                            hintText: "Rechercher",
                             width: double.infinity,
                             height: 40,
                             onChange: (value) {
@@ -175,7 +175,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this item type");
+                                                            "Voulez-vous supprimer ce type article ?");
                                                 if (result == true) {
                                                   deleteItemType(
                                                       searchResults[i]);
@@ -190,7 +190,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                         children: [
                                           Center(
                                             child: CustomNotFound(
-                                                message: "item type"),
+                                                message: " type d'artcle" ),
                                           ),
                                         ],
                                       )
@@ -221,7 +221,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                                         ConfirmationModal
                                                             .routeName,
                                                         arguments:
-                                                            "Do you want to delete this item type");
+                                                            "Voulez-vous supprimer ce type article ?");
                                                 if (result == true) {
                                                   deleteItemType(itemTypes[i]);
                                                 }
@@ -235,7 +235,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                         children: [
                                           Center(
                                             child: CustomNotFound(
-                                                message: "item type"),
+                                                message: " type d'article"),
                                           ),
                                         ],
                                       ))

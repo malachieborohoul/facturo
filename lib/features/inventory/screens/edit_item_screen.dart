@@ -102,7 +102,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  "Cancel",
+                                  "Annuler",
                                   style: TextStyle(color: primary),
                                 )),
                             InkWell(
@@ -110,13 +110,13 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                   if (nameController.text.isEmpty) {
                                     Navigator.pushNamed(
                                         context, ErrorFieldModal.routeName,
-                                        arguments: "Name");
+                                        arguments: "Nom");
                                   } else {
                                     editItem();
                                   }
                                 },
                                 child: const Text(
-                                  "Done",
+                                  "Fait",
                                   style: TextStyle(color: primary),
                                 )),
                           ],
@@ -124,7 +124,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                         const SizedBox(
                           height: smallFontSize,
                         ),
-                        const CustomHeader(title: "Edit Item "),
+                        const CustomHeader(title: "Modifier un article "),
                         const SizedBox(
                           height: smallFontSize,
                         ),
@@ -141,7 +141,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                 children: [
                                   CustomTextfield(
                                     controller: nameController,
-                                    hintText: "Name",
+                                    hintText: "Nom",
                                     onSuccess: () {},
                                     onChange: (String param) {},
                                   ),
@@ -150,7 +150,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                   ),
                                   CustomTextfield(
                                     controller: quantityController,
-                                    hintText: "Quantity",
+                                    hintText: "Quantité",
                                     textInputType: TextInputType.number,
                                     onSuccess: () {},
                                     onChange: (String param) {},
@@ -161,7 +161,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                                   CustomTextfield(
                                     controller: priceController,
                                     textInputType: TextInputType.number,
-                                    hintText: "Price",
+                                    hintText: "Prix",
                                     onSuccess: () {},
                                     onChange: (String param) {},
                                   ),

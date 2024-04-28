@@ -130,7 +130,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                "Invoices",
+                                "Factures",
                                 style: TextStyle(
                                     fontSize: headingFontSize,
                                     fontWeight: FontWeight.bold),
@@ -176,7 +176,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                             context,
                                             ConfirmationModal.routeName,
                                             arguments:
-                                                "Do you want to delete this invoice");
+                                                "Voulez-vous supprimer cette facture ?");
                                         if (result == true) {
                                           // deleteItem(items[i]);
                                           deleteInvoice(
@@ -190,9 +190,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   IconButton(
                                       onPressed: () async {
                                         itemInvoiceProvider.clear();
-                                        Navigator.pushNamed(context,
-                                            EditInvoiceScreen.routeName,
-                                            arguments: selectedRowInvoice);
+                                    
                                         Provider.of<ClientProvider>(context,
                                                 listen: false)
                                             .setClient(selectedRowInvoice
@@ -201,6 +199,20 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                             .forEach((element) {
                                           itemInvoiceProvider.add(element);
                                         });
+                                          final result =await   Navigator.pushNamed(context,
+                                            EditInvoiceScreen.routeName,
+                                            arguments: selectedRowInvoice);
+
+                                           if (result == true) {
+                                          itemInvoiceProvider.clear();
+                                          clientProvider.setClient(Client(
+                                              id: 0,
+                                              businessName: "",
+                                              name: "",
+                                              address: ""));
+
+                                          getAllInvoices();
+                                        }
                                       },
                                       icon: const Icon(Icons.edit_outlined)),
                                   const SizedBox(
@@ -220,7 +232,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   ),
                                   CustomSearchbar(
                                       controller: searchController,
-                                      hintText: "Search ",
+                                      hintText: "Rechercher ",
                                       onChange: (value) {
                                         if (value.isEmpty) {
                                           getAllInvoices();
@@ -305,7 +317,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                   children: [
                                                     Center(
                                                       child: CustomNotFound(
-                                                          message: "invoice"),
+                                                          message: "facture"),
                                                     ),
                                                   ],
                                                 )
@@ -428,7 +440,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                               .start,
                                                       children: [
                                                         const Text(
-                                                          "Amount due",
+                                                          "Montant",
                                                           style: TextStyle(
                                                               fontSize:
                                                                   smallFontSize *
@@ -442,40 +454,40 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                                         .bold)),
                                                       ],
                                                     ),
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                              selectedRowInvoice
-                                                                      .invoice
-                                                                      .paid
-                                                                  ? primary
-                                                                  : Colors
-                                                                      .amber,
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .all(
-                                                                  Radius.circular(
-                                                                      smallFontSize))),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(
-                                                                miniSpacer / 2),
-                                                        child: Text(
-                                                          selectedRowInvoice
-                                                                  .invoice.paid
-                                                              ? "Paid"
-                                                              : "Pending",
-                                                          style:
-                                                              const TextStyle(
-                                                            color: textWhite,
-                                                            fontSize:
-                                                                smallFontSize *
-                                                                    0.8,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
+                                                    // Container(
+                                                    //   decoration: BoxDecoration(
+                                                    //       color:
+                                                    //           selectedRowInvoice
+                                                    //                   .invoice
+                                                    //                   .paid
+                                                    //               ? primary
+                                                    //               : Colors
+                                                    //                   .amber,
+                                                    //       borderRadius:
+                                                    //           const BorderRadius
+                                                    //               .all(
+                                                    //               Radius.circular(
+                                                    //                   smallFontSize))),
+                                                    //   child: Padding(
+                                                    //     padding:
+                                                    //         const EdgeInsets
+                                                    //             .all(
+                                                    //             miniSpacer / 2),
+                                                    //     child: Text(
+                                                    //       selectedRowInvoice
+                                                    //               .invoice.paid
+                                                    //           ? "Paid"
+                                                    //           : "Pending",
+                                                    //       style:
+                                                    //           const TextStyle(
+                                                    //         color: textWhite,
+                                                    //         fontSize:
+                                                    //             smallFontSize *
+                                                    //                 0.8,
+                                                    //       ),
+                                                    //     ),
+                                                    //   ),
+                                                    // )
                                                   ],
                                                 ),
                                                 const SizedBox(
@@ -492,7 +504,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                               .start,
                                                       children: [
                                                         const Text(
-                                                          "Issued on",
+                                                          "Création",
                                                           style: TextStyle(
                                                               fontSize:
                                                                   smallFontSize *
@@ -517,7 +529,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                               .start,
                                                       children: [
                                                         const Text(
-                                                          "Due on",
+                                                          "Echeance",
                                                           style: TextStyle(
                                                               fontSize:
                                                                   smallFontSize *
@@ -546,7 +558,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                           height: smallSpacer,
                                         ),
                                         const Text(
-                                          "Items",
+                                          "Articles",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
