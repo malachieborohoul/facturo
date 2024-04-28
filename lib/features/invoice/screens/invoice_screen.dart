@@ -1,6 +1,7 @@
 import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/custom_button.dart';
 import 'package:facturo/common/widgets/custom_item.dart';
+import 'package:facturo/common/widgets/custom_not_found.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
@@ -38,6 +39,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   double selectedTotalItemsPrice = 0.0;
   final invoiceItems = Hive.box("invoice_items");
 
+   List<InvoiceWithItems> searchResults = [];
+  bool isSeaching = false;
+
   @override
   void initState() {
     getAllInvoices();
@@ -73,8 +77,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         context: context,
         invoice: invoice,
         onSuccess: () {
-          // searchController.text = "";
-          // isSeaching = false;
+          searchController.text = "";
+          isSeaching = false;
           getAllInvoices();
         },
         onFailed: () {});
@@ -86,6 +90,23 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     final clientProvider = Provider.of<ClientProvider>(context);
     final itemInvoiceProvider =
         Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
+
+
+    void searchInvoices(String searchTerm) {
+      searchResults.clear();
+
+      for (var invoice in invoices) {
+        if (invoice.invoice.client.businessName.toLowerCase().contains(searchTerm.toLowerCase().trim())) {
+          searchResults.add(invoice);
+        }
+      }
+
+      setState(() {
+        // When search starts isSeaching to perform conditions on displaying the
+        isSeaching = true;
+      });
+    }
+
 
     return Scaffold(
       body: SafeArea(
@@ -170,7 +191,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   CustomSearchbar(
                                       controller: searchController,
                                       hintText: "Search",
-                                      onChange: (value) {})
+                                      onChange: (value) {
+                                         if (value.isEmpty) {
+                                            getAllInvoices();
+                                          }
+
+                                          searchInvoices(value);
+                                      })
                                 ],
                               )
                             ],
@@ -194,7 +221,61 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
                                     Expanded(
-                                      child: invoices.isNotEmpty
+                                      child: isSeaching == true?
+                                       searchResults.isNotEmpty?
+                                      ListView.builder(
+                                              itemCount: searchResults.length,
+                                              itemBuilder: (context, i) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      selectedRowInvoice =
+                                                          invoices[i];
+                                                      selectedTotalItemsPrice =
+                                                          0;
+
+                                                      selectedRowInvoice
+                                                          .itemsInvoice
+                                                          .forEach((element) {
+                                                        selectedTotalItemsPrice +=
+                                                            element.quantity *
+                                                                element.price;
+                                                      });
+                                                    });
+                                                  },
+                                                  child: RowInvoiceTable(
+                                                      selected:
+                                                          selectedRowInvoice
+                                                                      .invoice
+                                                                      .id ==
+                                                                  searchResults[i]
+                                                                      .invoice
+                                                                      .id
+                                                              ? true
+                                                              : false,
+                                                      client: searchResults[i]
+                                                          .invoice
+                                                          .client
+                                                          .businessName,
+                                                      amount: 2000.0,
+                                                      status: searchResults[i]
+                                                          .invoice
+                                                          .paid
+                                                          .toString()),
+                                                );
+                                              }):
+                                              const Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child:
+                                                CustomNotFound(message: "invoice"),
+                                          ),
+                                        ],
+                                      ):
+                                      
+                                      invoices.isNotEmpty
                                           ? ListView.builder(
                                               itemCount: invoices.length,
                                               itemBuilder: (context, i) {

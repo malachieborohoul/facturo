@@ -55,7 +55,6 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
     final itemInvoiceProvider =
         Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
 
-    
     //Every time build is called set is to true
     isQuantityAdded = true;
     itemInvoiceProvider.forEach((item) {
@@ -105,7 +104,8 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
             IconButton(
                 onPressed: () {
                   if (itemInvoiceProvider.isNotEmpty &&
-                      clientProvider.businessName.isNotEmpty && isQuantityAdded ) {
+                      clientProvider.businessName.isNotEmpty &&
+                      isQuantityAdded) {
                     addInvoice();
                   } else {
                     Navigator.pushNamed(context, ErrorFieldModal.routeName,
