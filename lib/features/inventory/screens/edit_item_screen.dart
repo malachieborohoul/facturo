@@ -62,7 +62,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
       priceController.text = priceController.text.trim();
     } else {
       nameController.text = widget.item.name;
-     
+
       priceController.text = widget.item.price.toString();
     }
 
@@ -139,26 +139,32 @@ class _EditItemScreenState extends State<EditItemScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                 CustomTextfield(
-                                      controller: nameController,
-                                      hintText: "Name",
-                                      onSuccess: () {}, onChange: (String param) {  },),
+                                  CustomTextfield(
+                                    controller: nameController,
+                                    hintText: "Name",
+                                    onSuccess: () {},
+                                    onChange: (String param) {},
+                                  ),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
-                                      controller: quantityController,
-                                      hintText: "Quantity",
-                                      textInputType: TextInputType.number,
-                                      onSuccess: () {}, onChange: (String param) {  },),
+                                    controller: quantityController,
+                                    hintText: "Quantity",
+                                    textInputType: TextInputType.number,
+                                    onSuccess: () {},
+                                    onChange: (String param) {},
+                                  ),
                                   const SizedBox(
                                     height: smallFontSize,
                                   ),
                                   CustomTextfield(
-                                      controller: priceController,
-                                      textInputType: TextInputType.number,
-                                      hintText: "Price",
-                                      onSuccess: () {}, onChange: (String param) {  },),
+                                    controller: priceController,
+                                    textInputType: TextInputType.number,
+                                    hintText: "Price",
+                                    onSuccess: () {},
+                                    onChange: (String param) {},
+                                  ),
                                 ],
                               ),
                             )),

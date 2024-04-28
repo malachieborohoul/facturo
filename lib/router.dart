@@ -14,9 +14,11 @@ import 'package:facturo/features/inventory/screens/inventory_screen.dart';
 import 'package:facturo/features/inventory/screens/select_item_screen.dart';
 import 'package:facturo/features/inventory/screens/select_item_type_screen.dart';
 import 'package:facturo/features/invoice/screens/add_invoice_screen.dart';
+import 'package:facturo/features/invoice/screens/edit_invoice_screen.dart';
 import 'package:facturo/features/invoice/screens/invoice_screen.dart';
 import 'package:facturo/features/setting/screens/setting_screen.dart';
 import 'package:facturo/models/client.dart';
+import 'package:facturo/models/invoice_with_items.dart';
 import 'package:facturo/models/item_type.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +39,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           child: const AddInvoiceScreen(),
         );
       });
+
+    case EditInvoiceScreen.routeName:
+      var invoice = routeSettings.arguments as InvoiceWithItems;
+
+      return PageRouteBuilder(pageBuilder: (_, animation, __) {
+        return FadeTransition(
+          opacity: animation,
+          child:  EditInvoiceScreen(invoiceWithItems: invoice,),
+        );
+      });
+
 
     case ClientScreen.routeName:
       return PageRouteBuilder(pageBuilder: (_, animation, __) {

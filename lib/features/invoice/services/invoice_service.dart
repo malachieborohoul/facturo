@@ -118,6 +118,16 @@ class InvoiceService {
     try {
       invoices.delete(invoice.id);
 
+      invoiceItems.keys.forEach(
+        (invoiceItemKey) {
+        var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+        invoiceItem.id = invoiceItemKey;
+          if (invoiceItem.invoice.id == invoice.id) {
+            invoiceItems.delete(invoiceItemKey);
+          }
+        },
+      );
+
       onSuccess();
     } catch (e) {
       // showSnackBar(context, e.toString());

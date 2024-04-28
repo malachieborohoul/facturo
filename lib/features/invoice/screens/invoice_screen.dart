@@ -39,7 +39,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   double selectedTotalItemsPrice = 0.0;
   final invoiceItems = Hive.box("invoice_items");
 
-   List<InvoiceWithItems> searchResults = [];
+  List<InvoiceWithItems> searchResults = [];
   bool isSeaching = false;
 
   @override
@@ -190,7 +190,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   ),
                                   CustomSearchbar(
                                       controller: searchController,
-                                      hintText: "Search",
+                                      hintText: "Search ",
                                       onChange: (value) {
                                          if (value.isEmpty) {
                                             getAllInvoices();
