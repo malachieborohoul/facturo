@@ -92,7 +92,7 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            "Add Invoice",
+            "Edit Invoice",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [

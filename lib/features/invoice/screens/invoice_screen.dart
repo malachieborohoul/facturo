@@ -6,6 +6,7 @@ import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/constants/global.dart';
+import 'package:facturo/features/invoice/screens/edit_invoice_screen.dart';
 import 'package:facturo/features/invoice/services/pdf_invoice_service.dart';
 import 'package:facturo/features/invoice/services/pdf_service.dart';
 import 'package:facturo/features/invoice/widgets/header_invoice_table.dart';
@@ -91,12 +92,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     final itemInvoiceProvider =
         Provider.of<ItemInvoiceProvider>(context).itemsInvoice;
 
-
     void searchInvoices(String searchTerm) {
       searchResults.clear();
 
       for (var invoice in invoices) {
-        if (invoice.invoice.client.businessName.toLowerCase().contains(searchTerm.toLowerCase().trim())) {
+        if (invoice.invoice.client.businessName
+            .toLowerCase()
+            .contains(searchTerm.toLowerCase().trim())) {
           searchResults.add(invoice);
         }
       }
@@ -106,7 +108,6 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         isSeaching = true;
       });
     }
-
 
     return Scaffold(
       body: SafeArea(
@@ -178,13 +179,23 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   ),
                                   IconButton(
                                       onPressed: () async {
+                                        Navigator.pushNamed(context,
+                                            EditInvoiceScreen.routeName,
+                                            arguments: selectedRowInvoice);
+                                      },
+                                      icon: const Icon(Icons.edit_outlined)),
+                                  const SizedBox(
+                                    width: miniSpacer,
+                                  ),
+                                  IconButton(
+                                      onPressed: () async {
                                         final pdfFile =
                                             await PdfInvoiceService.generate(
                                                 selectedRowInvoice);
 
                                         PdfService.openFile(pdfFile);
                                       },
-                                      icon: const Icon(Icons.edit_outlined)),
+                                      icon: const Icon(Icons.print_outlined)),
                                   const SizedBox(
                                     width: miniSpacer,
                                   ),
@@ -192,11 +203,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       controller: searchController,
                                       hintText: "Search ",
                                       onChange: (value) {
-                                         if (value.isEmpty) {
-                                            getAllInvoices();
-                                          }
+                                        if (value.isEmpty) {
+                                          getAllInvoices();
+                                        }
 
-                                          searchInvoices(value);
+                                        searchInvoices(value);
                                       })
                                 ],
                               )
@@ -221,103 +232,110 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
                                     Expanded(
-                                      child: isSeaching == true?
-                                       searchResults.isNotEmpty?
-                                      ListView.builder(
-                                              itemCount: searchResults.length,
-                                              itemBuilder: (context, i) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      selectedRowInvoice =
-                                                          invoices[i];
-                                                      selectedTotalItemsPrice =
-                                                          0;
+                                      child: isSeaching == true
+                                          ? searchResults.isNotEmpty
+                                              ? ListView.builder(
+                                                  itemCount:
+                                                      searchResults.length,
+                                                  itemBuilder: (context, i) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          selectedRowInvoice =
+                                                              invoices[i];
+                                                          selectedTotalItemsPrice =
+                                                              0;
 
-                                                      selectedRowInvoice
-                                                          .itemsInvoice
-                                                          .forEach((element) {
-                                                        selectedTotalItemsPrice +=
-                                                            element.quantity *
-                                                                element.price;
-                                                      });
-                                                    });
-                                                  },
-                                                  child: RowInvoiceTable(
-                                                      selected:
                                                           selectedRowInvoice
+                                                              .itemsInvoice
+                                                              .forEach(
+                                                                  (element) {
+                                                            selectedTotalItemsPrice +=
+                                                                element.quantity *
+                                                                    element
+                                                                        .price;
+                                                          });
+                                                        });
+                                                      },
+                                                      child: RowInvoiceTable(
+                                                          selected: selectedRowInvoice
                                                                       .invoice
                                                                       .id ==
-                                                                  searchResults[i]
+                                                                  searchResults[
+                                                                          i]
                                                                       .invoice
                                                                       .id
                                                               ? true
                                                               : false,
-                                                      client: searchResults[i]
-                                                          .invoice
-                                                          .client
-                                                          .businessName,
-                                                      amount: 2000.0,
-                                                      status: searchResults[i]
-                                                          .invoice
-                                                          .paid
-                                                          .toString()),
-                                                );
-                                              }):
-                                              const Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Center(
-                                            child:
-                                                CustomNotFound(message: "invoice"),
-                                          ),
-                                        ],
-                                      ):
-                                      
-                                      invoices.isNotEmpty
-                                          ? ListView.builder(
-                                              itemCount: invoices.length,
-                                              itemBuilder: (context, i) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      selectedRowInvoice =
-                                                          invoices[i];
-                                                      selectedTotalItemsPrice =
-                                                          0;
+                                                          client:
+                                                              searchResults[i]
+                                                                  .invoice
+                                                                  .client
+                                                                  .businessName,
+                                                          amount: 2000.0,
+                                                          status:
+                                                              searchResults[i]
+                                                                  .invoice
+                                                                  .paid
+                                                                  .toString()),
+                                                    );
+                                                  })
+                                              : const Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Center(
+                                                      child: CustomNotFound(
+                                                          message: "invoice"),
+                                                    ),
+                                                  ],
+                                                )
+                                          : invoices.isNotEmpty
+                                              ? ListView.builder(
+                                                  itemCount: invoices.length,
+                                                  itemBuilder: (context, i) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          selectedRowInvoice =
+                                                              invoices[i];
+                                                          selectedTotalItemsPrice =
+                                                              0;
 
-                                                      selectedRowInvoice
-                                                          .itemsInvoice
-                                                          .forEach((element) {
-                                                        selectedTotalItemsPrice +=
-                                                            element.quantity *
-                                                                element.price;
-                                                      });
-                                                    });
-                                                  },
-                                                  child: RowInvoiceTable(
-                                                      selected:
                                                           selectedRowInvoice
-                                                                      .invoice
-                                                                      .id ==
-                                                                  invoices[i]
-                                                                      .invoice
-                                                                      .id
-                                                              ? true
-                                                              : false,
-                                                      client: invoices[i]
-                                                          .invoice
-                                                          .client
-                                                          .businessName,
-                                                      amount: 2000.0,
-                                                      status: invoices[i]
-                                                          .invoice
-                                                          .paid
-                                                          .toString()),
-                                                );
-                                              })
-                                          : const SizedBox(),
+                                                              .itemsInvoice
+                                                              .forEach(
+                                                                  (element) {
+                                                            selectedTotalItemsPrice +=
+                                                                element.quantity *
+                                                                    element
+                                                                        .price;
+                                                          });
+                                                        });
+                                                      },
+                                                      child: RowInvoiceTable(
+                                                          selected:
+                                                              selectedRowInvoice
+                                                                          .invoice
+                                                                          .id ==
+                                                                      invoices[
+                                                                              i]
+                                                                          .invoice
+                                                                          .id
+                                                                  ? true
+                                                                  : false,
+                                                          client: invoices[i]
+                                                              .invoice
+                                                              .client
+                                                              .businessName,
+                                                          amount: 2000.0,
+                                                          status: invoices[i]
+                                                              .invoice
+                                                              .paid
+                                                              .toString()),
+                                                    );
+                                                  })
+                                              : const SizedBox(),
                                     )
                                   ],
                                 ),
