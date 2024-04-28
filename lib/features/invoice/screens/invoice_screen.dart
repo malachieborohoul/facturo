@@ -139,6 +139,16 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                 children: [
                                   IconButton(
                                       onPressed: () async {
+                                        Provider.of<ClientProvider>(context,
+                                                listen: false)
+                                            .setClient(Client(
+                                                id: 0,
+                                                businessName: "",
+                                                name: "",
+                                                address: ""));
+
+                                        itemInvoiceProvider.clear();
+
                                         final result =
                                             await Navigator.pushNamed(context,
                                                 AddInvoiceScreen.routeName);
@@ -179,9 +189,18 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                   ),
                                   IconButton(
                                       onPressed: () async {
+                                        itemInvoiceProvider.clear();
                                         Navigator.pushNamed(context,
                                             EditInvoiceScreen.routeName,
                                             arguments: selectedRowInvoice);
+                                        Provider.of<ClientProvider>(context,
+                                                listen: false)
+                                            .setClient(selectedRowInvoice
+                                                .invoice.client);
+                                        selectedRowInvoice.itemsInvoice
+                                            .forEach((element) {
+                                          itemInvoiceProvider.add(element);
+                                        });
                                       },
                                       icon: const Icon(Icons.edit_outlined)),
                                   const SizedBox(

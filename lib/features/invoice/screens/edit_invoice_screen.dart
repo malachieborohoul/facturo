@@ -41,6 +41,12 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
   //Variable to verify if quantity of each item is added
   bool isQuantityAdded = true;
 
+
+
+
+
+
+
   @override
   void dispose() {
     issueDateController.dispose();
@@ -86,6 +92,9 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
           },
           onFailed: () {});
     }
+
+    // 
+    
 
     return Scaffold(
         backgroundColor: background,

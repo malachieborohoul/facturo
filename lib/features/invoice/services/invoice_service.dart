@@ -71,6 +71,77 @@ class InvoiceService {
     }
   }
 
+    void editInvoice({
+    required BuildContext context,
+    required InvoiceWithItems invoiceWithItems,
+    required String number,
+    required String currentDate,
+    required String dueDate,
+    required Client client,
+    required bool paid,
+    required List<ItemInvoice> itemInvoiceProvider,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailed,
+  }) async {
+    try {
+      // Add invoice and get its returned id
+      await invoices.put(
+        invoiceWithItems.invoice.id,
+        Invoice.fromMap({
+        'number': number,
+        'currentDate': currentDate,
+        'dueDate': dueDate,
+        'paid': paid,
+        'client': client.toJson(),
+      }));
+    
+      // Get the invoice object by id
+      var invoice = invoices.get(invoiceWithItems.invoice.id) as Invoice;
+      invoice.id = invoiceWithItems.invoice.id;
+      if (kDebugMode) {
+        print("Ok ${invoice.id} ${invoice.client.businessName}");
+      }
+
+      //Loop and delete all item of this invoice  before saving   new list
+        invoiceItems.keys.forEach(
+        (invoiceItemKey) {
+        var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+        invoiceItem.id = invoiceItemKey;
+          if (invoiceItem.invoice.id == invoice.id) {
+            invoiceItems.delete(invoiceItemKey);
+          }
+        },
+      );
+
+      // Loop through the item invoice provider which is a list
+
+      for (var itemInvoice in itemInvoiceProvider) {
+        // Retreive item element to construct an item object
+        Item item = Item.fromMap({
+          'id': itemInvoice.id,
+          'name': itemInvoice.name,
+          'price': itemInvoice.price,
+          'itemType': itemInvoice.itemType.toJson(),
+        });
+        //Add invoiceItem with invoice, item objects and quantity variable
+        await invoiceItems.add(InvoiceItem.fromMap({
+          'invoice': invoice.toJson(),
+          'item': item.toJson(),
+          'quantity': itemInvoice.quantity,
+        }));
+      }
+
+      onSuccess();
+
+      // if (kDebugMode) {
+      //   print(item_types);
+      // }
+    } catch (e) {
+      // showSnackBar(context, e.toString());
+      // showSnackBar(context, "Please Check your internet connection");
+    }
+  }
+
   List<InvoiceWithItems> getAllInvoices(
     BuildContext context,
   ) {
