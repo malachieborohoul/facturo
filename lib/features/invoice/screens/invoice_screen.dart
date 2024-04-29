@@ -626,14 +626,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       ],
                                     ),
                                   ),
-                                  const Positioned(
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      child: Padding(
-                                          padding: EdgeInsets.all(appPadding),
-                                          child: CustomButtom(
-                                              title: "Mark as paid")))
+                                  // const Positioned(
+                                  //     left: 0,
+                                  //     right: 0,
+                                  //     bottom: 0,
+                                  //     child: Padding(
+                                  //         padding: EdgeInsets.all(appPadding),
+                                  //         child: CustomButtom(
+                                  //             title: "Mark as paid")))
                                 ],
                               )),
                         ],

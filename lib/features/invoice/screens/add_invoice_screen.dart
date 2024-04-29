@@ -93,14 +93,14 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.print_outlined,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.remove_red_eye_outlined)),
+            // IconButton(
+            //     onPressed: () {},
+            //     icon: const Icon(
+            //       Icons.print_outlined,
+            //     )),
+            // IconButton(
+            //     onPressed: () {},
+            //     icon: const Icon(Icons.remove_red_eye_outlined)),
             IconButton(
                 onPressed: () {
                   if (itemInvoiceProvider.isNotEmpty &&
