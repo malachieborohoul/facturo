@@ -60,12 +60,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       });
 
     case SelectClientScreen.routeName:
+      var isFromHome = routeSettings.arguments as bool;
+
       return PageRouteBuilder(
           opaque: false,
           pageBuilder: (_, animation, __) {
             return FadeTransition(
               opacity: animation,
-              child: const SelectClientScreen(),
+              child:  SelectClientScreen(isFromHome: isFromHome,),
             );
           });
 

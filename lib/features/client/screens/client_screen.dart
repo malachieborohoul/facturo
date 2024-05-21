@@ -1,5 +1,6 @@
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/constants/color.dart';
+import 'package:facturo/features/client/screens/select_client_screen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,8 @@ class _ClientScreenState extends State<ClientScreen> {
               flex: 5,
               child: Container(
                 color: background,
-                child: const Center(
-                  child: Text("Clients"),
+                child:  Center(
+                  child: SelectClientScreen(),
                 ),
               )),
           Expanded(

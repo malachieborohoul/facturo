@@ -1,11 +1,14 @@
 import 'package:facturo/common/widgets/confirmation_modal.dart';
-import 'package:facturo/common/widgets/custom_button.dart';
 import 'package:facturo/common/widgets/custom_item.dart';
 import 'package:facturo/common/widgets/custom_not_found.dart';
 import 'package:facturo/common/widgets/custom_searchbar.dart';
 import 'package:facturo/common/widgets/custom_total_item.dart';
 import 'package:facturo/common/widgets/dashboard_menu.dart';
 import 'package:facturo/constants/global.dart';
+import 'package:facturo/features/client/screens/select_client_screen.dart';
+import 'package:facturo/features/inventory/screens/inventory_screen.dart';
+import 'package:facturo/features/inventory/screens/select_item_screen.dart';
+import 'package:facturo/features/inventory/screens/select_item_type_screen.dart';
 import 'package:facturo/features/invoice/screens/edit_invoice_screen.dart';
 import 'package:facturo/features/invoice/services/pdf_invoice_service.dart';
 import 'package:facturo/features/invoice/services/pdf_service.dart';
@@ -137,7 +140,21 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                               ),
                               Row(
                                 children: [
+
                                   IconButton(
+                                    tooltip: "Clients",
+                                    onPressed: (){
+                                     Navigator.pushNamed(
+                              context, SelectClientScreen.routeName, arguments: true);
+                                  }, icon: const Icon(Icons.people_alt_outlined,)),
+                                  IconButton(
+                                    tooltip: "Articles",
+                                    onPressed: (){
+                                     Navigator.pushNamed(context,
+                                        SelectItemTypeScreen.routeName);
+                                  }, icon: const Icon(Icons.inventory_2_outlined)),
+                                  IconButton(
+                                    tooltip: "Ajouter une facture",
                                       onPressed: () async {
                                         Provider.of<ClientProvider>(context,
                                                 listen: false)
@@ -164,6 +181,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                           getAllInvoices();
                                         }
                                       },
+                                      
                                       icon: const Icon(
                                         Icons.add,
                                       )),
@@ -171,6 +189,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
+                                    tooltip: "Supprimer une facture",
+
                                       onPressed: () async {
                                         var result = await Navigator.pushNamed(
                                             context,
@@ -188,6 +208,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
+                                    tooltip: "Modifier une facture",
+
                                       onPressed: () async {
                                         itemInvoiceProvider.clear();
                                     
@@ -219,6 +241,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
+                                    tooltip: "Convertir la facture en pdf",
+
                                       onPressed: () async {
                                         final pdfFile =
                                             await PdfInvoiceService.generate(
@@ -308,7 +332,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                               searchResults[i]
                                                                   .invoice
                                                                   .paid
-                                                                  .toString()),
+                                                                  .toString(), invoice: searchResults[i]
+                                                                  .invoice,),
                                                     );
                                                   })
                                               : const Column(
@@ -363,7 +388,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           status: invoices[i]
                                                               .invoice
                                                               .paid
-                                                              .toString()),
+                                                              .toString(), invoice: selectedRowInvoice
+                                                                          .invoice,),
                                                     );
                                                   })
                                               : const SizedBox(),
@@ -404,11 +430,12 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                   const BorderRadius.all(
                                                       Radius.circular(
                                                           smallFontSize / 2))),
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
+                                          child:  Padding(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: miniSpacer / 2,
                                                 horizontal: appPadding),
-                                            child: Text("Inv "),
+                                            child: Text(selectedRowInvoice
+                                              .invoice.number),
                                           ),
                                         ),
                                         const SizedBox(
@@ -585,7 +612,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                     ? SingleChildScrollView(
                                                         child: ListView.builder(
                                                             shrinkWrap: true,
-                                                            itemCount:
+                                                           itemCount:
                                                                 selectedRowInvoice
                                                                     .itemsInvoice
                                                                     .length,

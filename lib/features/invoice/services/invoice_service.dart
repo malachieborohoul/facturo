@@ -38,6 +38,7 @@ class InvoiceService {
       // Get the invoice object by id
       var invoice = invoices.get(invoiceId) as Invoice;
       invoice.id = invoiceId;
+      invoice.number = "INV$invoiceId";
       if (kDebugMode) {
         print("Ok ${invoice.id} ${invoice.client.businessName}");
       }
@@ -71,7 +72,7 @@ class InvoiceService {
     }
   }
 
-    void editInvoice({
+  void editInvoice({
     required BuildContext context,
     required InvoiceWithItems invoiceWithItems,
     required String number,
@@ -86,15 +87,15 @@ class InvoiceService {
     try {
       // Add invoice and get its returned id
       await invoices.put(
-        invoiceWithItems.invoice.id,
-        Invoice.fromMap({
-        'number': number,
-        'currentDate': currentDate,
-        'dueDate': dueDate,
-        'paid': paid,
-        'client': client.toJson(),
-      }));
-    
+          invoiceWithItems.invoice.id,
+          Invoice.fromMap({
+            'number': number,
+            'currentDate': currentDate,
+            'dueDate': dueDate,
+            'paid': paid,
+            'client': client.toJson(),
+          }));
+
       // Get the invoice object by id
       var invoice = invoices.get(invoiceWithItems.invoice.id) as Invoice;
       invoice.id = invoiceWithItems.invoice.id;
@@ -103,10 +104,10 @@ class InvoiceService {
       }
 
       //Loop and delete all item of this invoice  before saving   new list
-        invoiceItems.keys.forEach(
+      invoiceItems.keys.forEach(
         (invoiceItemKey) {
-        var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
-        invoiceItem.id = invoiceItemKey;
+          var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+          invoiceItem.id = invoiceItemKey;
           if (invoiceItem.invoice.id == invoice.id) {
             invoiceItems.delete(invoiceItemKey);
           }
@@ -191,8 +192,8 @@ class InvoiceService {
 
       invoiceItems.keys.forEach(
         (invoiceItemKey) {
-        var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
-        invoiceItem.id = invoiceItemKey;
+          var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+          invoiceItem.id = invoiceItemKey;
           if (invoiceItem.invoice.id == invoice.id) {
             invoiceItems.delete(invoiceItemKey);
           }

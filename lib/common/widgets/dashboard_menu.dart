@@ -3,6 +3,7 @@ import 'package:facturo/constants/color.dart';
 import 'package:facturo/constants/padding.dart';
 import 'package:facturo/constants/size.dart';
 import 'package:facturo/features/client/screens/client_screen.dart';
+import 'package:facturo/features/client/screens/select_client_screen.dart';
 import 'package:facturo/features/inventory/screens/inventory_screen.dart';
 
 import 'package:facturo/features/invoice/screens/invoice_screen.dart';
@@ -55,51 +56,9 @@ class DashboardMenu extends StatelessWidget {
                       selected: codeScreen == 1 ? true : false,
                     )),
               
+           
+     
             codeScreen == 2
-                ? GestureDetector(
-                   onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, ClientScreen.routeName);
-                    },
-                    child: DashboardMenuItem(
-                      icon: Icons.people_outline,
-                      name: 'Clients',
-                      selected: codeScreen == 2 ? true : false,
-                    ),
-                  )
-                : 
-                 GestureDetector(
-                   onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, ClientScreen.routeName);
-                    },
-                    child: DashboardMenuItem(
-                      icon: Icons.people_outline,
-                      name: 'Clients',
-                      selected: codeScreen == 2 ? true : false,
-                    ),
-                  ),
-            codeScreen == 3
-                ? GestureDetector(
-                     onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, InventoryScreen.routeName);
-                    },
-                    child: DashboardMenuItem(
-                        icon: Icons.inventory_2_outlined,
-                        name: 'Articles',
-                        selected: codeScreen == 3 ? true : false))
-                : 
-                GestureDetector(
-                     onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, InventoryScreen.routeName);
-                    },
-                    child: DashboardMenuItem(
-                        icon: Icons.inventory_2_outlined,
-                        name: 'Articles',
-                        selected: codeScreen == 3 ? true : false)),
-            codeScreen == 4
                 ? GestureDetector(
                      onTap: () {
                           Navigator.pushReplacementNamed(

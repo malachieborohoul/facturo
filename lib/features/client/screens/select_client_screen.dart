@@ -16,7 +16,9 @@ import 'package:provider/provider.dart';
 class SelectClientScreen extends StatefulWidget {
   static const routeName = '/select-client';
 
-  const SelectClientScreen({super.key});
+   SelectClientScreen({super.key,  this.isFromHome=false });
+
+   bool isFromHome;
 
   @override
   State<SelectClientScreen> createState() => _SelectClientScreenState();
@@ -43,6 +45,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
   void getAllClients() {
     clients = clientService.getAllClients(context);
     setState(() {});
+    print(widget.isFromHome);
   }
 
   void deleteClient(Client client) {
@@ -119,6 +122,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                   style: TextStyle(color: primary),
                                 )),
                             IconButton(
+                                tooltip: "Ajouter un client",
                                 onPressed: () async {
                                   final result = await Navigator.pushNamed(
                                       context, AddClientScreen.routeName);
@@ -159,13 +163,16 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                         itemCount: searchResults.length,
                                         itemBuilder: (context, i) {
                                           return InkWell(
-                                            onTap: () {
-                                              Provider.of<ClientProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setClient(searchResults[i]);
-                                              Navigator.pop(context);
-                                            },
+                                            onTap: widget.isFromHome
+                                                ? () => {}
+                                                : () {
+                                                    Provider.of<ClientProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .setClient(
+                                                            searchResults[i]);
+                                                    Navigator.pop(context);
+                                                  },
                                             child: ClientCard(
                                               client: searchResults[i],
                                               onSuccessEdit: () {
@@ -202,13 +209,16 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                         itemCount: clients.length,
                                         itemBuilder: (context, i) {
                                           return InkWell(
-                                            onTap: () {
-                                              Provider.of<ClientProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setClient(clients[i]);
-                                              Navigator.pop(context);
-                                            },
+                                            onTap: widget.isFromHome
+                                                ? () => {}
+                                                : () {
+                                                    Provider.of<ClientProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .setClient(
+                                                            searchResults[i]);
+                                                    Navigator.pop(context);
+                                                  },
                                             child: ClientCard(
                                               client: clients[i],
                                               onSuccessEdit: () {

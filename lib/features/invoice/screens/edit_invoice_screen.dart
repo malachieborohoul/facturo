@@ -5,7 +5,6 @@ import 'package:facturo/features/inventory/screens/select_item_type_screen.dart'
 import 'package:facturo/features/invoice/widgets/add_button.dart';
 import 'package:facturo/features/invoice/widgets/add_header.dart';
 import 'package:facturo/features/invoice/widgets/add_row_item.dart';
-import 'package:facturo/features/invoice/widgets/add_row_paid_invoice.dart';
 import 'package:facturo/features/invoice/widgets/add_row_total_item.dart';
 import 'package:facturo/features/invoice/widgets/add_sub_header.dart';
 import 'package:facturo/constants/color.dart';
@@ -105,15 +104,9 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
+           
             IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.print_outlined,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.remove_red_eye_outlined)),
-            IconButton(
+              tooltip: "Sauvegarder la modification",
                 onPressed: () {
                   if (itemInvoiceProvider.isNotEmpty &&
                       clientProvider.businessName.isNotEmpty &&

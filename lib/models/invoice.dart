@@ -13,7 +13,7 @@ class Invoice {
    int id;
   @HiveField(1)
 
-  final String number;
+   String number;
   @HiveField(2)
 
   final String currentDate;

@@ -5,7 +5,6 @@ import 'package:facturo/features/inventory/screens/select_item_type_screen.dart'
 import 'package:facturo/features/invoice/widgets/add_button.dart';
 import 'package:facturo/features/invoice/widgets/add_header.dart';
 import 'package:facturo/features/invoice/widgets/add_row_item.dart';
-import 'package:facturo/features/invoice/widgets/add_row_paid_invoice.dart';
 import 'package:facturo/features/invoice/widgets/add_row_total_item.dart';
 import 'package:facturo/features/invoice/widgets/add_sub_header.dart';
 import 'package:facturo/constants/color.dart';
