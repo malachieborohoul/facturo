@@ -40,7 +40,7 @@ class InvoiceService {
       invoice.id = invoiceId;
       invoice.number = "INV$invoiceId";
       if (kDebugMode) {
-        print("Ok ${invoice.id} ${invoice.client.businessName}");
+        print("Ok ${invoice.id} ${invoice.client.businessName} ${invoice.number}");
       }
 
       // Loop through the item invoice provider which is a list
@@ -151,6 +151,8 @@ class InvoiceService {
     try {
       invoices.keys.forEach((invoiceKey) {
         var invoice = invoices.get(invoiceKey) as Invoice;
+        invoice.number = "INV$invoiceKey";
+
         invoice.id = invoiceKey;
 
         List<ItemInvoice> itemsInvoiceList = [];
@@ -158,6 +160,7 @@ class InvoiceService {
         invoiceItems.keys.forEach((invoiceItemKey) {
           var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
           invoiceItem.id = invoiceItemKey;
+
           if (invoiceItem.invoice.id == invoice.id) {
             ItemInvoice itemInvoice = ItemInvoice(
                 id: invoiceItem.item.id,

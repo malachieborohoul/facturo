@@ -101,6 +101,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
             //     onPressed: () {},
             //     icon: const Icon(Icons.remove_red_eye_outlined)),
             IconButton(
+              tooltip: "Ajouter",
                 onPressed: () {
                   if (itemInvoiceProvider.isNotEmpty &&
                       clientProvider.businessName.isNotEmpty &&
@@ -111,7 +112,9 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                         arguments: "champs vides");
                   }
                 },
-                icon: const Icon(Icons.check)),
+                icon: const Icon(
+                  
+                  Icons.check)),
             const SizedBox(
               width: appPadding,
             )
@@ -270,7 +273,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                           child: InkWell(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, SelectClientScreen.routeName);
+                                    context, SelectClientScreen.routeName, arguments: false);
                               },
                               child: clientProvider.businessName.isEmpty
                                   ? const AddButton(title: "Ajouter un Client")
@@ -355,7 +358,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                               child: InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        SelectItemTypeScreen.routeName);
+                                        SelectItemTypeScreen.routeName, arguments: false);
                                   },
                                   child: const AddButton(title: "Ajouter un article")),
                             )

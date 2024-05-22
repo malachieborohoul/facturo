@@ -163,7 +163,7 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                         itemCount: searchResults.length,
                                         itemBuilder: (context, i) {
                                           return InkWell(
-                                            onTap: widget.isFromHome
+                                            onTap: widget.isFromHome==true
                                                 ? () => {}
                                                 : () {
                                                     Provider.of<ClientProvider>(
@@ -209,14 +209,14 @@ class _SelectClientScreenState extends State<SelectClientScreen> {
                                         itemCount: clients.length,
                                         itemBuilder: (context, i) {
                                           return InkWell(
-                                            onTap: widget.isFromHome
+                                            onTap: widget.isFromHome==true
                                                 ? () => {}
                                                 : () {
                                                     Provider.of<ClientProvider>(
                                                             context,
                                                             listen: false)
                                                         .setClient(
-                                                            searchResults[i]);
+                                                            clients[i]);
                                                     Navigator.pop(context);
                                                   },
                                             child: ClientCard(

@@ -1,3 +1,4 @@
+import 'package:facturo/common/arguments/add_item_args.dart';
 import 'package:facturo/common/arguments/edit_item_args.dart';
 import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/error_field_modal.dart';
@@ -102,14 +103,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           });
 
     case SelectItemScreen.routeName:
-      var itemType = routeSettings.arguments as ItemType;
+      var addItemArgs = routeSettings.arguments as AddItemArgs;
 
       return PageRouteBuilder(
           opaque: false,
           pageBuilder: (_, animation, __) {
             return FadeTransition(
               opacity: animation,
-              child:  SelectItemScreen(itemType: itemType,),
+              child:  SelectItemScreen(itemType: addItemArgs.itemType, isFromHome: addItemArgs.isFromHome,),
             );
           });
 
@@ -124,12 +125,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           });
 
     case SelectItemTypeScreen.routeName:
+      var isFromHome = routeSettings.arguments as bool;
+
       return PageRouteBuilder(
           opaque: false,
           pageBuilder: (_, animation, __) {
             return FadeTransition(
               opacity: animation,
-              child: const SelectItemTypeScreen(),
+              child:  SelectItemTypeScreen(isFromHome: isFromHome,),
             );
           });
 

@@ -1,3 +1,4 @@
+import 'package:facturo/common/arguments/add_item_args.dart';
 import 'package:facturo/common/widgets/confirmation_modal.dart';
 import 'package:facturo/common/widgets/custom_header.dart';
 import 'package:facturo/common/widgets/custom_not_found.dart';
@@ -15,7 +16,8 @@ import 'package:flutter/material.dart';
 class SelectItemTypeScreen extends StatefulWidget {
   static const routeName = '/select-item-type';
 
-  const SelectItemTypeScreen({super.key});
+  const SelectItemTypeScreen({super.key, required this.isFromHome});
+  final bool isFromHome;
 
   @override
   State<SelectItemTypeScreen> createState() => _SelectItemTypeScreenState();
@@ -29,6 +31,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
   @override
   void initState() {
     super.initState();
+    print(widget.isFromHome);
 
     getAllItemTypes();
   }
@@ -162,6 +165,11 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                               //         listen: false)
                                               //     .setClient(searchResults[i]);
                                               // Navigator.pop(context);
+                                              Navigator.pushNamed(context,
+                                                  SelectItemScreen.routeName,
+                                                  arguments: AddItemArgs(
+                                                      isFromHome: widget.isFromHome,
+                                                      itemType: itemTypes[i]));
                                             },
                                             child: ItemTypeCard(
                                               itemType: searchResults[i],
@@ -190,7 +198,7 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                         children: [
                                           Center(
                                             child: CustomNotFound(
-                                                message: " type d'artcle" ),
+                                                message: " type d'artcle"),
                                           ),
                                         ],
                                       )
@@ -207,7 +215,9 @@ class _SelectItemTypeScreenState extends State<SelectItemTypeScreen> {
                                               // Navigator.pop(context);
                                               Navigator.pushNamed(context,
                                                   SelectItemScreen.routeName,
-                                                  arguments: itemTypes[i]);
+                                                  arguments: AddItemArgs(
+                                                      isFromHome: widget.isFromHome,
+                                                      itemType: itemTypes[i]));
                                             },
                                             child: ItemTypeCard(
                                               itemType: itemTypes[i],

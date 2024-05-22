@@ -33,13 +33,13 @@ class HeaderInvoiceTable extends StatelessWidget {
         //           padding: EdgeInsets.only(left: appPadding),
         //           child: Text("Amount"),
         //         ))),
-        Expanded(
-            child: Container(
-                decoration: const BoxDecoration(),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: appPadding),
-                  child: Text("Statut"),
-                ))),
+        // Expanded(
+        //     child: Container(
+        //         decoration: const BoxDecoration(),
+        //         child: const Padding(
+        //           padding: EdgeInsets.only(left: appPadding),
+        //           child: Text("Statut"),
+        //         ))),
       ],
     );
   }

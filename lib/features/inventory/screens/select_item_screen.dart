@@ -19,9 +19,11 @@ import 'package:provider/provider.dart';
 class SelectItemScreen extends StatefulWidget {
   static const routeName = '/select-item';
 
-  const SelectItemScreen({super.key, required this.itemType});
+  SelectItemScreen(
+      {super.key, required this.itemType, required this.isFromHome});
 
   final ItemType itemType;
+  bool isFromHome ;
 
   @override
   State<SelectItemScreen> createState() => _SelectItemScreenState();
@@ -35,7 +37,7 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
   @override
   void initState() {
     super.initState();
-
+    print(widget.isFromHome);
     getAllItems();
   }
 
@@ -162,13 +164,17 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         itemCount: searchResults.length,
                                         itemBuilder: (context, i) {
                                           return InkWell(
-                                            onTap: () {
-                                              Provider.of<ItemProvider>(context,
-                                                      listen: false)
-                                                  .addItem(searchResults[i]);
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
-                                            },
+                                            onTap: widget.isFromHome
+                                                ? null
+                                                : () {
+                                                    Provider.of<ItemProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .addItem(
+                                                            searchResults[i]);
+                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context).pop();
+                                                  },
                                             child: ItemCard(
                                               itemType: widget.itemType,
                                               item: searchResults[i],
@@ -195,8 +201,8 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Center(
-                                            child:
-                                                CustomNotFound(message: "article"),
+                                            child: CustomNotFound(
+                                                message: "article"),
                                           ),
                                         ],
                                       )
@@ -205,23 +211,28 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                         itemCount: items.length,
                                         itemBuilder: (context, i) {
                                           return InkWell(
-                                            onTap: () {
-                                              //  Provider.of<ItemProvider>(context,
-                                              //         listen: false)
-                                              //     .addItem(items[i]);
-                                              final itemInvoice = ItemInvoice(
-                                                  id: items[i].id,
-                                                  name: items[i].name,
-                                                  quantity: 0,
-                                                  price: items[i].price,
-                                                  itemType: items[i].itemType);
-                                              Provider.of<ItemInvoiceProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .addItem(itemInvoice);
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
-                                            },
+                                            onTap: widget.isFromHome
+                                                ? (){}
+                                                : () {
+                                                    //  Provider.of<ItemProvider>(context,
+                                                    //         listen: false)
+                                                    //     .addItem(items[i]);
+                                                    final itemInvoice =
+                                                        ItemInvoice(
+                                                            id: items[i].id,
+                                                            name: items[i].name,
+                                                            quantity: 0,
+                                                            price:
+                                                                items[i].price,
+                                                            itemType: items[i]
+                                                                .itemType);
+                                                    Provider.of<ItemInvoiceProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .addItem(itemInvoice);
+                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context).pop();
+                                                  },
                                             child: ItemCard(
                                               itemType: widget.itemType,
                                               item: items[i],
@@ -248,8 +259,8 @@ class _SelectItemScreenState extends State<SelectItemScreen> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Center(
-                                            child:
-                                                CustomNotFound(message: "article"),
+                                            child: CustomNotFound(
+                                                message: "article"),
                                           ),
                                         ],
                                       ))

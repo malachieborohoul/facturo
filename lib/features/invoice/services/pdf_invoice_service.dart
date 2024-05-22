@@ -4,6 +4,7 @@ import 'package:facturo/constants/utils.dart';
 import 'package:facturo/features/invoice/services/pdf_service.dart';
 import 'package:facturo/models/client.dart';
 import 'package:facturo/models/invoice_with_items.dart';
+import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -12,21 +13,26 @@ class PdfInvoiceService {
   static Future<File> generate(InvoiceWithItems invoiceWithItems) async {
     final pdf = Document();
 
+    // Charger l'image depuis les assets
+    final imageLogo = await rootBundle.load('assets/images/logo.png');
+    final logo = pw.MemoryImage(imageLogo.buffer.asUint8List());
+
+
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(invoiceWithItems),
+        buildHeader(invoiceWithItems, logo),
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildInvoice(invoiceWithItems),
         Divider(),
         buildTotal(invoiceWithItems),
       ],
-      footer: (context) => buildFooter(invoiceWithItems),
+      footer: (context) => buildFooter(invoiceWithItems,logo),
     ));
 
     return PdfService.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(InvoiceWithItems invoiceWithItems) => Column(
+  static Widget buildHeader(InvoiceWithItems invoiceWithItems, ImageProvider logo) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // SizedBox(height: 1 * PdfPageFormat.cm),
@@ -40,13 +46,8 @@ class PdfInvoiceService {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                'Logo',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              pw.Image(logo, width: 150, height: 150),
+           
             ],
           ),
           SizedBox(height: 1 * PdfPageFormat.cm),
@@ -236,13 +237,21 @@ class PdfInvoiceService {
     );
   }
 
-  static Widget buildFooter(InvoiceWithItems invoiceWithItems) => Column(
+  static Widget buildFooter(InvoiceWithItems invoiceWithItems, ImageProvider logo) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
+          Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+          
+          pw.Image(logo, width: 150, height: 150),
+
           buildSimpleText(
               title: 'Adresse', value: invoiceWithItems.invoice.client.address),
+          ])
+              
           // SizedBox(height: 1 * PdfPageFormat.mm),
           // buildSimpleText(title: 'Paypal', value: invoice.supplier.paymentInfo),
         ],

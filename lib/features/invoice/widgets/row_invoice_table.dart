@@ -10,12 +10,13 @@ class RowInvoiceTable extends StatelessWidget {
       this.selected = false,
       required this.client,
       required this.amount,
-      required this.status, required this.invoice});
+      required this.status, required this.invoice, required this.number});
   final bool selected;
 
   final String client;
   final double amount;
   final String status;
+  final String number;
   final Invoice invoice;
 
   @override
@@ -44,7 +45,7 @@ class RowInvoiceTable extends StatelessWidget {
                   child: Padding(
                 padding: const EdgeInsets.only(left: appPadding),
                 child: Text(
-                  invoice.number,
+                  number,
                   style: TextStyle(color: selected ? textWhite : textBlack),
                 ),
               )),
@@ -53,14 +54,14 @@ class RowInvoiceTable extends StatelessWidget {
               //   padding: const EdgeInsets.only(left: appPadding),
               //   child: Text(amount.toString(), style: TextStyle(color: selected ? textWhite: textBlack),),
               // )),
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: appPadding),
-                child: Text(
-                  status,
-                  style: TextStyle(color: selected ? textWhite : textBlack),
-                ),
-              )),
+              // Expanded(
+              //     child: Padding(
+              //   padding: const EdgeInsets.only(left: appPadding),
+              //   child: Text(
+              //     status,
+              //     style: TextStyle(color: selected ? textWhite : textBlack),
+              //   ),
+              // )),
             ],
           ),
         ),
