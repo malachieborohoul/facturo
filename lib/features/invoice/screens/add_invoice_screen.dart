@@ -86,6 +86,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
     return Scaffold(
         backgroundColor: background,
         appBar: AppBar(
+          backgroundColor: background,
           centerTitle: true,
           title: const Text(
             "Ajouter une facture",
@@ -101,7 +102,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
             //     onPressed: () {},
             //     icon: const Icon(Icons.remove_red_eye_outlined)),
             IconButton(
-              tooltip: "Ajouter",
+                tooltip: "Ajouter",
                 onPressed: () {
                   if (itemInvoiceProvider.isNotEmpty &&
                       clientProvider.businessName.isNotEmpty &&
@@ -112,9 +113,7 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                         arguments: "champs vides");
                   }
                 },
-                icon: const Icon(
-                  
-                  Icons.check)),
+                icon: const Icon(Icons.check)),
             const SizedBox(
               width: appPadding,
             )
@@ -273,7 +272,8 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                           child: InkWell(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, SelectClientScreen.routeName, arguments: false);
+                                    context, SelectClientScreen.routeName,
+                                    arguments: false);
                               },
                               child: clientProvider.businessName.isEmpty
                                   ? const AddButton(title: "Ajouter un Client")
@@ -357,10 +357,12 @@ class _AddInvoiceScreenState extends State<AddInvoiceScreen> {
                             Center(
                               child: InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context,
-                                        SelectItemTypeScreen.routeName, arguments: false);
+                                    Navigator.pushNamed(
+                                        context, SelectItemTypeScreen.routeName,
+                                        arguments: false);
                                   },
-                                  child: const AddButton(title: "Ajouter un article")),
+                                  child: const AddButton(
+                                      title: "Ajouter un article")),
                             )
                           ],
                         ),

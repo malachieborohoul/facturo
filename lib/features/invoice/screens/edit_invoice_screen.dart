@@ -40,12 +40,6 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
   //Variable to verify if quantity of each item is added
   bool isQuantityAdded = true;
 
-
-
-
-
-
-
   @override
   void dispose() {
     issueDateController.dispose();
@@ -92,21 +86,20 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
           onFailed: () {});
     }
 
-    // 
-    
+    //
 
     return Scaffold(
         backgroundColor: background,
         appBar: AppBar(
+          backgroundColor: background,
           centerTitle: true,
           title: const Text(
             "Modifier une Facture",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
-           
             IconButton(
-              tooltip: "Sauvegarder la modification",
+                tooltip: "Sauvegarder la modification",
                 onPressed: () {
                   if (itemInvoiceProvider.isNotEmpty &&
                       clientProvider.businessName.isNotEmpty &&
@@ -363,7 +356,8 @@ class _EditInvoiceScreenState extends State<EditInvoiceScreen> {
                                     Navigator.pushNamed(context,
                                         SelectItemTypeScreen.routeName);
                                   },
-                                  child: const AddButton(title: "Ajouter un Article")),
+                                  child: const AddButton(
+                                      title: "Ajouter un Article")),
                             )
                           ],
                         ),

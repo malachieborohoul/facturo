@@ -57,12 +57,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         print(invoiceItem.invoice.id);
       }
       selectedTotalItemsPrice = 0;
-      if (invoices.isNotEmpty){
- selectedRowInvoice.itemsInvoice.forEach((element) {
-        selectedTotalItemsPrice += element.quantity * element.price;
-      });
+      if (invoices.isNotEmpty) {
+        selectedRowInvoice.itemsInvoice.forEach((element) {
+          selectedTotalItemsPrice += element.quantity * element.price;
+        });
       }
-     
     });
     super.initState();
   }
@@ -74,8 +73,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     if (invoices.isNotEmpty) {
       selectedRowInvoice = invoices.first;
       // print(selectedRowInvoice.itemsInvoice.toString());
-    }else{
-    }
+    } else {}
 
     setState(() {});
   }
@@ -144,21 +142,27 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                               ),
                               Row(
                                 children: [
-
                                   IconButton(
-                                    tooltip: "Clients",
-                                    onPressed: (){
-                                     Navigator.pushNamed(
-                              context, SelectClientScreen.routeName, arguments: true);
-                                  }, icon: const Icon(Icons.people_alt_outlined,)),
+                                      tooltip: "Clients",
+                                      onPressed: () {
+                                        Navigator.pushNamed(context,
+                                            SelectClientScreen.routeName,
+                                            arguments: true);
+                                      },
+                                      icon: const Icon(
+                                        Icons.people_alt_outlined,
+                                      )),
                                   IconButton(
-                                    tooltip: "Articles",
-                                    onPressed: (){
-                                     Navigator.pushNamed(context,
-                                        SelectItemTypeScreen.routeName, arguments: true);
-                                  }, icon: const Icon(Icons.inventory_2_outlined)),
+                                      tooltip: "Articles",
+                                      onPressed: () {
+                                        Navigator.pushNamed(context,
+                                            SelectItemTypeScreen.routeName,
+                                            arguments: true);
+                                      },
+                                      icon: const Icon(
+                                          Icons.inventory_2_outlined)),
                                   IconButton(
-                                    tooltip: "Ajouter une facture",
+                                      tooltip: "Ajouter une facture",
                                       onPressed: () async {
                                         Provider.of<ClientProvider>(context,
                                                 listen: false)
@@ -184,23 +188,27 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
 
                                           getAllInvoices();
 
-                                              invoiceItems.keys.forEach((invoiceItemKey) {
-      var invoiceItem = invoiceItems.get(invoiceItemKey) as InvoiceItem;
+                                          invoiceItems.keys
+                                              .forEach((invoiceItemKey) {
+                                            var invoiceItem =
+                                                invoiceItems.get(invoiceItemKey)
+                                                    as InvoiceItem;
 
-      if (kDebugMode) {
-        print(invoiceItem.invoice.id);
-      }
-      selectedTotalItemsPrice = 0;
-      if (invoices.isNotEmpty){
- selectedRowInvoice.itemsInvoice.forEach((element) {
-        selectedTotalItemsPrice += element.quantity * element.price;
-      });
-      }
-     
-    });
+                                            if (kDebugMode) {
+                                              print(invoiceItem.invoice.id);
+                                            }
+                                            selectedTotalItemsPrice = 0;
+                                            if (invoices.isNotEmpty) {
+                                              selectedRowInvoice.itemsInvoice
+                                                  .forEach((element) {
+                                                selectedTotalItemsPrice +=
+                                                    element.quantity *
+                                                        element.price;
+                                              });
+                                            }
+                                          });
                                         }
                                       },
-                                      
                                       icon: const Icon(
                                         Icons.add,
                                       )),
@@ -208,67 +216,79 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                     width: miniSpacer,
                                   ),
                                   IconButton(
-                                    tooltip: "Supprimer une facture",
-
-                                      onPressed: () async {
-                                        var result = await Navigator.pushNamed(
-                                            context,
-                                            ConfirmationModal.routeName,
-                                            arguments:
-                                                "Voulez-vous supprimer cette facture ?");
-                                        if (result == true) {
-                                          // deleteItem(items[i]);
-                                          deleteInvoice(
-                                              selectedRowInvoice.invoice);
-                                        }
-                                      },
+                                      tooltip: "Supprimer une facture",
+                                      onPressed: invoices.isNotEmpty
+                                          ? () async {
+                                              var result =
+                                                  await Navigator.pushNamed(
+                                                      context,
+                                                      ConfirmationModal
+                                                          .routeName,
+                                                      arguments:
+                                                          "Voulez-vous supprimer cette facture ?");
+                                              if (result == true) {
+                                                // deleteItem(items[i]);
+                                                deleteInvoice(
+                                                    selectedRowInvoice.invoice);
+                                              }
+                                            }
+                                          : null,
                                       icon: const Icon(Icons.delete_outlined)),
                                   const SizedBox(
                                     width: miniSpacer,
                                   ),
                                   IconButton(
-                                    tooltip: "Modifier une facture",
+                                      tooltip: "Modifier une facture",
+                                      onPressed: invoices.isNotEmpty
+                                          ? () async {
+                                              itemInvoiceProvider.clear();
 
-                                      onPressed: () async {
-                                        itemInvoiceProvider.clear();
-                                    
-                                        Provider.of<ClientProvider>(context,
-                                                listen: false)
-                                            .setClient(selectedRowInvoice
-                                                .invoice.client);
-                                        selectedRowInvoice.itemsInvoice
-                                            .forEach((element) {
-                                          itemInvoiceProvider.add(element);
-                                        });
-                                          final result =await   Navigator.pushNamed(context,
-                                            EditInvoiceScreen.routeName,
-                                            arguments: selectedRowInvoice);
+                                              Provider.of<ClientProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setClient(selectedRowInvoice
+                                                      .invoice.client);
+                                              selectedRowInvoice.itemsInvoice
+                                                  .forEach((element) {
+                                                itemInvoiceProvider
+                                                    .add(element);
+                                              });
+                                              final result =
+                                                  await Navigator.pushNamed(
+                                                      context,
+                                                      EditInvoiceScreen
+                                                          .routeName,
+                                                      arguments:
+                                                          selectedRowInvoice);
 
-                                           if (result == true) {
-                                          itemInvoiceProvider.clear();
-                                          clientProvider.setClient(Client(
-                                              id: 0,
-                                              businessName: "",
-                                              name: "",
-                                              address: ""));
+                                              if (result == true) {
+                                                itemInvoiceProvider.clear();
+                                                clientProvider.setClient(Client(
+                                                    id: 0,
+                                                    businessName: "",
+                                                    name: "",
+                                                    address: ""));
 
-                                          getAllInvoices();
-                                        }
-                                      },
+                                                getAllInvoices();
+                                              }
+                                            }
+                                          : null,
                                       icon: const Icon(Icons.edit_outlined)),
                                   const SizedBox(
                                     width: miniSpacer,
                                   ),
                                   IconButton(
-                                    tooltip: "Convertir la facture en pdf",
+                                      tooltip: "Convertir la facture en pdf",
+                                      onPressed: invoices.isNotEmpty
+                                          ? () async {
+                                              final pdfFile =
+                                                  await PdfInvoiceService
+                                                      .generate(
+                                                          selectedRowInvoice);
 
-                                      onPressed: () async {
-                                        final pdfFile =
-                                            await PdfInvoiceService.generate(
-                                                selectedRowInvoice);
-
-                                        PdfService.openFile(pdfFile);
-                                      },
+                                              PdfService.openFile(pdfFile);
+                                            }
+                                          : null,
                                       icon: const Icon(Icons.print_outlined)),
                                   const SizedBox(
                                     width: miniSpacer,
@@ -306,94 +326,96 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                         padding: EdgeInsets.all(appPadding),
                                         child: HeaderInvoiceTable()),
                                     Expanded(
-                                      child: isSeaching == true
-                                          ? searchResults.isNotEmpty
-                                              ? ListView.builder(
-                                                  itemCount:
-                                                      searchResults.length,
-                                                  itemBuilder: (context, i) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          selectedRowInvoice =
-                                                              invoices[i];
-                                                          selectedTotalItemsPrice =
-                                                              0;
+                                        child: isSeaching == true
+                                            ? searchResults.isNotEmpty
+                                                ? ListView.builder(
+                                                    itemCount:
+                                                        searchResults.length,
+                                                    itemBuilder: (context, i) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            selectedRowInvoice =
+                                                                invoices[i];
+                                                            selectedTotalItemsPrice =
+                                                                0;
 
-                                                          selectedRowInvoice
-                                                              .itemsInvoice
-                                                              .forEach(
-                                                                  (element) {
-                                                            selectedTotalItemsPrice +=
-                                                                element.quantity *
-                                                                    element
-                                                                        .price;
+                                                            selectedRowInvoice
+                                                                .itemsInvoice
+                                                                .forEach(
+                                                                    (element) {
+                                                              selectedTotalItemsPrice +=
+                                                                  element.quantity *
+                                                                      element
+                                                                          .price;
+                                                            });
                                                           });
-                                                        });
-                                                      },
-                                                      child: RowInvoiceTable(
-                                                          selected: selectedRowInvoice
-                                                                      .invoice
-                                                                      .id ==
-                                                                  searchResults[
-                                                                          i]
-                                                                      .invoice
-                                                                      .id
-                                                              ? true
-                                                              : false,
-                                                          client:
-                                                              searchResults[i]
-                                                                  .invoice
-                                                                  .client
-                                                                  .businessName,
-                                                          amount: 2000.0,
-                                                          status:
-                                                              searchResults[i]
-                                                                  .invoice
-                                                                  .paid
-                                                                  .toString(), invoice: searchResults[i]
-                                                                  .invoice,
-                                                                  number: invoices[i]
-                                                              .invoice
-                                                              .number
-                                                              .toString()
-                                                                  ),
-                                                    );
-                                                  })
-                                              : const Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Center(
-                                                      child: CustomNotFound(
-                                                          message: "facture"),
-                                                    ),
-                                                  ],
-                                                )
-                                          : invoices.isNotEmpty
-                                              ? ListView.builder(
-                                                  itemCount: invoices.length,
-                                                  itemBuilder: (context, i) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          selectedRowInvoice =
-                                                              invoices[i];
-                                                          selectedTotalItemsPrice =
-                                                              0;
+                                                        },
+                                                        child: RowInvoiceTable(
+                                                            selected: selectedRowInvoice
+                                                                        .invoice
+                                                                        .id ==
+                                                                    searchResults[
+                                                                            i]
+                                                                        .invoice
+                                                                        .id
+                                                                ? true
+                                                                : false,
+                                                            client:
+                                                                searchResults[i]
+                                                                    .invoice
+                                                                    .client
+                                                                    .businessName,
+                                                            amount: 2000.0,
+                                                            status:
+                                                                searchResults[i]
+                                                                    .invoice
+                                                                    .paid
+                                                                    .toString(),
+                                                            invoice:
+                                                                searchResults[i]
+                                                                    .invoice,
+                                                            number: invoices[i]
+                                                                .invoice
+                                                                .number
+                                                                .toString()),
+                                                      );
+                                                    })
+                                                : const Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Center(
+                                                        child: CustomNotFound(
+                                                            message: "facture"),
+                                                      ),
+                                                    ],
+                                                  )
+                                            : invoices.isNotEmpty
+                                                ? ListView.builder(
+                                                    itemCount: invoices.length,
+                                                    itemBuilder: (context, i) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            selectedRowInvoice =
+                                                                invoices[i];
+                                                            selectedTotalItemsPrice =
+                                                                0;
 
-                                                          selectedRowInvoice
-                                                              .itemsInvoice
-                                                              .forEach(
-                                                                  (element) {
-                                                            selectedTotalItemsPrice +=
-                                                                element.quantity *
-                                                                    element
-                                                                        .price;
+                                                            selectedRowInvoice
+                                                                .itemsInvoice
+                                                                .forEach(
+                                                                    (element) {
+                                                              selectedTotalItemsPrice +=
+                                                                  element.quantity *
+                                                                      element
+                                                                          .price;
+                                                            });
                                                           });
-                                                        });
-                                                      },
-                                                      child: RowInvoiceTable(
+                                                        },
+                                                        child: RowInvoiceTable(
                                                           selected:
                                                               selectedRowInvoice
                                                                           .invoice
@@ -412,24 +434,28 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                           status: invoices[i]
                                                               .invoice
                                                               .paid
-                                                              .toString(), invoice: selectedRowInvoice
-                                                                          .invoice, number: invoices[i]
+                                                              .toString(),
+                                                          invoice:
+                                                              selectedRowInvoice
+                                                                  .invoice,
+                                                          number: invoices[i]
                                                               .invoice
                                                               .number
-                                                              .toString(),),
-                                                    );
-                                                  })
-                                              :  const Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Center(
-                                                      child: CustomNotFound(
-                                                          message: "facture"),
-                                                    ),
-                                                  ],
-                                                )
-                                    )
+                                                              .toString(),
+                                                        ),
+                                                      );
+                                                    })
+                                                : const Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Center(
+                                                        child: CustomNotFound(
+                                                            message: "facture"),
+                                                      ),
+                                                    ],
+                                                  ))
                                   ],
                                 ),
                               )),
@@ -448,9 +474,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(invoices.isNotEmpty?
-                                          selectedRowInvoice
-                                              .invoice.client.businessName: "Client",
+                                        Text(
+                                          invoices.isNotEmpty
+                                              ? selectedRowInvoice
+                                                  .invoice.client.businessName
+                                              : "Client",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -466,12 +494,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                   const BorderRadius.all(
                                                       Radius.circular(
                                                           smallFontSize / 2))),
-                                          child:  Padding(
+                                          child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: miniSpacer / 2,
                                                 horizontal: appPadding),
-                                            child: Text(invoices.isNotEmpty? selectedRowInvoice
-                                              .invoice.number:"INV"),
+                                            child: Text(invoices.isNotEmpty
+                                                ? selectedRowInvoice
+                                                    .invoice.number
+                                                : "INV"),
                                           ),
                                         ),
                                         const SizedBox(
@@ -509,13 +539,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                                   smallFontSize *
                                                                       0.8),
                                                         ),
-                                                        invoices.isNotEmpty? 
-                                                        Text(
-                                                            "$selectedTotalItemsPrice",
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)):const Text("0.0"),
+                                                        invoices.isNotEmpty
+                                                            ? Text(
+                                                                "$selectedTotalItemsPrice",
+                                                                style: const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold))
+                                                            : const Text("0.0"),
                                                       ],
                                                     ),
                                                     // Container(
@@ -575,9 +606,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                                       0.8),
                                                         ),
                                                         Text(
-                                                           invoices.isNotEmpty?  selectedRowInvoice
-                                                                .invoice
-                                                                .currentDate:"Date de création",
+                                                            invoices.isNotEmpty
+                                                                ? selectedRowInvoice
+                                                                    .invoice
+                                                                    .currentDate
+                                                                : "Date de création",
                                                             style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -600,9 +633,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                                       0.8),
                                                         ),
                                                         Text(
-                                                            invoices.isNotEmpty? selectedRowInvoice
-                                                                .invoice
-                                                                .dueDate:"Date d'écheance",
+                                                            invoices.isNotEmpty
+                                                                ? selectedRowInvoice
+                                                                    .invoice
+                                                                    .dueDate
+                                                                : "Date d'écheance",
                                                             style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -649,7 +684,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                     ? SingleChildScrollView(
                                                         child: ListView.builder(
                                                             shrinkWrap: true,
-                                                           itemCount:
+                                                            itemCount:
                                                                 selectedRowInvoice
                                                                     .itemsInvoice
                                                                     .length,
@@ -679,10 +714,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                                             }),
                                                       )
                                                     : const SizedBox(),
-                                                     
+
                                                 CustomTotalItem(
-                                                  total: invoices.isNotEmpty? 
-                                                      selectedTotalItemsPrice:0.0,
+                                                  total: invoices.isNotEmpty
+                                                      ? selectedTotalItemsPrice
+                                                      : 0.0,
                                                 )
                                               ],
                                             ),
